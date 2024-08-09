@@ -79,6 +79,7 @@ function exec(iframe) {
     window.addEventListener("message", (event) => {
         if (event.data.name === "quotation") {
             console.log(event.data);
+            // event.data.items
             var redirect = "";
             if (event.data.productId === "d3849c93-3ccb-4438-ba7f-753f2f73a359") {
                 redirect =
@@ -93,10 +94,10 @@ function exec(iframe) {
                 url.searchParams.set("aangevraagde-offerte", "tafel");
                 window.history.pushState({}, "", url);
             }
-            const link = document.createElement("a");
-            link.href = redirect;
-            document.body.appendChild(link);
-            link.click();
+            // const link = document.createElement("a");
+            // link.href = redirect;
+            // document.body.appendChild(link);
+            // link.click();
         }
         // check if event has property called URLparameters
         if (!event.data.hasOwnProperty("URLparameters")) {
