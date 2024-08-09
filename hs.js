@@ -83,21 +83,21 @@ function exec(iframe) {
             var redirect = "";
             if (event.data.productId === "d3849c93-3ccb-4438-ba7f-753f2f73a359") {
                 redirect =
-                    "https://www.firmahoutenstaal.nl/service/bedankt-voor-uw-offerte-aanvraag-deuren";
+                    "https://www.firmahoutenstaal.nl/service/bedankt-voor-uw-offerte-aanvraag-deuren?client-val="  +  event.data.total;
                 const url = new URL(window.location.href);
                 url.searchParams.set("aangevraagde-offerte", "deur");
                 window.history.pushState({}, "", url);
             } else if (event.data.productId === "adff030a-42c7-44e0-958b-e0616b20a396") {
                 redirect =
-                    "https://www.firmahoutenstaal.nl/service/bedankt-voor-uw-offerte-aanvraag-tafels";
+                    "https://www.firmahoutenstaal.nl/service/bedankt-voor-uw-offerte-aanvraag-tafels?client-val=" + event.data.total;
                 const url = new URL(window.location.href);
                 url.searchParams.set("aangevraagde-offerte", "tafel");
                 window.history.pushState({}, "", url);
             }
-            // const link = document.createElement("a");
-            // link.href = redirect;
-            // document.body.appendChild(link);
-            // link.click();
+            const link = document.createElement("a");
+            link.href = redirect;
+            document.body.appendChild(link);
+            link.click();
         }
         // check if event has property called URLparameters
         if (!event.data.hasOwnProperty("URLparameters")) {
