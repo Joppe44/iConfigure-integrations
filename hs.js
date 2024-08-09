@@ -18,20 +18,19 @@ function exec(iframe) {
     var bodyEl = document.querySelector(".body-content");
     // check if mobile
     var topBarHeight = 0;
-    var btm = "0"
+    var btm = "0";
     if (window.innerWidth > 767) {
         topBarHeight = "130";
-        
     } else {
         topBarHeight = "80";
-        btm = "0"
+        btm = "0";
     }
     iframe.style.display = "block";
     iframe.style.border = "none";
     iframe.style.position = "fixed";
     iframe.style.top = `${topBarHeight}px`;
     iframe.style.bottom = `${btm}px`;
-    
+
     iframe.style.left = "0";
     iframe.style.width = "100vw";
     iframe.style.height = `calc(100vh - ${topBarHeight}px - ${btm}px)`;
@@ -80,22 +79,24 @@ function exec(iframe) {
     window.addEventListener("message", (event) => {
         if (event.data.name === "quotation") {
             console.log(event.data);
-            var redirect = ''
+            var redirect = "";
             if (event.data.productId === "D3849C93-3CCB-4438-BA7F-753F2F73A359") {
-               //  redirect = "https://www.firmahoutenstaal.nl/service/bedankt-voor-uw-offerte-aanvraag-deuren"
-               const url = new URL(window.location.href);
-url.searchParams.set('aangevraagde-offerte', 'deur');
-window.history.pushState({}, '', url);
-            } else if (event.data.productId === "ADFF030A-42C7-44E0-958B-E0616B20A396") {
-               //  redirect = "https://www.firmahoutenstaal.nl/service/bedankt-voor-uw-offerte-aanvraag-tafels"
+                redirect =
+                    "https://www.firmahoutenstaal.nl/service/bedankt-voor-uw-offerte-aanvraag-deuren";
                 const url = new URL(window.location.href);
-url.searchParams.set('aangevraagde-offerte', 'tafel');
-window.history.pushState({}, '', url);
+                url.searchParams.set("aangevraagde-offerte", "deur");
+                window.history.pushState({}, "", url);
+            } else if (event.data.productId === "ADFF030A-42C7-44E0-958B-E0616B20A396") {
+                redirect =
+                    "https://www.firmahoutenstaal.nl/service/bedankt-voor-uw-offerte-aanvraag-tafels";
+                const url = new URL(window.location.href);
+                url.searchParams.set("aangevraagde-offerte", "tafel");
+                window.history.pushState({}, "", url);
             }
-            // const link = document.createElement("a")
-            // link.href = redirect
-            // document.body.appendChild(link)
-            // link.click()
+            const link = document.createElement("a");
+            link.href = redirect;
+            document.body.appendChild(link);
+            link.click();
         }
         // check if event has property called URLparameters
         if (!event.data.hasOwnProperty("URLparameters")) {
