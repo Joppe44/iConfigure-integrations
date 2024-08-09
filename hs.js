@@ -80,13 +80,13 @@ function exec(iframe) {
         if (event.data.name === "quotation") {
             console.log(event.data);
             var redirect = "";
-            if (event.data.productId === "D3849C93-3CCB-4438-BA7F-753F2F73A359") {
+            if (event.data.productId === "d3849c93-3ccb-4438-ba7f-753f2f73a359") {
                 redirect =
                     "https://www.firmahoutenstaal.nl/service/bedankt-voor-uw-offerte-aanvraag-deuren";
                 const url = new URL(window.location.href);
                 url.searchParams.set("aangevraagde-offerte", "deur");
                 window.history.pushState({}, "", url);
-            } else if (event.data.productId === "ADFF030A-42C7-44E0-958B-E0616B20A396") {
+            } else if (event.data.productId === "adff030a-42c7-44e0-958b-e0616b20a396") {
                 redirect =
                     "https://www.firmahoutenstaal.nl/service/bedankt-voor-uw-offerte-aanvraag-tafels";
                 const url = new URL(window.location.href);
