@@ -23,7 +23,7 @@ function exec(iframe) {
         topBarHeight = "130";
     } else {
         topBarHeight = "80";
-        btm = "90";
+        btm = "110";
     }
     var iframe = document.getElementById("iconfigure");
 
