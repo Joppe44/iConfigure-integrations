@@ -23,8 +23,10 @@ function exec(iframe) {
         topBarHeight = "130";
     } else {
         topBarHeight = "80";
-        btm = "0";
+        btm = "90";
     }
+    var iframe = document.getElementById("iconfigure");
+
     iframe.style.display = "block";
     iframe.style.border = "none";
     iframe.style.position = "fixed";
