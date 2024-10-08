@@ -1,118 +1,193 @@
+/** @format */
 
 function isPhone() {
-    // Check the width of the viewport
     var viewportWidth = window.innerWidth || document.documentElement.clientWidth;
-
-    // Define a threshold for phone screens, typically up to 767px
     var phoneMaxWidth = 767;
-
-    // Return true if the viewport width is less than or equal to the phoneMaxWidth
     return viewportWidth <= phoneMaxWidth;
 }
-
 function formatData(event) {
     var items = {};
-    console.log(event)
+    var breedteValue; // Declare breedteValue to use it later for Montage logic
+
     for (var key in event.data.items) {
         if (event.data.items.hasOwnProperty(key)) {
             var item = event.data.items[key];
             items[event.data.items[key].ID] = item;
         }
     }
+
     var list = [];
     var topush = "";
-    // console.log(items);
+    list.push(addItem("195a701d-2803-4e13-a6d0-5b158d93fdf1", "8795246"));
+
     for (var key in items) {
         if (items.hasOwnProperty(key)) {
             var item = items[key];
-            var veld = velden.find(function (veld) {
-                return veld.id === item.ID;
+            var veld = configurationOptions.find(function (veld) {
+                return veld.configurator_ID === item.ID;
             });
-            if (item.ID === "spots") {
-                var ar = [];
-                if (item.subID.indexOf("spots_ja") !== -1) {
-                    ar.push("spots_ja");
-                    if (item.subID.indexOf("schemer_schakelaar") !== -1) {
-                        ar.push("schemer_schakelaar");
+            if (!veld) {
+                console.error("No matching field found for item ID: " + item.ID);
+                continue;
+            }
+
+            if (item.ID === "kleur_onder") {
+                var ralValueOnder = item.subID.match(/\d+/);
+                if (item.subID === "onder_hetzelfde") {
+                    var kleurItem = event.data.items.find(function (i) {
+                        return i.ID === "kleur";
+                    });
+                    if (kleurItem) {
+                        var ralValueKleur = kleurItem.subID.match(/\d+/);
+                        if (ralValueKleur) {
+                            list.push(addItem("2c93ac91-762c-44c2-8c6d-052a0dc41f6e", ralValueKleur[0]));
+                        }
+                    } else {
+                        console.error("No matching RAL color found for 'kleur'");
                     }
-                    if (item.subID.indexOf("bewegingsmelder") !== -1) {
-                        ar.push("bewegingsmelder");
-                    }
+                } else if (ralValueOnder) {
+                    list.push(addItem("2c93ac91-762c-44c2-8c6d-052a0dc41f6e", ralValueOnder[0]));
+                } else {
+                    console.error("No valid RAL color found for subID: " + item.subID);
                 }
-                var iKey = ar.join("_");
-                console.log(iKey);
-                topush = veld.sub[iKey];
-                console.log(topush);
-                // spots_ja_schemer_schakelaar_bewegingsmelder
+            } else if (item.ID === "kleur") {
+                var ralValue = item.subID.match(/\d+/);
+                if (ralValue) {
+                    var veld = configurationOptions.find(function (veld) {
+                        return veld.configurator_ID === "kleur";
+                    });
+                    if (veld) {
+                        list.push(addItem(veld.uuid, ralValue[0]));
+                    } else {
+                        console.error("No matching field found for item ID: kleur");
+                    }
+                } else {
+                    console.error("No numeric RAL value found for subID: " + item.subID);
+                }
+            } else if (item.ID === "armen_feat") {
+                if (item.subID === "sier_arm") {
+                    list.push(addItem("d70d4f5b-f3f9-4d74-bf0c-382feaee29d2", "8795201"));
+                    list.push(addItem("b65920d6-474a-444d-bdef-f64ab7256880", "8795216"));
+                } else if (item.subID === "trek_arm") {
+                    list.push(addItem("b65920d6-474a-444d-bdef-f64ab7256880", "8795213"));
+                    list.push(addItem("d70d4f5b-f3f9-4d74-bf0c-382feaee29d2", "8795204"));
+                }
+            } else if (item.ID === "width") {
+                // Handle Breedte selection
+                breedteValue = item.value; // Store breedte value for later use in Montage logic
+
+                list.push(addItem("0c6962a9-1701-4990-8cee-20d900d61a85", breedteValue));
+                var breedteSelection;
+
+                if (breedteValue >= 100 && breedteValue <= 120) {
+                    breedteSelection = "8796005";
+                } else if (breedteValue >= 121 && breedteValue <= 150) {
+                    breedteSelection = "8796008";
+                } else if (breedteValue >= 151 && breedteValue <= 180) {
+                    breedteSelection = "8796011";
+                } else if (breedteValue >= 181 && breedteValue <= 210) {
+                    breedteSelection = "9356354";
+                } else if (breedteValue >= 211 && breedteValue <= 240) {
+                    breedteSelection = "9356357";
+                } else if (breedteValue >= 241 && breedteValue <= 270) {
+                    breedteSelection = "9356360";
+                } else if (breedteValue >= 271 && breedteValue <= 308) {
+                    breedteSelection = "9356363";
+                }
+                list.push(addItem("f9bb4750-9312-45c2-ab50-30189986729f", breedteSelection));
+            } else if (item.ID === "depth") {
+                // Handle Diepte selection
+                var diepteValue = item.value;
+                list.push(addItem("8985ac72-2d19-4256-9aa6-626379fbd269", diepteValue));
+                var diepteSelection;
+
+                if (diepteValue >= 40 && diepteValue <= 60) {
+                    diepteSelection = "8795999";
+                } else if (diepteValue >= 61 && diepteValue <= 120) {
+                    diepteSelection = "8796002";
+                } else if (diepteValue >= 81 && diepteValue <= 110) {
+                    diepteSelection = "9356366";
+                }
+                list.push(addItem("ed82b38d-d3ab-42eb-aedd-debb3d3890d4", diepteSelection));
             } else if (item.type === "single_selection") {
-                topush = item.subID;
-                topush = veld.sub[topush];
+                // Handle single selection
+                topush = veld.subfeatures.find(function (sf) {
+                    return sf.ID === item.subID;
+                });
+
+                if (topush) {
+                    topush = topush.value;
+                }
+                list.push(addItem(veld.uuid, topush));
             } else if (item.type === "multiple_selection") {
                 topush = item.subID.join("_");
-                topush = veld.sub[topush];
-            } else {
+                topush = veld.subfeatures.find(function (sf) {
+                    return sf.ID === topush;
+                });
+                if (topush) {
+                    topush = topush.value;
+                }
+                list.push(addItem(veld.uuid, topush));
+            } else if (item.type === "number_input") {
                 topush = item.value;
-
-                if (item.ID === "width") {
-                    var value = breedteVeld.sub.find(function (sv) {
-                        return topush >= sv.range[0] && topush <= sv.range[1];
-                    });
-                    console.log(value);
-                    list.push(addItem(breedteVeld.uuid, value.value));
-                }
-                if (item.ID === "depth") {
-                    var value = diepteVeld.sub.find(function (sv) {
-                        return topush >= sv.range[0] && topush <= sv.range[1];
-                    });
-                    console.log(value);
-                    list.push(addItem(diepteVeld.uuid, value.value));
-                }
+                list.push(addItem(veld.uuid, topush));
             }
-            list.push(addItem(veld.uuid, topush));
         }
     }
-    list.push(addToken());
+
+    // Handle Montage based on Breedte
+    if (breedteValue > 180) {
+        // Set Montage breder dan 180 to "Afhalen"
+        list.push(addItem("42440a54-cee9-4f65-9451-613bd9983d27", "8796086"));
+        // Set Montage tot 179cm breed to "Geen"
+        list.push(addItem("50b49028-82cb-4237-8612-2f14e3c469a3", "9356462"));
+    } else {
+        // Set Montage tot 179cm breed to "Afhalen"
+        list.push(addItem("50b49028-82cb-4237-8612-2f14e3c469a3", "9356462"));
+        // Set Montage breder dan 180 to "Geen"
+        list.push(addItem("42440a54-cee9-4f65-9451-613bd9983d27", "8796086"));
+    }
+
+    list.push(addToken()); // Adding token for cart
     console.log(list);
 
     var body = list.join("&").replace(/\[/g, "%5B").replace(/\]/g, "%5D");
-    console.log(body);
-    addToShoppingCart(body);
+
+    addToShoppingCart(body); // Sending the request
 }
 
+var skuop = 0;
 function addItem(uuid, value) {
+    skuop++;
+
     return "add_to_cart[configuration][options][" + uuid + "][value]=" + value;
 }
 
 function addToken() {
     return "add_to_cart[_token]=" + token + "&amount=1&add=";
 }
-
 function addToShoppingCart(body) {
-    fetch(
-        "https://www.jansa.nl/a-92393783-9348182,9348200,9348107,9348236,9348266,9348272,9348281,9348422,9348398/configurator/luifel-configuratie/",
-        {
-            headers: {
-                accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-                "accept-language": "nl-NL,nl;q=0.9,en-NL;q=0.8,en;q=0.7,en-US;q=0.6",
-                "cache-control": "no-cache",
-                "content-type": "application/x-www-form-urlencoded",
-                pragma: "no-cache",
-                priority: "u=0, i",
-                "sec-fetch-dest": "document",
-                "sec-fetch-mode": "navigate",
-                "sec-fetch-site": "same-origin",
-                "sec-fetch-user": "?1",
-                "upgrade-insecure-requests": "1",
-            },
-            referrer:
-                "https://www.jansa.nl/a-82110275-8796005,8795999,6809565,8795213,8795201,8795192,7498860,8795246,8796086/voordeurluifel/klassieke-houten-deurluifel-tot-180cm-breed/",
-            referrerPolicy: "no-referrer-when-downgrade",
-            body: body,
-            method: "POST",
-            mode: "cors",
-            credentials: "include",
-        }
-    )
+    fetch("https://www.jansa.nl/a-82110275-8796011/voordeurluifel/klassieke-houten-deurluifel-tot-308cm-breed/", {
+        headers: {
+            accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+            "accept-language": "nl-NL,nl;q=0.9,en-NL;q=0.8,en;q=0.7,en-US;q=0.6",
+            "cache-control": "no-cache",
+            "content-type": "application/x-www-form-urlencoded",
+            pragma: "no-cache",
+            priority: "u=0, i",
+            "sec-fetch-dest": "document",
+            "sec-fetch-mode": "navigate",
+            "sec-fetch-site": "same-origin",
+            "sec-fetch-user": "?1",
+            "upgrade-insecure-requests": "1",
+        },
+        referrer: "https://www.jansa.nl/a-82110275-8796005/voordeurluifel/klassieke-houten-deurluifel-tot-308cm-breed/",
+        referrerPolicy: "no-referrer-when-downgrade",
+        body: body,
+        method: "POST",
+        mode: "cors",
+        credentials: "include",
+    })
         .then(function (response) {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -120,21 +195,13 @@ function addToShoppingCart(body) {
             return response.text();
         })
         .then(function (data) {
-            console.log("Success:", data);
-
-            // Create an anchor element
             var anchor = document.createElement("a");
-
-            // Set the href attribute to the desired URL
             anchor.href = "https://www.jansa.nl/cart/";
-
-            // Append the anchor to the document body (optional, but sometimes necessary in some browsers)
             document.body.appendChild(anchor);
 
-            // Set a timeout of 500ms and then simulate a click on the anchor
             setTimeout(function () {
-                anchor.click();
-            }, 500); // 500 milliseconds
+                // anchor.click();
+            }, 500);
         })
         .catch(function (error) {
             console.error("Error:", error);
@@ -153,7 +220,7 @@ if (window.location.href === "https://www.jansa.nl/a-92393783/configurator/luife
     // Create an iframe and set its attributes
     var iframe = document.createElement("iframe");
     iframe.src =
-        "https://web.iconfigure.nl/?product=118987e2-f58a-4b7d-8a5b-8349f3a7cdf1&=lijst_2&lijst_onder=uitgefreesde_onderkant&width=171&depth=62&afvoer_select=afvoer_rechts&armen_feat=trek_arm&kleur=9001&kleur_onder=onder_zwart&spots=spots_ja&active_step=0"; // Replace with your iframe URL
+        "https://web.iconfigure.nl/?product=118987e2-f58a-4b7d-8a5b-8349f3a7cdf1&width=171&depth=62&sierlijsten=lijst_5&daktrim=daktrim_rond&lijst_onder=uitgefreesde_onderkant&afvoer_select=afvoer_rechts&armen_feat=trek_arm&kleur=9001&kleur_onder=onder_9016&spots=2_spotjes&melders=bewegingsmelder&montage=afhalen&active_step=1"; // Replace with your iframe URL
     iframe.style.width = "100vw"; // Full viewport width
 
     iframe.style.height = isPhone() ? "calc(100vh - 100px)" : "calc(100vh - 350px)"; // Height of the viewport minus 350px
@@ -166,167 +233,178 @@ if (window.location.href === "https://www.jansa.nl/a-92393783/configurator/luife
         content.appendChild(iframe);
     }
 
-    window.addEventListener("message", function(event) {
+    window.addEventListener("message", function (event) {
         if (event.data && event.data.items && event.data.URLparameters) {
             formatData(event);
         }
-    });    // URLparameters
+    }); // URLparameters
 } else if (window.location.href === "https://www.jansa.nl/c-7327352/configurator/") {
     var anchor = document.createElement("a");
     anchor.href = "https://www.jansa.nl/a-92393783/configurator/luifel-configuratie/#description";
-    document.body.appendChild(anchor);
+    // document.body.appendChild(anchor);
     anchor.click();
 }
 
-var velden = [
+var configurationOptions = [
     {
-        id: "sierlijsten",
-        uuid: "a2fd779a-a76a-4fea-ab71-01d6000ce615",
-        name: "Bovenlijst configurator",
-        type: "select",
-        sub: {
-            lijst_1: 9348185,
-            lijst_2: 9348182,
-            lijst_3: 9348188,
-            lijst_4: 9348191,
-            lijst_5: 9348194,
-        },
+        label: "Breedte",
+        type: "number_input",
+        uuid: "0c6962a9-1701-4990-8cee-20d900d61a85",
+        configurator_ID: "width",
+        configurator_name: "Breedte",
+        min: 90,
+        max: 308,
+        step_value: 1,
+        default_value: 90,
     },
     {
-        id: "lijst_onder",
-        uuid: "03bcb93e-97f9-4f9c-82cf-de4f7048cf67",
-        name: "Onderlijst configurator",
-        type: "select",
-        sub: {
-            else: 9348200,
-            uitgefreesde_onderkant: 9348203,
-        },
+        label: "Diepte",
+        type: "number_input",
+        uuid: "8985ac72-2d19-4256-9aa6-626379fbd269",
+        configurator_ID: "depth",
+        configurator_name: "Diepte",
+        min: 30,
+        max: 110,
+        step_value: 1,
+        calculation: [
+            {
+                condition: "depth > 60",
+                price_increase: 150,
+            },
+        ],
     },
+    {
+        label: "Sierlijst (afwerking boeideel)",
+        type: "single_selection",
+        uuid: "5e68af47-7726-4676-a14d-288184d4161e",
+        configurator_ID: "sierlijsten",
+        configurator_name: "Sierlijst",
+        subfeatures: [
+            { ID: "lijst_5", name: "Geen", value: "8796032" },
+            { ID: "lijst_6", name: "Dubbel boeideel", value: "9356606" },
+            { ID: "lijst_1", name: "G-061", value: "9356609" },
+            { ID: "lijst_2", name: "G-05", value: "9356612" },
+            { ID: "lijst_3", name: "G-09", value: "9356615" },
+            { ID: "lijst_4", name: "G-099", value: "9356618" },
+        ],
+    },
+    {
+        label: "Daktrim",
+        type: "single_selection",
+        uuid: "0f114a9c-fd54-4694-8f6e-dcbd35faa022",
+        configurator_ID: "daktrim",
+        configurator_name: "Daktrim",
+        subfeatures: [
+            { ID: "daktrim_rond", name: "Rond", value: "9368317" },
+            { ID: "daktrim_recht_alu", name: "Recht alu", value: "9368311" },
+            { ID: "daktrim_recht_zwart", name: "Recht zwart", value: "9368314" },
+        ],
+    },
+    {
+        label: "Freesrand onderkant boeideel",
+        type: "single_selection",
+        uuid: "949100f8-cccb-4dff-a668-819e48c0f26c",
+        configurator_ID: "lijst_onder",
+        configurator_name: "Onderkant",
+        subfeatures: [{ ID: "uitgefreesde_onderkant", name: "Freesrand onderkant boeideel", value: "9356819" }],
+    },
+    {
+        label: "Waterafvoer",
+        type: "single_selection",
+        uuid: "7e4ed4f6-1f5f-466d-a08f-23b5c24bc9fd",
+        configurator_ID: "afvoer_select",
+        configurator_name: "Afvoer",
+        subfeatures: [
+            { ID: "afvoer_links", name: "Vooraanzicht links", value: "6809565" },
+            { ID: "afvoer_rechts", name: "Vooraanzicht rechts", value: "6809566" },
+        ],
+    },
+    {
+        label: "Verlichting",
+        type: "single_selection",
+        uuid: "5e86db64-a002-46ff-abc2-c3ff9a83cab5",
+        configurator_ID: "spots",
+        configurator_name: "Verlichting",
+        subfeatures: [
+            { ID: "0_spotjes", name: "Geen", value: "8795195" },
+            { ID: "2_spotjes", name: "2 LED spots", value: "8795192" },
+            { ID: "3_spotjes", name: "3 LED spots", value: "9356414" },
+        ],
+    },
+    {
+        label: "Sensor",
+        type: "single_selection",
+        uuid: "76e2951d-ca10-4f10-9399-cec7d5f61145",
+        configurator_ID: "melders",
+        configurator_name: "Melders",
+        subfeatures: [
+            { ID: "geen_schakelaar", name: "Geen sensor (standaard)", value: "7498860" },
+            { ID: "bewegingsmelder", name: "Bewegingssensor", value: "7498859" },
+            { ID: "schemer_schakelaar", name: "Schemerschakelaar", value: "7498861" },
+        ],
+    },
+    {
+        label: "Montage tot 179cm breed",
+        type: "single_selection",
+        uuid: "50b49028-82cb-4237-8612-2f14e3c469a3",
+        configurator_ID: "montage",
+        configurator_name: "Montage",
+        subfeatures: [
+            { ID: "afhalen", name: "Afhalen in Heteren", value: "9356462" },
+            { ID: "montage_0_75", name: "Tot 75km vanaf Heteren", value: "9356465" },
+            { ID: "montage_75_125", name: "75km tot 125km vanaf Heteren", value: "9356468" },
+            { ID: "montage_125_200", name: "125km tot 200km vanaf Heteren", value: "9356471" },
+        ],
+    },
+    {
+        label: "Montage breder dan 180cm",
+        type: "single_selection",
+        uuid: "42440a54-cee9-4f65-9451-613bd9983d27",
+        configurator_ID: "montage",
+        configurator_name: "Montage",
+        subfeatures: [
+            { ID: "afhalen", name: "Afhalen in Heteren", value: "8796086" },
+            { ID: "montage_0_75", name: "Tot 75km vanaf Heteren", value: "8796077" },
+            { ID: "montage_75_125", name: "75km tot 125km vanaf Heteren", value: "8796083" },
+            { ID: "montage_125_200", name: "125km tot 200km vanaf Heteren", value: "8796080" },
+        ],
+    },
+    {
+        configurator_ID: "armen_feat",
+        uuid: "",
+        configurator_name: "Armen configurator",
+        type: "single_selection",
+        subfeatures: [
+            {
+                ID: "geen_arm",
+                value: "",
+                name: "",
+            },
+            { ID: "sier_arm", value: "", name: "" },
+            { ID: "trek_arm", value: "", name: "" },
+        ],
+    },
+    {
+        configurator_ID: "kleur",
 
-    {
-        id: "afvoer_select",
-        uuid: "9d3c3b52-c1b9-4e01-b1a8-6a4a426bc064",
-        name: "Afvoer configurator",
-        type: "select",
-        sub: {
-            afvoer_links: 9348263,
-            afvoer_rechts: 9348266,
-        },
+        uuid: "82c61d10-5a35-4036-aae4-90dd0a32d23b",
     },
     {
-        id: "armen_feat",
-        uuid: "0bd3e111-5f4a-459e-8d43-37724ef59e7f",
-        name: "Armen configurator",
-        type: "select",
-        sub: {
-            geen_arm: 9348269,
-            sier_arm: 9348272,
-            trek_arm: 9348275,
-        },
+        configurator_ID: "kleur_onder",
+        uuid: "2c93ac91-762c-44c2-8c6d-052a0dc41f6e",
     },
     {
-        id: "kleur",
-        uuid: "35746abd-3d25-40b9-abe3-fb17d829079d",
-        name: "Kleur configurator",
-        type: "select",
-        sub: {
-            ral_anders: 9348278,
-            1015: 9348281,
-            7015: 9348284,
-            9001: 9348287,
-            9005: 9348290,
-            9016: 9348293,
-        },
-    },
-    {
-        id: "kleur_onder",
-        uuid: "9f738bf8-f115-41d1-9f6e-c6017a04a846",
-        name: "Kleur onder configurator",
-        sub: {
-            onder_wit: 9348398,
-            onder_zwart: 9348401,
-            onder_hetzelfde: 9348404,
-        },
-    },
-    {
-        id: "spots",
-        uuid: "9991bc98-b06a-41fa-8e1a-65dffdd03519",
-        name: "Spotjes configurator",
-        type: "select",
-        sub: {
-            spots_ja: 9348416,
-            "": 9348422,
-            spots_ja_schemer_schakelaar: 9349112,
-            spots_ja_bewegingsmelder: 9348419,
-            spots_ja_schemer_schakelaar_bewegingsmelder: 9349115,
-        },
-    },
-    {
-        id: "width",
-        uuid: "d6dc78fd-f46c-4cc7-8397-a3b85ff5be36",
-        name: "Breedte",
-        type: "number",
-        sub: {},
-    },
-    {
-        id: "depth",
-        uuid: "e6385f7d-445d-49af-98e2-e3e1b6ba9239",
-        name: "Diepte",
-        type: "number",
-        sub: {},
-    },
-    {
-        id: "colorpick",
-        uuid: "6d771d4c-9bfa-454f-9cc5-80404f93edcf",
-        name: "Andere RAL",
-        type: "number",
-        sub: {},
+        configurator_ID: "armen_feat",
+        uuid: "",
+        configurator_name: "Armen configurator",
+        type: "single_selection",
+        subfeatures: [
+            {
+                ID: "geen_arm",
+                value: "",
+            },
+            { ID: "sier_arm", value: "", name: "" },
+            { ID: "trek_arm", value: "", name: "" },
+        ],
     },
 ];
-var breedteVeld = {
-    id: "",
-    uuid: "8874b633-bd14-4bb9-8d8b-05286ea09680",
-    name: "Breedte configurator",
-    type: "select",
-    sub: [
-        { value: 9348104, range: [100, 109] },
-        { value: 9348107, range: [110, 119] },
-        { value: 9348110, range: [120, 129] },
-        { value: 9348113, range: [130, 139] },
-        { value: 9348116, range: [140, 149] },
-        { value: 9348119, range: [150, 159] },
-        { value: 9348122, range: [160, 169] },
-        { value: 9348125, range: [170, 179] },
-        { value: 9348128, range: [180, 189] },
-        { value: 9348131, range: [190, 199] },
-        { value: 9348134, range: [200, 209] },
-        { value: 9348137, range: [210, 219] },
-        { value: 9348140, range: [220, 229] },
-        { value: 9348143, range: [230, 239] },
-        { value: 9348146, range: [240, 249] },
-        { value: 9348149, range: [250, 259] },
-        { value: 9348152, range: [260, 269] },
-        { value: 9348155, range: [270, 279] },
-        { value: 9348158, range: [280, 289] },
-        { value: 9348161, range: [290, 299] },
-        { value: 9348164, range: [300, 100] },
-    ],
-};
-var diepteVeld = {
-    id: "",
-    uuid: "f612eadb-0123-4f43-96ec-83a83a053e23",
-    name: "diepteVeld",
-    type: "select",
-    sub: [
-        { value: 9348233, range: [30, 39] },
-        { value: 9348236, range: [40, 49] },
-        { value: 9348239, range: [50, 59] },
-        { value: 9348242, range: [60, 69] },
-        { value: 9348245, range: [70, 79] },
-        { value: 9348248, range: [80, 89] },
-        { value: 9348251, range: [90, 99] },
-        { value: 9348254, range: [100, 109] },
-        { value: 9348257, range: [110, 119] },
-        { value: 9348260, range: [120, 129] },
-    ],
-};
