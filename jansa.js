@@ -137,17 +137,40 @@ function formatData(event) {
 
     // Handle Montage based on Breedte
     if (breedteValue > 180) {
-        // Set Montage breder dan 180 to "Afhalen"
-        list.push(addItem("42440a54-cee9-4f65-9451-613bd9983d27", "8796086"));
+        // Find the correct value for Montage breder dan 180 based on the subID
+        var montageBreder = configurationOptions.find(function (option) {
+            return option.configurator_ID === "montage" && option.uuid === "42440a54-cee9-4f65-9451-613bd9983d27";
+        });
+    
+        if (montageBreder && item.subID) {
+            var montageBrederValue = montageBreder.subfeatures.find(function (sub) {
+                return sub.ID === item.subID;
+            });
+            if (montageBrederValue) {
+                list.push(addItem("42440a54-cee9-4f65-9451-613bd9983d27", montageBrederValue.value));
+            }
+        }
+    
         // Set Montage tot 179cm breed to "Geen"
         list.push(addItem("50b49028-82cb-4237-8612-2f14e3c469a3", "9356462"));
     } else {
-        // Set Montage tot 179cm breed to "Afhalen"
-        list.push(addItem("50b49028-82cb-4237-8612-2f14e3c469a3", "9356462"));
+        // Find the correct value for Montage tot 179cm breed based on the subID
+        var montageTot179 = configurationOptions.find(function (option) {
+            return option.configurator_ID === "montage" && option.uuid === "50b49028-82cb-4237-8612-2f14e3c469a3";
+        });
+    
+        if (montageTot179 && item.subID) {
+            var montageTot179Value = montageTot179.subfeatures.find(function (sub) {
+                return sub.ID === item.subID;
+            });
+            if (montageTot179Value) {
+                list.push(addItem("50b49028-82cb-4237-8612-2f14e3c469a3", montageTot179Value.value));
+            }
+        }
+    
         // Set Montage breder dan 180 to "Geen"
         list.push(addItem("42440a54-cee9-4f65-9451-613bd9983d27", "8796086"));
     }
-
     list.push(addToken()); // Adding token for cart
     console.log(list);
 
@@ -200,7 +223,7 @@ function addToShoppingCart(body) {
             document.body.appendChild(anchor);
 
             setTimeout(function () {
-                // anchor.click();
+                anchor.click();
             }, 500);
         })
         .catch(function (error) {
