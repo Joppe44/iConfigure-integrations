@@ -44,11 +44,12 @@ function exec(iframe) {
         "body > div.body-content > div.container.productpage > div.content-box > div:nth-child(1)",
         "body > div.body-content > div.newsletter.gray-bg",
         "body > div.body-content > div.addtocart-sticky.visible",
-
+        "body > div.body-content > div.breadcrumbs",
         "body > div.body-content > header > div.subheader-holder",
         "body > div.body-content > footer",
         "body > div.body-content > div.container.productpage > div.content-box",
         "body > div.body-content > div.container.productpage > div.row > div > div > div.row",
+        "body > div.body-content > div.container.textpage"
     ];
 
     removeList.forEach((selector) => {
@@ -57,8 +58,7 @@ function exec(iframe) {
             el.style.display = "none";
         }
     });
-    document.querySelector("body > div.body-content > div.breadcrumbs").style =
-        "width: 400px !important;";
+    
     const addtocart = setInterval(() => {
         const elementToRemove = document.querySelector(
             "body > div.body-content > div.addtocart-sticky.mobile-visible"
