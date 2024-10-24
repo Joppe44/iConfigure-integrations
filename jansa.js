@@ -19,7 +19,7 @@ function formatData(event) {
     var list = [];
     var topush = "";
     list.push(addItem("195a701d-2803-4e13-a6d0-5b158d93fdf1", "8795246"));
-
+var kl =''
     for (var key in items) {
         if (items.hasOwnProperty(key)) {
             var item = items[key];
@@ -34,14 +34,8 @@ function formatData(event) {
             if (item.ID === "kleur_onder") {
                 var ralValueOnder = item.subID.match(/\d+/);
                 if (item.subID === "onder_hetzelfde") {
-                    var kleurItem = event.data.items.find(function (i) {
-                        return i.ID === "kleur";
-                    });
-                    if (kleurItem) {
-                        var ralValueKleur = kleurItem.subID.match(/\d+/);
-                        if (ralValueKleur) {
-                            list.push(addItem("2c93ac91-762c-44c2-8c6d-052a0dc41f6e", ralValueKleur[0]));
-                        }
+                    if (items.kleur) {
+                            list.push(addItem("2c93ac91-762c-44c2-8c6d-052a0dc41f6e", items.kleur));
                     } else {
                         console.error("No matching RAL color found for 'kleur'");
                     }
@@ -52,10 +46,13 @@ function formatData(event) {
                 }
             } else if (item.ID === "kleur") {
                 var ralValue = item.subID.match(/\d+/);
+                kl = ralValue
                 if (ralValue) {
+                    
                     var veld = configurationOptions.find(function (veld) {
                         return veld.configurator_ID === "kleur";
                     });
+           
                     if (veld) {
                         list.push(addItem(veld.uuid, ralValue[0]));
                     } else {
