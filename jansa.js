@@ -36,7 +36,7 @@ var kl =''
                 if (item.subID === "onder_hetzelfde") {
                     console.log(items)
                     if (items.kleur) {
-                            list.push(addItem("2c93ac91-762c-44c2-8c6d-052a0dc41f6e", items.kleur.value));
+                            list.push(addItem("2c93ac91-762c-44c2-8c6d-052a0dc41f6e", items.kleur.subID));
                     } else {
                         console.error("No matching RAL color found for 'kleur'");
                     }
