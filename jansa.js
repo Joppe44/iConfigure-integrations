@@ -46,6 +46,10 @@ var kl =''
                 } else {
                     console.error("No valid RAL color found for subID: " + item.subID);
                 }
+            } else if (item.ID === "lijst_onder" &&item.subID.length===0 ) {
+                
+                list.push(addItem(item.uuid, "9356816"));
+
             } else if (item.ID === "kleur") {
                 var ralValue = item.subID.match(/\d+/);
                 kl = ralValue
