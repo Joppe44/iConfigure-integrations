@@ -243,7 +243,7 @@ if (window.location.href === "https://www.jansa.nl/a-92393783/configurator/luife
     // Create an iframe and set its attributes
     var iframe = document.createElement("iframe");
     iframe.src =
-        "https://web.iconfigure.nl/?product=118987e2-f58a-4b7d-8a5b-8349f3a7cdf1&width=171&depth=62&sierlijsten=lijst_5&daktrim=daktrim_rond&lijst_onder=uitgefreesde_onderkant&afvoer_select=afvoer_rechts&armen_feat=trek_arm&kleur=9001&kleur_onder=onder_9016&spots=2_spotjes&melders=bewegingsmelder&montage=afhalen&active_step=1"; // Replace with your iframe URL
+        "https://web.iconfigure.nl/?product=118987e2-f58a-4b7d-8a5b-8349f3a7cdf1&width=170&depth=70&sierlijsten=lijst_6&daktrim=daktrim_rond&afvoer_select=afvoer_rechts&armen_feat=trek_arm&kleur=9010&kleur_onder=onder_hetzelfde&spots=0_spotjes&melders=geen_schakelaar&montage=afhalen&active_step=0"; // Replace with your iframe URL
     iframe.style.width = "100vw"; // Full viewport width
 
     iframe.style.height = isPhone() ? "calc(100vh - 100px)" : "calc(100vh - 350px)"; // Height of the viewport minus 350px
