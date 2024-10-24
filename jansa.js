@@ -1,5 +1,5 @@
 /** @format */
-
+function g(){ 
 function isPhone() {
     var viewportWidth = window.innerWidth || document.documentElement.clientWidth;
     var phoneMaxWidth = 767;
@@ -429,3 +429,5 @@ var configurationOptions = [
         ],
     },
 ];
+}
+// g()
