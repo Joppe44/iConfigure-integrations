@@ -186,7 +186,7 @@ function addItem(uuid, value) {
 }
 
 function addToken() {
-    return "add_to_cart[_token]=" + token + "&amount=1&add=";
+    return "add_to_cart[category_article_id]=82122899&add_to_cart[_token]=" + token + "&amount=1&add=";
 }
 function addToShoppingCart(body) {
     fetch("https://www.jansa.nl/a-82110275-8796011/voordeurluifel/klassieke-houten-deurluifel-tot-308cm-breed/", {
