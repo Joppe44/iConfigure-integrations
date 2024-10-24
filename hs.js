@@ -1,3 +1,5 @@
+/** @format */
+
 // HOUT EN STAAL
 // HOUT EN STAAL
 // HOUT EN STAAL
@@ -49,7 +51,7 @@ function exec(iframe) {
         "body > div.body-content > footer",
         "body > div.body-content > div.container.productpage > div.content-box",
         "body > div.body-content > div.container.productpage > div.row > div > div > div.row",
-        "body > div.body-content > div.container.textpage"
+        "body > div.body-content > div.container.textpage",
     ];
 
     removeList.forEach((selector) => {
@@ -58,11 +60,9 @@ function exec(iframe) {
             el.style.display = "none";
         }
     });
-    
+
     const addtocart = setInterval(() => {
-        const elementToRemove = document.querySelector(
-            "body > div.body-content > div.addtocart-sticky.mobile-visible"
-        );
+        const elementToRemove = document.querySelector("body > div.body-content > div.addtocart-sticky.mobile-visible");
 
         if (elementToRemove) {
             elementToRemove.remove();
@@ -85,13 +85,15 @@ function exec(iframe) {
             var redirect = "";
             if (event.data.productId === "d3849c93-3ccb-4438-ba7f-753f2f73a359") {
                 redirect =
-                    "https://www.firmahoutenstaal.nl/service/bedankt-voor-uw-offerte-aanvraag-deuren?client-val="  +  event.data.total;
+                    "https://www.firmahoutenstaal.nl/service/bedankt-voor-uw-offerte-aanvraag-deuren?client-val=" +
+                    event.data.total;
                 const url = new URL(window.location.href);
                 url.searchParams.set("aangevraagde-offerte", "deur");
                 window.history.pushState({}, "", url);
             } else if (event.data.productId === "adff030a-42c7-44e0-958b-e0616b20a396") {
                 redirect =
-                    "https://www.firmahoutenstaal.nl/service/bedankt-voor-uw-offerte-aanvraag-tafels?client-val=" + event.data.total;
+                    "https://www.firmahoutenstaal.nl/service/bedankt-voor-uw-offerte-aanvraag-tafels?client-val=" +
+                    event.data.total;
                 const url = new URL(window.location.href);
                 url.searchParams.set("aangevraagde-offerte", "tafel");
                 window.history.pushState({}, "", url);
@@ -129,9 +131,7 @@ function sendDataToShop(event) {
             continue;
         }
         if (values[topush]) {
-            urls.push(
-                `https://www.firmahoutenstaal.nl/cart/add/${values[topush]}/?bundle_id=&quantity=1`
-            );
+            urls.push(`https://www.firmahoutenstaal.nl/cart/add/${values[topush]}/?bundle_id=&quantity=1`);
         }
     }
     // MATEN
@@ -143,16 +143,14 @@ function sendDataToShop(event) {
         );
     } else if (items.vorm.subID === "rond") {
         urls.push(
-            `https://www.firmahoutenstaal.nl/cart/add/${
-                values["rond" + items.radius.value]
-            }/?bundle_id=&quantity=1`
+            `https://www.firmahoutenstaal.nl/cart/add/${values["rond" + items.radius.value]}/?bundle_id=&quantity=1`
         );
     } else {
         let val = values2["tafelblad" + items.lengte.value + "x" + items.breedte.value];
         urls.push(
-            `https://www.firmahoutenstaal.nl/cart/add/${val.ID}/?bundle_id=&custom%5B${
-                val.fieldID
-            }%5D=${val.vorm[items.vorm.subID]}&quantity=1`
+            `https://www.firmahoutenstaal.nl/cart/add/${val.ID}/?bundle_id=&custom%5B${val.fieldID}%5D=${
+                val.vorm[items.vorm.subID]
+            }&quantity=1`
         );
     }
     event.preventDefault();
@@ -241,6 +239,12 @@ const values = {
     m103ev: 292834192,
     gratis_afleveren: 292977946,
     geleverd_en_gemonteerd: 292977956,
+    "4rondepoten": 306722370,
+    kolom_ovaal: 306722450,
+    kolom_rond: 306722455,
+    "3rondepoten": 306722462,
+    "3rondepoten_radius": 306722469,
+    "4rondepotenrond": 306722475,
 };
 
 const values2 = {
