@@ -136,12 +136,12 @@ function formatData(event) {
     }
 
     // Handle Montage based on Breedte
-    if (breedteValue > 180||diepteValue>80) {
+    if (breedteValue > 180 || diepteValue > 80) {
         // Find the correct value for Montage breder dan 180 based on the subID
         var montageBreder = configurationOptions.find(function (option) {
             return option.configurator_ID === "montage" && option.uuid === "42440a54-cee9-4f65-9451-613bd9983d27";
         });
-    
+
         if (montageBreder && item.subID) {
             var montageBrederValue = montageBreder.subfeatures.find(function (sub) {
                 return sub.ID === item.subID;
@@ -150,7 +150,7 @@ function formatData(event) {
                 list.push(addItem("42440a54-cee9-4f65-9451-613bd9983d27", montageBrederValue.value));
             }
         }
-    
+
         // Set Montage tot 179cm breed to "Geen"
         list.push(addItem("50b49028-82cb-4237-8612-2f14e3c469a3", "9356462"));
     } else {
@@ -158,7 +158,7 @@ function formatData(event) {
         var montageTot179 = configurationOptions.find(function (option) {
             return option.configurator_ID === "montage" && option.uuid === "50b49028-82cb-4237-8612-2f14e3c469a3";
         });
-    
+
         if (montageTot179 && item.subID) {
             var montageTot179Value = montageTot179.subfeatures.find(function (sub) {
                 return sub.ID === item.subID;
@@ -167,7 +167,7 @@ function formatData(event) {
                 list.push(addItem("50b49028-82cb-4237-8612-2f14e3c469a3", montageTot179Value.value));
             }
         }
-    
+
         // Set Montage breder dan 180 to "Geen"
         list.push(addItem("42440a54-cee9-4f65-9451-613bd9983d27", "8796086"));
     }
@@ -231,8 +231,12 @@ function addToShoppingCart(body) {
         });
 }
 
-if (window.location.href === "https://www.jansa.nl/a-82110275/voordeurluifel/klassieke-houten-deurluifel-tot-308cm-breed/#description") {
+if (
+    window.location.href ===
+    "https://www.jansa.nl/a-82110275/voordeurluifel/klassieke-houten-deurluifel-tot-308cm-breed/#description"
+) {
     var token = document.getElementById("add_to_cart__token").value;
+    document.body.style.overflow = "hidden";
 
     // Remove the footer element if it exists
     var footer = document.querySelector("#footer");
@@ -263,7 +267,8 @@ if (window.location.href === "https://www.jansa.nl/a-82110275/voordeurluifel/kla
     }); // URLparameters
 } else if (window.location.href === "https://www.jansa.nl/c-7327352/configurator/") {
     var anchor = document.createElement("a");
-    anchor.href = "https://www.jansa.nl/a-82110275/voordeurluifel/klassieke-houten-deurluifel-tot-308cm-breed/#description";
+    anchor.href =
+        "https://www.jansa.nl/a-82110275/voordeurluifel/klassieke-houten-deurluifel-tot-308cm-breed/#description";
     // document.body.appendChild(anchor);
     anchor.click();
 }
