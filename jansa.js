@@ -21,7 +21,7 @@ function formatData(event) {
     list.push(addItem("195a701d-2803-4e13-a6d0-5b158d93fdf1", "8795246"));
 var kl =''
     for (var key in items) {
-        if (items.hasOwnProperty(key)&&key!=='montage') { 
+        if (items.hasOwnProperty(key)) { 
 
             var item = items[key];
             var veld = configurationOptions.find(function (veld) {
@@ -186,7 +186,7 @@ function addItem(uuid, value) {
 }
 
 function addToken() {
-    return "add_to_cart[category_article_id]=82122899&add_to_cart[_token]=" + token + "&amount=1&add=";
+    return "add_to_cart[_token]=" + token + "&amount=1&add=";
 }
 function addToShoppingCart(body) {
     fetch("https://www.jansa.nl/a-82110275-8796011/voordeurluifel/klassieke-houten-deurluifel-tot-308cm-breed/", {
