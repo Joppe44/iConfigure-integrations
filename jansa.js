@@ -21,7 +21,7 @@ function formatData(event) {
     list.push(addItem("195a701d-2803-4e13-a6d0-5b158d93fdf1", "8795246"));
 var kl =''
     for (var key in items) {
-        if (items.hasOwnProperty(key)&&key!=='width') {
+        if (items.hasOwnProperty(key)&&key!=='width') { 
 
             var item = items[key];
             var veld = configurationOptions.find(function (veld) {
