@@ -228,7 +228,7 @@ function addToShoppingCart(body) {
             document.body.appendChild(anchor);
 
             setTimeout(function () {
-                // anchor.click();
+                anchor.click();
             }, 500);
         })
         .catch(function (error) {
