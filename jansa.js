@@ -19,7 +19,7 @@ function formatData(event) {
     var list = [];
     var topush = "";
     list.push(addItem("195a701d-2803-4e13-a6d0-5b158d93fdf1", "8795246"));
-var Freesrand = addItem("949100f8-cccb-4dff-a668-819e48c0f26c","9356819")
+
 var kl =''
     for (var key in items) {
         if (items.hasOwnProperty(key)) { 
@@ -48,7 +48,7 @@ var kl =''
                     console.error("No valid RAL color found for subID: " + item.subID);
                 }
             } else if (item.ID === "lijst_onder"  ) {
-                Freesrand = addItem(item.uuid, "9356816")
+
              
 
             } else if (item.ID === "kleur") {
@@ -175,7 +175,7 @@ var kl =''
         // Set Montage breder dan 180 to "Geen"
         list.push(addItem("42440a54-cee9-4f65-9451-613bd9983d27", "8796086"));
     }
-    list.push(Freesrand);
+
     list.push(addToken()); // Adding token for cart
     console.log(list);
 
