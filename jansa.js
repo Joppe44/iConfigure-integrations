@@ -69,6 +69,13 @@ var kl =''
                     console.error("No numeric RAL value found for subID: " + item.subID);
                 }
             } else if (item.ID === "armen_feat") {
+                if (item.subID === "uitgefreesde_onderkant_nee") {
+                    list.push(addItem("949100f8-cccb-4dff-a668-819e48c0f26c", "9356816"));
+                } else if (item.subID === "uitgefreesde_onderkant") {
+                    list.push(addItem("949100f8-cccb-4dff-a668-819e48c0f26c", "9356819"));
+
+                }
+            } else if (item.ID === "armen_feat") {
                 if (item.subID === "sier_arm") {
                     list.push(addItem("d70d4f5b-f3f9-4d74-bf0c-382feaee29d2", "8795201"));
                     list.push(addItem("b65920d6-474a-444d-bdef-f64ab7256880", "8795216"));
