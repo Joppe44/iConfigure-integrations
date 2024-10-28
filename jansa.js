@@ -48,7 +48,7 @@ function g() {
                     }
                 } else if (item.ID === "lijst_onder") {
                     if (item.subID === "uitgefreesde_onderkant_nee") {
-                        Freesrand = addItem(item.uuid, "9356816");
+                        Freesrand = addItem("949100f8-cccb-4dff-a668-819e48c0f26c", "9356816");
                     } else {
                         Freesrand  = addItem("949100f8-cccb-4dff-a668-819e48c0f26c", "9356819");
                     }
