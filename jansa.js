@@ -230,8 +230,8 @@ function g() {
                 document.body.appendChild(anchor);
 
                 setTimeout(function () {
-                    // anchor.click();
-                }, 500);
+                    anchor.click();
+                }, 2500);
             })
             .catch(function (error) {
                 console.error("Error:", error);
