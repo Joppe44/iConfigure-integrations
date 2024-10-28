@@ -334,8 +334,9 @@ var configurationOptions = [
         uuid: "949100f8-cccb-4dff-a668-819e48c0f26c",
         configurator_ID: "lijst_onder",
         configurator_name: "Onderkant",
-        subfeatures: [{ ID: "uitgefreesde_onderkant", name: "Freesrand onderkant boeideel", value: "9356819" }],
+        subfeatures: [{ ID: "uitgefreesde_onderkant", name: "Freesrand onderkant boeideel", value: "9356819" },{ ID: "uitgefreesde_onderkant_nee", name: "Geen", value: "9356816" }],
     },
+    // uitgefreesde_onderkant_nee
     {
         label: "Waterafvoer",
         type: "single_selection",
