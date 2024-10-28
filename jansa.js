@@ -19,7 +19,7 @@ function g() {
         var list = [];
         var topush = "";
         list.push(addItem("195a701d-2803-4e13-a6d0-5b158d93fdf1", "8795246"));
-        var Freesrand = addItem("949100f8-cccb-4dff-a668-819e48c0f26c", "9356819");
+        var Freesrand 
         var kl = "";
         for (var key in items) {
             if (items.hasOwnProperty(key)) {
@@ -47,7 +47,13 @@ function g() {
                         console.error("No valid RAL color found for subID: " + item.subID);
                     }
                 } else if (item.ID === "lijst_onder") {
-                    Freesrand = addItem("949100f8-cccb-4dff-a668-819e48c0f26c", "9356819");
+                    if (item.subID === "uitgefreesde_onderkant_nee") {
+                        Freesrand = addItem("949100f8-cccb-4dff-a668-819e48c0f26c", "9356816");
+                    } else {
+                        Freesrand  = addItem("949100f8-cccb-4dff-a668-819e48c0f26c", "9356819");
+                    }
+                    list.push(Freesrand);
+
                 } else if (item.ID === "kleur") {
                     var ralValue = item.subID.match(/\d+/);
                     kl = ralValue;
@@ -171,7 +177,6 @@ function g() {
             // Set Montage breder dan 180 to "Geen"
             list.push(addItem("42440a54-cee9-4f65-9451-613bd9983d27", "8796086"));
         }
-        list.push(Freesrand);
         list.push(addToken()); // Adding token for cart
         console.log(list);
 
@@ -335,12 +340,8 @@ function g() {
             uuid: "949100f8-cccb-4dff-a668-819e48c0f26c",
             configurator_ID: "lijst_onder",
             configurator_name: "Onderkant",
-            subfeatures: [
-                { ID: "uitgefreesde_onderkant", name: "Freesrand onderkant boeideel", value: "9356819" },
-                { ID: "uitgefreesde_onderkant_nee", name: "Geen", value: "9356816" },
-            ],
+            subfeatures: [{ ID: "uitgefreesde_onderkant", name: "Freesrand onderkant boeideel", value: "9356819" }],
         },
-        // uitgefreesde_onderkant_nee
         {
             label: "Waterafvoer",
             type: "single_selection",
