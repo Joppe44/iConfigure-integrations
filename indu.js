@@ -16,7 +16,7 @@ document.body.appendChild(configurationTargetDiv);
 const styleElement = document.createElement("style");
 styleElement.innerHTML = `
     .configurator-frame {
-    height: 100dvh !important;
+    height: calc(100vh - 115px) !important;
     width: 100vw !important;
     scrollbar-width: none;
     overflow-y: hidden;
@@ -30,6 +30,8 @@ styleElement.innerHTML = `
 /* Media query for mobile devices */
 @media only screen and (max-width: 768px) {
     .configurator-frame {
+        height: 100 !important;
+
         top: 0px;
         bottom: 115px;
     }
