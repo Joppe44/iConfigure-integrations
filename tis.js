@@ -14,11 +14,11 @@ iCiframe.style.zIndex = "9999";
 
 if (window.innerWidth <= 768) {
     iCiframe.style.top = "90px";
-    iCiframe.style.height = "calc(100vh - 205px)";
+    iCiframe.style.height = "100DVH";
     iCiframe.style.bottom = "110px";
 } else {
     iCiframe.style.top = "80px";
-    iCiframe.style.height = "calc(100vh - 80px)";
+    iCiframe.style.height = "100DVH";
     iCiframe.style.bottom = "0px";
 }
 console.log(document.body);
@@ -47,3 +47,4 @@ window.addEventListener("message", (event) => {
         redirect("/stalen-deuren-showroom");
     }
 });
+https://thuisinstaal.nl/stalen-deuren-showroom/ 
