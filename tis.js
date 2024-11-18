@@ -5,10 +5,11 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(() => {
             setTimeout(() => {
                 window.scrollBy(0, 100);
+                document.body.style.overflow = "hidden";
+
             });
         });
     });
-    document.body.style.overflow = "hidden";
 
     const iCiframe = document.createElement("iframe");
     iCiframe.src =
