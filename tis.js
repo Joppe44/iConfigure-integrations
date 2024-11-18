@@ -21,11 +21,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (window.innerWidth <= 768) {
         iCiframe.style.top = "90px";
-        iCiframe.style.height = "100DVH";
+        iCiframe.style.height = "100dvh";
         iCiframe.style.bottom = "110px";
     } else {
         iCiframe.style.top = "80px";
-        iCiframe.style.height = "100DVH";
+        iCiframe.style.height = "100dvh";
         iCiframe.style.bottom = "0px";
     }
     console.log(document.body);
