@@ -47,4 +47,4 @@ window.addEventListener("message", (event) => {
         redirect("/stalen-deuren-showroom");
     }
 });
-https://thuisinstaal.nl/stalen-deuren-showroom/ 
+// https://thuisinstaal.nl/stalen-deuren-showroom/ 
