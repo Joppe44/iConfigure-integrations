@@ -2,6 +2,11 @@
 document.addEventListener("DOMContentLoaded", function () {
     setTimeout(() => {
         window.scrollBy(0, 100);
+        setTimeout(() => {
+            setTimeout(() => {
+                window.scrollBy(0, 100);
+            });
+        });
     });
     document.body.style.overflow = "hidden";
 
