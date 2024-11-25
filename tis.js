@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const iCiframe = document.createElement("iframe");
     iCiframe.src =
-        "https://web.iconfigure.nl/?product=95ba6ceb-4779-4424-9104-59fbe594d5d8&type=type_taats&aantal_deuren=1_deur&plaatsing_panelen=paneel_beide&hoogte_sparing=201&breedte_sparing=260&verdeling_panelen=verdeling_gelijk&vlakverdeling=1v&frame_profiel=f_40mm&deur_profiel=40mm&kleur_glas=glas_helder&kleur_staal=staal_9005&structuur=structuur_structuur&handgreep=hondla&active_step=0";
+        "https://web.iconfigure.nl/?product=95ba6ceb-4779-4424-9104-59fbe594d5d8&type=type_taats&aantal_deuren=1_deur&plaatsing_panelen=geen&breedte_deur_calc=90&hoogte_sparing=260&breedte_sparing=90&vlakverdeling=1v&frame_profiel=f_40mm&deur_profiel=30mm&kleur_glas=glas_helder&kleur_staal=staal_9005&structuur=structuur_structuur&handgreep=hondla&verzending=afhalen&active_step=0";
     iCiframe.style.width = "100vw";
     iCiframe.style.left = "0";
     iCiframe.style.position = "fixed";
