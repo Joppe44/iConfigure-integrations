@@ -2,7 +2,7 @@
 const a = document.createElement("a");
 a.id = "homebtn";
 a.innerHTML = "terug";
-a.href="/"
+a.href = "/";
 
 document.body.appendChild(a);
 
@@ -12,11 +12,10 @@ const configurationTargetDiv = document.createElement("div");
 configurationTargetDiv.id = "configurationTarget";
 document.body.appendChild(configurationTargetDiv);
 
-// Create and append the style block to the body
 const styleElement = document.createElement("style");
 styleElement.innerHTML = `
     .configurator-frame {
-    height: calc(100vh - 115px) !important;
+    height: calc(100vh - 115px) ;
     width: 100vw !important;
     scrollbar-width: none;
     overflow-y: hidden;
@@ -30,8 +29,8 @@ styleElement.innerHTML = `
 /* Media query for mobile devices */
 @media only screen and (max-width: 768px) {
     .configurator-frame {
-        height: 100 !important;
-
+        height: 100dvh !important;
+    
         top: 0px;
         bottom: 115px;
     }
