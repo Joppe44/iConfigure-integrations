@@ -8,7 +8,13 @@ function iConfigure() {
     link.media = "all";
     link.href = "https://web.iconfigure.nl/inject/style.css";
     document.head.appendChild(link);
-
+    window.addEventListener("message", function (event) {  
+                                
+        const iframeThanksPageUrl = "https://staalo.nl/bedankt";
+        if (event.data.state === "finished") {
+            window.location.href = iframeThanksPageUrl;
+        }
+    });
     // Create the div with id 'iConfigure' and apply styles
     var div = document.createElement("div");
     div.id = "iConfigure";
