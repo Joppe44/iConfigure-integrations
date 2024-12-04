@@ -28,12 +28,12 @@ function iConfigure() {
     // List of elements to remove
     const removeList = [
         ".grecaptcha-badge",
-        "#CookiebotWidget",
+        
         "#trustbadge-container-98e3dadd90eb493088abdc5597a70810",
         'iframe[title="Weply chat"]',
         "footer",
     ];
-
+// "#CookiebotWidget",
     // Function to remove unwanted elements after a delay
     setTimeout(function () {
         for (const selector of removeList) {
