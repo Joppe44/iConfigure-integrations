@@ -1,4 +1,16 @@
 /** @format */
+if (
+    window.location.pathname === "/tafels/configureer-jouw-tafel/" ||
+    window.location.pathname === "/tafels/configureer-jouw-tafel"||
+    window.location.pathname === "/configurator-tafels.html"
+) {
+    iConfigure("tafel");
+} else if (
+    window.location.pathname === "/stalen-deuren/stel-je-deuren-samen/" ||
+    window.location.pathname === "/stalen-deuren/stel-je-deuren-samen"
+) {
+    iConfigure("deur");
+}
 
 function iConfigure(type) {
     var link = document.createElement("link");
@@ -94,65 +106,54 @@ function iConfigure(type) {
             clearInterval(interval); // Stop the interval once the div is appended
             console.log("Div appended successfully!");
             removeElements();
+            var script = document.createElement("script");
+            script.src = "https://web.iconfigure.nl/inject/inject.iife.js";
+            script.crossOrigin = "anonymous";
+            script.onload = function () {
+                // Your configuration object
+                let preConfig = {};
+                if (type === "deur") {
+                    preConfig = {
+                        product: "d3849c93-3ccb-4438-ba7f-753f2f73a359",
+                        type: "type_taats",
+                        aantal_deuren: "aantal_deuren_enkel",
+                        breedte_sparing: "80",
+                        hoogte_sparing: "194.1",
+                        vlakverdeling: "geen",
+                        profiel: "profiel_2cm",
+                        greep: "hoeklijn",
+                        kleur_coating: "ral9005",
+                        kleur_glas: "glas_helder",
+                        kleur_afdekkapjes: "kleur_afdekkapjes_rvs",
+                        inmeten: "zelf_inmeten",
+                        montage: "zelf_monteren",
+                        active_step: "0",
+                    };
+                } else if (type === "tafel") {
+                    preConfig = {
+                        product: "adff030a-42c7-44e0-958b-e0616b20a396",
+                        vorm: "deens",
+                        lengte: "240",
+                        breedte: "110",
+                        frame: "mika",
+                        kleur_frame: "zwart",
+                        kleur_hout: "matte_lak",
+                        rand: "rarond45",
+                        bladafwerking: "glad",
+                        noesten: "noesten_vullen",
+                        active_step: "0",
+                    };
+                }
+                // Initialize the application with your configuration
+                injectApp(preConfig);
+            };
+            document.head.appendChild(script);
         }
     }, 100); // Check every 100 milliseconds
     // Load the JS file and execute the code after it's loaded
-    var script = document.createElement("script");
-    script.src = "https://web.iconfigure.nl/inject/inject.iife.js";
-    script.crossOrigin = "anonymous";
-    script.onload = function () {
-        // Your configuration object
-        let preConfig = {};
-        if (type === "deur") {
-            preConfig = {
-                product: "d3849c93-3ccb-4438-ba7f-753f2f73a359",
-                type: "type_taats",
-                aantal_deuren: "aantal_deuren_enkel",
-                breedte_sparing: "80",
-                hoogte_sparing: "194.1",
-                vlakverdeling: "geen",
-                profiel: "profiel_2cm",
-                greep: "hoeklijn",
-                kleur_coating: "ral9005",
-                kleur_glas: "glas_helder",
-                kleur_afdekkapjes: "kleur_afdekkapjes_rvs",
-                inmeten: "zelf_inmeten",
-                montage: "zelf_monteren",
-                active_step: "0",
-            };
-        } else if (type === "tafel") {
-            preConfig = {
-                product: "adff030a-42c7-44e0-958b-e0616b20a396",
-                vorm: "deens",
-                lengte: "240",
-                breedte: "110",
-                frame: "mika",
-                kleur_frame: "zwart",
-                kleur_hout: "matte_lak",
-                rand: "rarond45",
-                bladafwerking: "glad",
-                noesten: "noesten_vullen",
-                active_step: "0",
-            };
-        }
-        // Initialize the application with your configuration
-        injectApp(preConfig);
-    };
-    document.head.appendChild(script);
+
 }
 
-if (
-    window.location.pathname === "/tafels/configureer-jouw-tafel/" ||
-    window.location.pathname === "/tafels/configureer-jouw-tafel"||
-    window.location.pathname === "/configurator-tafels.html"
-) {
-    iConfigure("tafel");
-} else if (
-    window.location.pathname === "/stalen-deuren/stel-je-deuren-samen/" ||
-    window.location.pathname === "/stalen-deuren/stel-je-deuren-samen"
-) {
-    iConfigure("deur");
-}
 
 function sendDataToShop(event) {
     var items = {};
