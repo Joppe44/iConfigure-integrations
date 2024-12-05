@@ -143,7 +143,8 @@ function iConfigure(type) {
 
 if (
     window.location.pathname === "/tafels/configureer-jouw-tafel/" ||
-    window.location.pathname === "/tafels/configureer-jouw-tafel"
+    window.location.pathname === "/tafels/configureer-jouw-tafel"||
+    window.location.pathname === "/configurator-tafels.html"
 ) {
     iConfigure("tafel");
 } else if (
