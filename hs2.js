@@ -1,7 +1,7 @@
 /** @format */
 if (
     window.location.pathname === "/tafels/configureer-jouw-tafel/" ||
-    window.location.pathname === "/tafels/configureer-jouw-tafel"||
+    window.location.pathname === "/tafels/configureer-jouw-tafel" ||
     window.location.pathname === "/configurator-tafels.html"
 ) {
     iConfigure("tafel");
@@ -21,7 +21,7 @@ function iConfigure(type) {
     window.parent.addEventListener("message", (event) => {
         if (event.data.name === "quotation") {
             console.log(event.data);
-            // event.data.items
+
             var redirect = "";
             if (event.data.productId === "d3849c93-3ccb-4438-ba7f-753f2f73a359") {
                 redirect =
@@ -49,14 +49,7 @@ function iConfigure(type) {
         }
         sendDataToShop(event);
     });
-    // Create the div with id 'iConfigure' and apply styles
-    var div = document.createElement("div");
-    div.id = "iConfigure";
-    div.style.position = "sticky";
-    div.style.height = "calc(100dvh)";
-    div.style.width = "100vw";
-    div.style.zIndex = "10000";
-    div.style.pointerEvents = "auto";
+
     function removeElements() {
         // List of elements to remove
         const removeList = [
@@ -70,42 +63,53 @@ function iConfigure(type) {
             "body > div.body-content > div.container.productpage > div.row > div > div > div.row",
             "body > div.body-content > div.container.textpage",
         ];
-    
+
         let counter = 0; // Track the number of loops
         const maxLoops = 10; // Maximum number of iterations
-    
+
         const interval = setInterval(() => {
             let allRemoved = true; // Flag to track if all elements are removed
-    
+
             for (const selector of removeList) {
                 const items = document.querySelectorAll(selector);
-    
+
                 if (items.length > 0) {
                     allRemoved = false; // If any element is still present, set flag to false
                     items.forEach((item) => item.remove());
                 }
             }
-    
+
             counter++; // Increment the counter
-    
+
             if (allRemoved || counter >= maxLoops) {
                 clearInterval(interval); // Stop the interval if all elements are removed or max loops reached
-                console.log(
-                    allRemoved
-                        ? "All elements removed!"
-                        : "Max loops reached, stopping."
-                );
+                console.log(allRemoved ? "All elements removed!" : "Max loops reached, stopping.");
             }
         }, 100); // Check every 100 milliseconds
     }
-    
+
     const interval = setInterval(() => {
         const targetElement = document.querySelector("body > div.body-content");
         if (targetElement) {
-            targetElement.appendChild(div);
             clearInterval(interval); // Stop the interval once the div is appended
-            console.log("Div appended successfully!");
             removeElements();
+            // Create the div with id 'iConfigure' and apply styles
+            var h = document.createElement("h")
+            h.innerHTML=`Welkom bij de Configurator van Firma Hout en Staal`
+            var p = document.createElement("p")
+            p.innerHTML = `Bij Firma Hout en Staal geloven we in de kracht van ambachtelijk vakwerk en persoonlijke smaak. Met onze configurator bieden we jou de vrijheid om jouw droom${type} te ontwerpen. Jij bepaalt het ontwerp, wij brengen het tot leven.`
+            var div = document.createElement("div");
+            div.id = "iConfigure";
+            div.style.position = "sticky";
+            div.style.height = "calc(100dvh)";
+            div.style.width = "100vw";
+            div.style.zIndex = "10000";
+            div.style.pointerEvents = "auto";
+            targetElement.appendChild(div);
+            targetElement.appendChild(p);
+            targetElement.appendChild(h);
+            console.log("Div appended successfully!");
+            
             var script = document.createElement("script");
             script.src = "https://web.iconfigure.nl/inject/inject.iife.js";
             script.crossOrigin = "anonymous";
@@ -151,9 +155,7 @@ function iConfigure(type) {
         }
     }, 100); // Check every 100 milliseconds
     // Load the JS file and execute the code after it's loaded
-
 }
-
 
 function sendDataToShop(event) {
     var items = {};
