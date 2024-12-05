@@ -45,8 +45,7 @@ function iConfigure(type) {
     div.style.width = "100vw";
     div.style.zIndex = "10000";
     div.style.pointerEvents = "auto";
-
-    function remove() {
+    function removeElements() {
         // List of elements to remove
         const removeList = [
             "body > div.body-content > div.container.productpage > div.content-box > div:nth-child(1)",
@@ -59,22 +58,42 @@ function iConfigure(type) {
             "body > div.body-content > div.container.productpage > div.row > div > div > div.row",
             "body > div.body-content > div.container.textpage",
         ];
-
-        // Function to remove unwanted elements after a delay
-
-        for (const selector of removeList) {
-            let items = document.querySelectorAll(selector);
-            items.forEach((item) => item.remove());
-        }
+    
+        let counter = 0; // Track the number of loops
+        const maxLoops = 10; // Maximum number of iterations
+    
+        const interval = setInterval(() => {
+            let allRemoved = true; // Flag to track if all elements are removed
+    
+            for (const selector of removeList) {
+                const items = document.querySelectorAll(selector);
+    
+                if (items.length > 0) {
+                    allRemoved = false; // If any element is still present, set flag to false
+                    items.forEach((item) => item.remove());
+                }
+            }
+    
+            counter++; // Increment the counter
+    
+            if (allRemoved || counter >= maxLoops) {
+                clearInterval(interval); // Stop the interval if all elements are removed or max loops reached
+                console.log(
+                    allRemoved
+                        ? "All elements removed!"
+                        : "Max loops reached, stopping."
+                );
+            }
+        }, 30); // Check every 100 milliseconds
     }
-
+    
     const interval = setInterval(() => {
         const targetElement = document.querySelector("body > div.body-content");
         if (targetElement) {
             targetElement.appendChild(div);
             clearInterval(interval); // Stop the interval once the div is appended
             console.log("Div appended successfully!");
-            remove();
+            removeElements();
         }
     }, 10); // Check every 100 milliseconds
     // Load the JS file and execute the code after it's loaded
