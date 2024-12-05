@@ -45,7 +45,17 @@ function iConfigure(type) {
     div.style.width = "100vw";
     div.style.zIndex = "10000";
     div.style.pointerEvents = "auto";
-    document.querySelector("body > div.body-content").appendChild(div);
+    const div = document.createElement('div');
+
+    
+    const interval = setInterval(() => {
+        const targetElement = document.querySelector("body > div.body-content");
+        if (targetElement) {
+            targetElement.appendChild(div);
+            clearInterval(interval); // Stop the interval once the div is appended
+            console.log("Div appended successfully!");
+        }
+    }, 100); // Check every 100 milliseconds
 
     // List of elements to remove
     const removeList = [
