@@ -96,7 +96,7 @@ function iConfigure(type) {
             // Create the div with id 'iConfigure' and apply styles
             var holder = document.createElement("div")
             holder.style.paddingLeft='10vw'
-            holder.style.paddingright='10vw'
+            holder.style.paddingRight='10vw'
             holder.style.paddingTop='10vw'
             holder.style.paddingBottom='4vw'
             var h = document.createElement("h1");
