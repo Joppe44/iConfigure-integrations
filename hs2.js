@@ -45,7 +45,6 @@ function iConfigure(type) {
     div.style.width = "100vw";
     div.style.zIndex = "10000";
     div.style.pointerEvents = "auto";
-    const div = document.createElement('div');
 
     
     const interval = setInterval(() => {
