@@ -94,11 +94,11 @@ function iConfigure(type) {
             clearInterval(interval); // Stop the interval once the div is appended
             removeElements();
             // Create the div with id 'iConfigure' and apply styles
-            var h = document.createElement("h1")
-            h.innerHTML=`Welkom bij de Configurator van Firma Hout en Staal`
-            var p = document.createElement("p")
-            p.innerHTML = `Bij Firma Hout en Staal geloven we in de kracht van ambachtelijk vakwerk en persoonlijke smaak. Met onze configurator bieden we jou de vrijheid om jouw droom${type} te ontwerpen. Jij bepaalt het ontwerp, wij brengen het tot leven.<br>`
-
+            var h = document.createElement("h1");
+            h.innerHTML = `Welkom bij de Configurator van Firma Hout en Staal`;
+            var p = document.createElement("p");
+            p.innerHTML = `Bij Firma Hout en Staal geloven we in de kracht van ambachtelijk vakwerk en persoonlijke smaak. Met onze configurator bieden we jou de vrijheid om jouw droom${type} te ontwerpen. Jij bepaalt het ontwerp, wij brengen het tot leven.<br>`;
+            targetElement.style.padding = "10vw";
             var div = document.createElement("div");
             div.id = "iConfigure";
             div.style.position = "sticky";
@@ -110,7 +110,7 @@ function iConfigure(type) {
             targetElement.appendChild(p);
             targetElement.appendChild(div);
             console.log("Div appended successfully!");
-            
+
             var script = document.createElement("script");
             script.src = "https://web.iconfigure.nl/inject/inject.iife.js";
             script.crossOrigin = "anonymous";
