@@ -113,7 +113,7 @@ function iConfigure(type) {
     document.head.appendChild(script);
 }
 
-document.addEventListener("DOMContentLoaded", (event) => {
+
     if (
         window.location.pathname === "/tafels/configureer-jouw-tafel/" ||
         window.location.pathname === "/tafels/configureer-jouw-tafel"
@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     ) {
         iConfigure("deur");
     }
-});
+
 
 
 function sendDataToShop(event) {
