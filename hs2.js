@@ -94,11 +94,14 @@ function iConfigure(type) {
             clearInterval(interval); // Stop the interval once the div is appended
             removeElements();
             // Create the div with id 'iConfigure' and apply styles
+            var holder = document.createElement("div")
+            holder.style.padding='10vw'
             var h = document.createElement("h1");
             h.innerHTML = `Welkom bij de Configurator van Firma Hout en Staal`;
             var p = document.createElement("p");
             p.innerHTML = `Bij Firma Hout en Staal geloven we in de kracht van ambachtelijk vakwerk en persoonlijke smaak. Met onze configurator bieden we jou de vrijheid om jouw droom${type} te ontwerpen. Jij bepaalt het ontwerp, wij brengen het tot leven.<br>`;
-            targetElement.style.padding = "10vw";
+
+
             var div = document.createElement("div");
             div.id = "iConfigure";
             div.style.position = "sticky";
@@ -106,8 +109,9 @@ function iConfigure(type) {
             div.style.width = "100vw";
             div.style.zIndex = "10000";
             div.style.pointerEvents = "auto";
-            targetElement.appendChild(h);
-            targetElement.appendChild(p);
+            holder.appendChild(h);
+            holder.appendChild(p);
+            targetElement.appendChild(holder)
             targetElement.appendChild(div);
             console.log("Div appended successfully!");
 
