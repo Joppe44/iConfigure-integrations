@@ -100,11 +100,11 @@ function iConfigure(type) {
             holder.style.paddingTop='10vw'
             holder.style.paddingBottom='4vw'
             var h = document.createElement("h1");
-            h.innerHTML = `Welkom bij de Configurator van Firma Hout en Staal`;
+            h.innerHTML = `Welkom bij onze configurator`;
             var p = document.createElement("p");
-            p.innerHTML = `Bij Firma Hout en Staal geloven we in de kracht van ambachtelijk vakwerk en persoonlijke smaak. Met onze configurator bieden we jou de vrijheid om jouw droom${type} te ontwerpen. Jij bepaalt het ontwerp, wij brengen het tot leven.<br>`;
+            p.innerHTML = `Bij Firma Hout en Staal geloven we in de kracht van ambachtelijk vakwerk en persoonlijke smaak. Met onze configurator bieden we jou de vrijheid om jouw droom${type} te ontwerpen. Jij bepaalt het ontwerp, wij brengen het tot leven.<hr>`;
 
-            var br = document.createElement("br")
+
             var div = document.createElement("div");
             div.id = "iConfigure";
             div.style.position = "sticky";
@@ -114,7 +114,7 @@ function iConfigure(type) {
             div.style.pointerEvents = "auto";
             holder.appendChild(h);
             holder.appendChild(p);
-            holder.appendChild(br);
+
             targetElement.appendChild(holder)
             targetElement.appendChild(div);
             console.log("Div appended successfully!");
