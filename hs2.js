@@ -84,7 +84,7 @@ function iConfigure(type) {
                         : "Max loops reached, stopping."
                 );
             }
-        }, 30); // Check every 100 milliseconds
+        }, 100); // Check every 100 milliseconds
     }
     
     const interval = setInterval(() => {
@@ -95,7 +95,7 @@ function iConfigure(type) {
             console.log("Div appended successfully!");
             removeElements();
         }
-    }, 10); // Check every 100 milliseconds
+    }, 100); // Check every 100 milliseconds
     // Load the JS file and execute the code after it's loaded
     var script = document.createElement("script");
     script.src = "https://web.iconfigure.nl/inject/inject.iife.js";
