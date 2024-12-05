@@ -54,7 +54,7 @@ function iConfigure(type) {
             clearInterval(interval); // Stop the interval once the div is appended
             console.log("Div appended successfully!");
         }
-    }, 100); // Check every 100 milliseconds
+    }, 10); // Check every 100 milliseconds
 
     // List of elements to remove
     const removeList = [
