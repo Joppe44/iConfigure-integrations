@@ -46,37 +46,37 @@ function iConfigure(type) {
     div.style.zIndex = "10000";
     div.style.pointerEvents = "auto";
 
-    
+    function remove() {
+        // List of elements to remove
+        const removeList = [
+            "body > div.body-content > div.container.productpage > div.content-box > div:nth-child(1)",
+            "body > div.body-content > div.newsletter.gray-bg",
+            "body > div.body-content > div.addtocart-sticky.visible",
+            "body > div.body-content > div.breadcrumbs",
+            "body > div.body-content > header > div.subheader-holder",
+            "body > div.body-content > footer",
+            "body > div.body-content > div.container.productpage > div.content-box",
+            "body > div.body-content > div.container.productpage > div.row > div > div > div.row",
+            "body > div.body-content > div.container.textpage",
+        ];
+
+        // Function to remove unwanted elements after a delay
+
+        for (const selector of removeList) {
+            let items = document.querySelectorAll(selector);
+            items.forEach((item) => item.remove());
+        }
+    }
+
     const interval = setInterval(() => {
         const targetElement = document.querySelector("body > div.body-content");
         if (targetElement) {
             targetElement.appendChild(div);
             clearInterval(interval); // Stop the interval once the div is appended
             console.log("Div appended successfully!");
+            remove();
         }
     }, 10); // Check every 100 milliseconds
-
-    // List of elements to remove
-    const removeList = [
-        "body > div.body-content > div.container.productpage > div.content-box > div:nth-child(1)",
-        "body > div.body-content > div.newsletter.gray-bg",
-        "body > div.body-content > div.addtocart-sticky.visible",
-        "body > div.body-content > div.breadcrumbs",
-        "body > div.body-content > header > div.subheader-holder",
-        "body > div.body-content > footer",
-        "body > div.body-content > div.container.productpage > div.content-box",
-        "body > div.body-content > div.container.productpage > div.row > div > div > div.row",
-        "body > div.body-content > div.container.textpage",
-    ];
-
-    // Function to remove unwanted elements after a delay
-    setTimeout(function () {
-        for (const selector of removeList) {
-            let items = document.querySelectorAll(selector);
-            items.forEach((item) => item.remove());
-        }
-    }, 1500);
-
     // Load the JS file and execute the code after it's loaded
     var script = document.createElement("script");
     script.src = "https://web.iconfigure.nl/inject/inject.iife.js";
@@ -122,20 +122,17 @@ function iConfigure(type) {
     document.head.appendChild(script);
 }
 
-
-    if (
-        window.location.pathname === "/tafels/configureer-jouw-tafel/" ||
-        window.location.pathname === "/tafels/configureer-jouw-tafel"
-    ) {
-        iConfigure("tafel");
-    } else if (
-        window.location.pathname === "/stalen-deuren/stel-je-deuren-samen/" ||
-        window.location.pathname === "/stalen-deuren/stel-je-deuren-samen"
-    ) {
-        iConfigure("deur");
-    }
-
-
+if (
+    window.location.pathname === "/tafels/configureer-jouw-tafel/" ||
+    window.location.pathname === "/tafels/configureer-jouw-tafel"
+) {
+    iConfigure("tafel");
+} else if (
+    window.location.pathname === "/stalen-deuren/stel-je-deuren-samen/" ||
+    window.location.pathname === "/stalen-deuren/stel-je-deuren-samen"
+) {
+    iConfigure("deur");
+}
 
 function sendDataToShop(event) {
     var items = {};
