@@ -53,7 +53,7 @@ function iConfigure(type) {
     }
 
     const interval = setInterval(() => {
-        const targetElement = document.querySelector("body > div.main-content");
+        const targetElement = document.querySelector("div.main-content");
         if (targetElement) {
             clearInterval(interval); // Stop the interval once the div is appended
             removeElements();
