@@ -11,7 +11,7 @@ function iConfigure(type) {
     document.head.appendChild(link);
     window.parent.addEventListener("message", (event) => {
   
-        sendDataToShop(event);
+        // sendDataToShop(event);
     });
 
     function removeElements() {
