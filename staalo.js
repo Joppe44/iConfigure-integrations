@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         window.location.pathname === "/configurator-thuis-in-staal/"
     ) {
         let preConfig = {
-            product: "95ba6ceb-4779-4424-9104-59fbe594d5d8",
+            dealer: "dffd2dd4-f7d6-410e-8c89-efa688c94045",
             type: "type_taats",
             aantal_deuren: "1_deur",
             plaatsing_panelen: "geen",
