@@ -17,15 +17,9 @@ function iConfigure(type) {
     function removeElements() {
         // List of elements to remove
         const removeList = [
-            "body > div.body-content > div.container.productpage > div.content-box > div:nth-child(1)",
-            "body > div.body-content > div.newsletter.gray-bg",
-            "body > div.body-content > div.addtocart-sticky.visible",
-            "body > div.body-content > div.breadcrumbs",
-            "body > div.body-content > header > div.subheader-holder",
-            "body > div.body-content > footer",
-            "body > div.body-content > div.container.productpage > div.content-box",
-            "body > div.body-content > div.container.productpage > div.row > div > div > div.row",
-            "body > div.body-content > div.container.textpage",
+            "#productpage",
+            "#footer",
+
         ];
 
         let counter = 0; // Track the number of loops
