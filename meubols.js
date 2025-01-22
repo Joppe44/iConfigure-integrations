@@ -10,34 +10,7 @@ function iConfigure(type) {
     link.href = "https://web.iconfigure.nl/inject/style.css";
     document.head.appendChild(link);
     window.parent.addEventListener("message", (event) => {
-        if (event.data.name === "quotation") {
-            console.log(event.data);
-
-            var redirect = "";
-            if (event.data.productId === "d3849c93-3ccb-4438-ba7f-753f2f73a359") {
-                redirect =
-                    "https://www.firmahoutenstaal.nl/service/bedankt-voor-uw-offerte-aanvraag-deuren?client-val=" +
-                    event.data.total;
-                const url = new URL(window.location.href);
-                url.searchParams.set("aangevraagde-offerte", "deur");
-                window.history.pushState({}, "", url);
-            } else if (event.data.productId === "adff030a-42c7-44e0-958b-e0616b20a396") {
-                redirect =
-                    "https://www.firmahoutenstaal.nl/service/bedankt-voor-uw-offerte-aanvraag-tafels?client-val=" +
-                    event.data.total;
-                const url = new URL(window.location.href);
-                url.searchParams.set("aangevraagde-offerte", "tafel");
-                window.history.pushState({}, "", url);
-            }
-            const link = document.createElement("a");
-            link.href = redirect;
-            document.body.appendChild(link);
-            link.click();
-        }
-        // check if event has property called URLparameters
-        if (!event.data.hasOwnProperty("URLparameters")) {
-            return;
-        }
+  
         sendDataToShop(event);
     });
 
@@ -80,7 +53,7 @@ function iConfigure(type) {
     }
 
     const interval = setInterval(() => {
-        const targetElement = document.querySelector("body > div.body-content");
+        const targetElement = document.querySelector("body > div.main-content");
         if (targetElement) {
             clearInterval(interval); // Stop the interval once the div is appended
             removeElements();
@@ -93,7 +66,7 @@ function iConfigure(type) {
             var h = document.createElement("h1");
             h.innerHTML = `Welkom bij onze configurator`;
             var p = document.createElement("p");
-            p.innerHTML = `Bij Firma Hout en Staal geloven we in de kracht van ambachtelijk vakwerk en persoonlijke smaak. Met onze configurator bieden we jou de vrijheid om jouw droom${type} te ontwerpen. Jij bepaalt het ontwerp, wij brengen het tot leven.<hr>`;
+            p.innerHTML = ``;
 
             var div = document.createElement("div");
             div.id = "iConfigure";
