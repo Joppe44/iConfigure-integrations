@@ -1,7 +1,7 @@
 /** @format */
 if (window.location.pathname === "/configurator.html") {
     iConfigure();
-} 
+}
 
 function iConfigure() {
     var link = document.createElement("link");
@@ -107,7 +107,7 @@ async function sendDataToShop(event) {
     }
 
     // Base cart URL (adapt to your own store/product)
-    let baseURL = "https://www.meubols.nl/cart/add/309748268/"; 
+    let baseURL = "https://www.meubols.nl/cart/add/309748268/";
     // The quantity you’d like to add
     let quantity = 1;
 
@@ -128,7 +128,7 @@ async function sendDataToShop(event) {
         // Key in the final URL: custom[{found.value}]
         let paramKey = `custom[${found.value}]`;
 
-        // Decide what the param value is. 
+        // Decide what the param value is.
         // For single_selection, we likely use item.subID => found.values[subID].
         // For number_input, we use item.value => found.values[item.value], etc.
         let paramVal = "";
@@ -158,12 +158,12 @@ async function sendDataToShop(event) {
 
     // Optionally, POST to that URL (some shops just need a GET; depends on your platform)
     await fetch(url, { method: "POST" });
-    
+
     // Prevent default message handling if needed
     event.preventDefault();
 
     // Redirect user to the cart URL
-    window.location.href = "https://www.meubols.nl/cart/"
+    window.location.href = "https://www.meubols.nl/cart/";
 }
 
 var values = [
@@ -240,62 +240,62 @@ var values = [
         id: "frame",
         value: "8684776",
         values: {
-            Gat: "75127994",
-            Rockets: "75127995",
-            Mipps: "75127996",
-            Pilars: "75127997",
-            Pilar: "75127998",
-            Dio: "75127999",
-            Bridge: "75128000",
-            Curve: "75128001",
-            Ovalen: "75128002",
-            Pedestal: "75128003",
-            Rocket: "75128004",
-            Legs: "75128005",
-            Cheese: "75128006",
-            "Mipps Ribble": "75128007",
-            "4 ronde poten": "75128008",
-            anders: "75128009",
+            rechtepoot: "75127994",
+            kolomronddouble: "75127995",
+            mippszonder: "75127996",
+            kolompotendouble: "75127997",
+            kolompoten: "75127998",
+            dio: "75127999",
+            bananen: "75128000",
+            bananzonder: "75128001",
+            "4rondepoten": "75128002",
+            kolom_ovaal: "75128003",
+            kolom_rond: "75128004",
+            "3rondepoten": "75128005",
+            halfrondepoot: "75128006",
+            mippsribble: "75128007",
+            "4rondepotenrond2": "75128008",
+            anderepoot: "75128009",
         },
     },
     {
         id: "kleur_hout",
         value: "8684780",
         values: {
-            Hazelnut: "75128026",
-            Walnut: "75128027",
-            "Deep Black": "75128028",
-            "Black Smoke Intense": "75128029",
-            "Black Smoke Light": "75128030",
-            Pebblestone: "75128031",
+            hazelnut: "75128026",
+            walnut: "75128027",
+            deepblack: "75128028",
+            blacksmoke: "75128029",
+            blacksmokelight: "75128030",
+            pebblestone: "75128031",
             Winter: "75128032",
             Terracotta: "75128033",
-            "Silk White": "75128034",
-            "Ultra Matte Lak": "75128035",
+            silkwhite: "75128034",
+            ultramattelak: "75128035",
         },
     },
     {
         id: "bladafwerking",
         value: "8684788",
         values: {
-            Geborsteld: "75128047",
-            Glad: "75128048",
+            geborsteld: "75128047",
+            glad: "75128048",
         },
     },
     {
         id: "texturen",
         value: "8684794",
         values: {
-            Rustiek: "75128054",
-            Verfijnd: "75128055",
+            rustiek: "75128054",
+            verfijnd: "75128055",
         },
     },
     {
         id: "dikte",
         value: "8684797",
         values: {
-            "40mm": "75128070",
-            "30mm": "75128071",
+            40: "75128070",
+            30: "75128071",
         },
     },
     {
@@ -303,7 +303,7 @@ var values = [
         value: "8684798",
     },
     {
-        id: "opmerking",
+        id: "anders",
         value: "8684798",
     },
     {
