@@ -1,7 +1,7 @@
 /** @format */
 if (window.location.pathname === "/configurator.html") {
     iConfigure();
-}
+} 
 
 function iConfigure() {
     var link = document.createElement("link");
@@ -10,7 +10,7 @@ function iConfigure() {
     link.href = "https://web.iconfigure.nl/inject/style.css";
     document.head.appendChild(link);
     window.parent.addEventListener("message", (event) => {
-        // sendDataToShop(event);
+        sendDataToShop(event);
     });
 
     function removeElements() {
