@@ -163,7 +163,7 @@ async function sendDataToShop(event) {
     event.preventDefault();
 
     // Redirect user to the cart URL
-    window.location.href = url;
+    window.location.href = "https://www.meubols.nl/cart/"
 }
 
 var values = [
