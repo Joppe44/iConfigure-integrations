@@ -45,7 +45,7 @@ function iConfigure() {
         const targetElement = document.querySelector("div.main-content");
         if (targetElement) {
             clearInterval(interval); // Stop the interval once the div is appended
-            removeElements();
+            removeElements(); 
             // Create the div with id 'iConfigure' and apply styles
             var holder = document.createElement("div");
             holder.style.paddingLeft = "10vw";
