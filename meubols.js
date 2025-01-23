@@ -55,7 +55,7 @@ function iConfigure() {
             var h = document.createElement("h1");
             h.innerHTML = `Welkom bij onze configurator`;
             var p = document.createElement("p");
-            p.innerHTML = `Bij Meubols ontwerpen we eettafels die niet alleen functioneel zijn, maar ook een echte aanwinst voor je interieur. Of je nu op zoek bent naar een tafel die perfect past bij je woonkamer of je zakelijke ruimte, wij maken jouw ideeën werkelijkheid. Onze tafels worden volledig op maat gemaakt, met oog voor luxe, comfort en kwaliteit. Van de keuze voor de vorm en het materiaal tot de afwerking die jouw tafel uniek maakt – alles wordt afgestemd op jouw wensen. We werken uitsluitend op afspraak, zodat we alle aandacht hebben om samen jouw droomtafel te creëren. `;
+            p.innerHTML = `Bij Meubols ontwerpen we eettafels die niet alleen functioneel zijn, maar ook een echte aanwinst voor je interieur. Of je nu op zoek bent naar een tafel die perfect past bij je woonkamer of je zakelijke ruimte, wij maken jouw ideeën werkelijkheid. Onze tafels worden volledig op maat gemaakt, met oog voor luxe, comfort en kwaliteit.`;
 
             var div = document.createElement("div");
             div.id = "iConfigure";
