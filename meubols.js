@@ -13,9 +13,9 @@ function iConfigure() {
         sendDataToShop(event);
     });
 
-    function removeElements() {
+    function removeElements() { 
         // List of elements to remove
-        const removeList = ["#productpage", "#footer"];
+        const removeList = ["#productpage", "#footer", "#wappy-toggle-badge", "#CookiebotWidget", "._t53mel"];
 
         let counter = 0; // Track the number of loops
         const maxLoops = 10; // Maximum number of iterations
