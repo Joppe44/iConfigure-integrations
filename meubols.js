@@ -38,7 +38,7 @@ function iConfigure() {
                 clearInterval(interval); // Stop the interval if all elements are removed or max loops reached
                 console.log(allRemoved ? "All elements removed!" : "Max loops reached, stopping.");
             }
-        }, 100); // Check every 100 milliseconds
+        }, 200); // Check every 100 milliseconds
     }
 
     const interval = setInterval(() => {
