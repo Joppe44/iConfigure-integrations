@@ -185,6 +185,14 @@ var values = [
         value: "8684745",
     },
     {
+        id: "houtsoort",
+        value: "8684777",
+        values: {
+            eikenhout: "75128011",
+            notenhout: "75128010",
+        },
+    },
+    {
         id: "radius",
         value: "8684762",
         values: {
