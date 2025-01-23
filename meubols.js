@@ -10,17 +10,12 @@ function iConfigure() {
     link.href = "https://web.iconfigure.nl/inject/style.css";
     document.head.appendChild(link);
     window.parent.addEventListener("message", (event) => {
-  
         // sendDataToShop(event);
     });
 
     function removeElements() {
         // List of elements to remove
-        const removeList = [
-            "#productpage",
-            "#footer",
-
-        ];
+        const removeList = ["#productpage", "#footer"];
 
         let counter = 0; // Track the number of loops
         const maxLoops = 10; // Maximum number of iterations
@@ -104,66 +99,226 @@ function iConfigure() {
     }, 100); // Check every 100 milliseconds
     // Load the JS file and execute the code after it's loaded
 }
-
-function sendDataToShop(event) {
-    var items = {};
+async function sendDataToShop(event) {
+    // Gather items from the incoming message
+    var items = [];
     for (let key of Object.keys(event.data.items)) {
-        let item = event.data.items[key];
-        items[event.data.items[key].ID] = item;
+        items.push(event.data.items[key]);
     }
-    console.log(items);
 
-    var urls = [];
-    var topush = "";
-    for (let key of Object.keys(items)) {
-        let item = items[key];
-        if (item.type === "single_selection") {
-            topush = item.subID;
-        } else if (item.type === "multiple_selection") {
-            topush = item.subID[0];
+    // Base cart URL (adapt to your own store/product)
+    let baseURL = "https://www.meubols.nl/cart/add/309748268/"; 
+    // The quantity you’d like to add
+    let quantity = 1;
+
+    // Start building URL parameters
+    // bundle_id might be blank if you’re not using bundles
+    let queryParams = [];
+    queryParams.push("bundle_id=");
+
+    // Loop over each item from the configurator
+    items.forEach((item) => {
+        // Find the matching entry in our `values` array by ID
+        let found = values.find((val) => val.id === item.ID);
+        if (!found) {
+            // If no match in values array, you can decide to skip or handle differently
+            return;
+        }
+
+        // Key in the final URL: custom[{found.value}]
+        let paramKey = `custom[${found.value}]`;
+
+        // Decide what the param value is. 
+        // For single_selection, we likely use item.subID => found.values[subID].
+        // For number_input, we use item.value => found.values[item.value], etc.
+        let paramVal = "";
+        if (item.type === "single_selection" && found.values) {
+            // Look up the code by subID (like "rond_ovaal" => "75127821")
+            paramVal = found.values[item.subID] || "s";
+        } else if (item.type === "number_input" && found.values) {
+            // Convert the number to the matching code if it exists
+            paramVal = found.values[item.value] || item.value;
+        } else if (item.type === "text_input") {
+            // If it’s text-based, store the user-entered value
+            paramVal = encodeURIComponent(item.value || "");
         } else {
-            continue;
+            // Fallback
+            paramVal = "s";
         }
-        if (values[topush]) {
-            urls.push(`https://www.firmahoutenstaal.nl/cart/add/${values[topush]}/?bundle_id=&quantity=1`);
-        }
-    }
-    // MATEN
-    if (items.vorm.subID === "blob") {
-        urls.push(
-            `https://www.firmahoutenstaal.nl/cart/add/${
-                values["pebble" + items.afmeting_pebble.value]
-            }/?bundle_id=&quantity=1`
-        );
-    } else if (items.vorm.subID === "rond") {
-        urls.push(
-            `https://www.firmahoutenstaal.nl/cart/add/${values["rond" + items.radius.value]}/?bundle_id=&quantity=1`
-        );
-    } else {
-        let val = values2["tafelblad" + items.lengte.value + "x" + items.breedte.value];
-        urls.push(
-            `https://www.firmahoutenstaal.nl/cart/add/${val.ID}/?bundle_id=&custom%5B${val.fieldID}%5D=${
-                val.vorm[items.vorm.subID]
-            }&quantity=1`
-        );
-    }
+
+        // Push the custom param into array
+        queryParams.push(`${paramKey}=${paramVal}`);
+    });
+
+    // Finally push quantity param
+    queryParams.push(`quantity=${quantity}`);
+
+    // Construct final URL
+    let url = baseURL + "?" + queryParams.join("&");
+
+    // Optionally, POST to that URL (some shops just need a GET; depends on your platform)
+    await fetch(url, { method: "POST" });
+    
+    // Prevent default message handling if needed
     event.preventDefault();
-    console.log(urls);
-    triggerPostRequests(urls);
+
+    // Redirect user to the cart URL
+    window.location.href = url;
 }
-async function triggerPostRequests(urls) {
-    for (let url of urls) {
-        await postData(url).then((data) => {
-            if (url === urls[urls.length - 1]) {
-                window.location.href = "https://www.firmahoutenstaal.nl/cart";
-            }
-        });
-    }
-}
-async function postData(url) {
-    try {
-        const response = await fetch(url, { method: "POST" });
-    } catch (error) {
-        console.log(error);
-    }
-}
+
+var values = [
+    {
+        id: "vorm",
+        value: "8684737",
+        values: {
+            leaf: "75127817",
+            deens: "75127818",
+            ovaal: "75127819",
+            diana: "75127820",
+            rond_ovaal: "75127821",
+            rond: "75127822",
+            anders: "75127823",
+        },
+    },
+    {
+        id: "anderevorm",
+        value: "8684745",
+    },
+    {
+        id: "radius",
+        value: "8684762",
+        values: {
+            100: "75127883",
+            110: "75127884",
+            120: "75127885",
+            130: "75127886",
+            140: "75127887",
+            150: "75127888",
+            160: "75127889",
+        },
+    },
+    {
+        id: "lengte",
+        value: "8684765",
+        values: {
+            160: "75127926",
+            170: "75127927",
+            180: "75127928",
+            190: "75127929",
+            200: "75127930",
+            210: "75127931",
+            220: "75127932",
+            230: "75127933",
+            240: "75127934",
+            250: "75127935",
+            260: "75127936",
+            270: "75127937",
+            280: "75127938",
+            290: "75127939",
+            300: "75127940",
+            310: "75127941",
+            320: "75127942",
+            330: "75127943",
+            340: "75127944",
+            350: "75127945",
+            360: "75127946",
+        },
+    },
+    {
+        id: "breedte",
+        value: "8684766",
+        values: {
+            100: "75127947",
+            110: "75127948",
+            120: "75127949",
+            130: "75127950",
+            140: "75127951",
+            150: "75127952",
+        },
+    },
+    {
+        id: "frame",
+        value: "8684776",
+        values: {
+            Gat: "75127994",
+            Rockets: "75127995",
+            Mipps: "75127996",
+            Pilars: "75127997",
+            Pilar: "75127998",
+            Dio: "75127999",
+            Bridge: "75128000",
+            Curve: "75128001",
+            Ovalen: "75128002",
+            Pedestal: "75128003",
+            Rocket: "75128004",
+            Legs: "75128005",
+            Cheese: "75128006",
+            "Mipps Ribble": "75128007",
+            "4 ronde poten": "75128008",
+            anders: "75128009",
+        },
+    },
+    {
+        id: "kleur_hout",
+        value: "8684780",
+        values: {
+            Hazelnut: "75128026",
+            Walnut: "75128027",
+            "Deep Black": "75128028",
+            "Black Smoke Intense": "75128029",
+            "Black Smoke Light": "75128030",
+            Pebblestone: "75128031",
+            Winter: "75128032",
+            Terracotta: "75128033",
+            "Silk White": "75128034",
+            "Ultra Matte Lak": "75128035",
+        },
+    },
+    {
+        id: "bladafwerking",
+        value: "8684788",
+        values: {
+            Geborsteld: "75128047",
+            Glad: "75128048",
+        },
+    },
+    {
+        id: "texturen",
+        value: "8684794",
+        values: {
+            Rustiek: "75128054",
+            Verfijnd: "75128055",
+        },
+    },
+    {
+        id: "dikte",
+        value: "8684797",
+        values: {
+            "40mm": "75128070",
+            "30mm": "75128071",
+        },
+    },
+    {
+        id: "anderframe",
+        value: "8684798",
+    },
+    {
+        id: "opmerking",
+        value: "8684798",
+    },
+    {
+        id: "rand",
+
+        value: "8684786",
+        values: {
+            rarecht: "75128042",
+            rarecht45: "75128043",
+            rarond45: "75128044",
+            rarond: "75128045",
+        },
+    },
+    {
+        id: "anderemaat",
+        value: "8685769",
+    },
+];
