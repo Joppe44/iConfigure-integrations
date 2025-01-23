@@ -1,6 +1,6 @@
 /** @format */
 if (window.location.pathname === "/configurator.html") {
-    // iConfigure();
+    iConfigure();
 }
 
 function iConfigure() {
