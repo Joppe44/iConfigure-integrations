@@ -16,24 +16,18 @@ function iConfigure() {
     function removeElements() { 
         // List of elements to remove
         const removeList = ["#productpage", "#footer", "#wappy-toggle-badge", "#CookiebotWidget", "._t53mel"];
-
         let counter = 0; // Track the number of loops
         const maxLoops = 10; // Maximum number of iterations
-
         const interval = setInterval(() => {
             let allRemoved = true; // Flag to track if all elements are removed
-
             for (const selector of removeList) {
                 const items = document.querySelectorAll(selector);
-
                 if (items.length > 0) {
                     allRemoved = false; // If any element is still present, set flag to false
                     items.forEach((item) => item.remove());
                 }
             }
-
             counter++; // Increment the counter
-
             if (allRemoved || counter >= maxLoops) {
                 clearInterval(interval); // Stop the interval if all elements are removed or max loops reached
                 console.log(allRemoved ? "All elements removed!" : "Max loops reached, stopping.");
