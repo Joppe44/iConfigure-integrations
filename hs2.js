@@ -11,7 +11,7 @@ if (
 ) {
     iConfigure("deur");
 }
-
+var hasTriggered = false;
 function iConfigure(type) {
     var link = document.createElement("link");
     link.rel = "stylesheet";
@@ -47,7 +47,11 @@ function iConfigure(type) {
         if (!event.data.hasOwnProperty("URLparameters")) {
             return;
         }
+        if(hasTriggered) {
+            return;
+        }
         sendDataToShop(event);
+        hasTriggered = true;
     });
 
     function removeElements() {
