@@ -220,7 +220,7 @@ async function triggerPostRequests(urls) {
     for (let url of urls) {
         await postData(url).then((data) => {
             if (url === urls[urls.length - 1]) {
-                // window.location.href = "https://www.firmahoutenstaal.nl/cart";
+                window.location.href = "https://www.firmahoutenstaal.nl/cart";
             }
         });
     }
