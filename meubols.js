@@ -17,7 +17,7 @@ function buttonCheck() {
             button.classList.add("btn");
             button.classList.add("cart-btn");
             button.classList.add("add-cart");
-            parent.appendChild(button);
+            parent.prepend(button);
             button.addEventListener("click", () => {
                 window.location.href = ahref.href;
             });
