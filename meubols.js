@@ -4,7 +4,7 @@ if (window.location.pathname === "/configurator.html") {
 } else {
     buttonCheck();
 }
-
+var interval = 0;
 function buttonCheck() {
     setTimeout(() => {
         const ahref = document.querySelector('[title="iconfigure"]');
@@ -24,8 +24,13 @@ function buttonCheck() {
             ahref.classList.add("btn");
             const parent = document.querySelector("#product_configure_form > div.cart");
             parent.prepend(ahref);
+        } else {
+            interval++;
+            if (interval < 10) {
+                buttonCheck();
+            }
         }
-    }, 1000);
+    }, 200);
 }
 
 function iConfigure() {
