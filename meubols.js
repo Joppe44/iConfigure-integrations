@@ -9,10 +9,10 @@ function buttonCheck() {
     setTimeout(() => {
         const ahref = document.querySelector('[title="iconfigure"]')
         if (ahref) {
-            const parent = document.querySelector("add-wish").parentElement;
+            const parent = document.querySelector("#product_configure_form > div.cart").parentElement;
             console.log(parent);
             const button = document.createElement("button");
-            button.innerHTML = "Configureer";
+            button.innerHTML = ahref.innerHTML;
             button.style.backgroundColor = "#000000";
             button.classList.add("btn");
             button.classList.add("cart-btn");
