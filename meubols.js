@@ -7,18 +7,16 @@ if (window.location.pathname === "/configurator.html") {
 
 function buttonCheck() {
     setTimeout(() => {
-        const ahref = document.querySelector('[title="iconfigure"]')
+        const ahref = document.querySelector('[title="iconfigure"]');
         if (ahref) {
-            const parent = document.querySelector("#product_configure_form > div.cart");
             console.log(parent);
-            const button = document.createElement("button");
-            button.innerHTML = ahref.innerHTML;
-            button.style.backgroundColor = "#000000";
-            button.classList.add("btn");
-            parent.prepend(button);
-            button.addEventListener("click", () => {
-                ahref.click();
-            });
+            ahref.innerHTML = ahref.innerHTML;
+            ahref.style.backgroundColor = "#000000";
+            ahref.classList.add("btn");
+            const parent = document.querySelector("#product_configure_form > div.cart");
+
+            parent.prepend(ahref);
+
             ahref.style.opacity = 0;
         }
     }, 1000);
