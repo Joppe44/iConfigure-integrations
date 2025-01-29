@@ -14,7 +14,7 @@ function buttonCheck() {
             ahref.classList.add("btn");
             const parent = document.querySelector("#product_configure_form > div.cart");
             parent.prepend(ahref);
-            ahref.style.opacity = 0;
+
         } 
     }, 1000);
 }
