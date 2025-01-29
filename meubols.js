@@ -15,13 +15,11 @@ function buttonCheck() {
             button.innerHTML = ahref.innerHTML;
             button.style.backgroundColor = "#000000";
             button.classList.add("btn");
-            button.classList.add("cart-btn");
-            button.classList.add("add-cart");
             parent.prepend(button);
             button.addEventListener("click", () => {
                 ahref.click();
             });
-            ahref.style.display = "none";
+            ahref.style.opacity = 0;
         }
     }, 1000);
 }
