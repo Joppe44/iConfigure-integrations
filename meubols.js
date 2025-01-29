@@ -19,7 +19,7 @@ function buttonCheck() {
             button.classList.add("add-cart");
             parent.prepend(button);
             button.addEventListener("click", () => {
-                window.location.href = ahref.href;
+                ahref.click();
             });
             ahref.style.display = "none";
         }
