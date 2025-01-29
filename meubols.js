@@ -9,14 +9,11 @@ function buttonCheck() {
     setTimeout(() => {
         const ahref = document.querySelector('[title="iconfigure"]');
         if (ahref) {
-
-            ahref.innerHTML = ahref.innerHTML;
+            ahref.innerHTML = ahref.innerHTML + "#iConfigure";
             ahref.style.backgroundColor = "#000000";
             ahref.classList.add("btn");
             const parent = document.querySelector("#product_configure_form > div.cart");
-
             parent.prepend(ahref);
-
             ahref.style.opacity = 0;
         }
     }, 1000);
