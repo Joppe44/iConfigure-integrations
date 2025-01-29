@@ -29,8 +29,9 @@ window.addEventListener("message", function (event) {
         window.location.href = iframeThanksPageUrl;
     }
 });
-// utm_source=facebook&utm_medium=cpc&utm_campaign={{campaign.name}}&utm_content={{ad.name}}&utm_term={{adset.name}}
-// fbclid=IwY2xjawHzRMhleHRuA2FlbQIxMAABHQ7EuVdmsl3uVH3Djjy-hVQPMUZ5_cc8i0ru8tIVIIsDLq2B0fDi7UmDXQ_aem_a5fBT4Setf1u2sYHqMZCsg
+// ?utm_source=ic_test_utm_source&utm_medium=ic_test_utm_medium&utm_campaign=ic_test_utm_campaign&utm_content=ic_test_utm_content&utm_term=ic_test_utm_term&fbclid=ic_test_fbclid
+
+
 const utm_source = window.location.search.includes("utm_source") ? window.location.search.split("utm_source=")[1].split("&")[0] : "null";
 const utm_medium = window.location.search.includes("utm_medium") ? window.location.search.split("utm_medium=")[1].split("&")[0] : "null";
 const utm_campaign = window.location.search.includes("utm_campaign") ? window.location.search.split("utm_campaign=")[1].split("&")[0] : "null";

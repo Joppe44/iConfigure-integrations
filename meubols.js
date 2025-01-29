@@ -74,8 +74,8 @@ function iConfigure() {
             var holder = document.createElement("div");
             holder.style.paddingLeft = "10vw";
             holder.style.paddingRight = "10vw";
-            holder.style.paddingTop = "10vw";
-            holder.style.paddingBottom = "4vw";
+            holder.style.paddingTop = "6vw";
+            holder.style.paddingBottom = "6vw";
             var h = document.createElement("h1");
             h.innerHTML = `Welkom bij onze configurator`;
             var p = document.createElement("p");
