@@ -1,6 +1,29 @@
 /** @format */
 if (window.location.pathname === "/configurator.html") {
     iConfigure();
+} else {
+    buttonCheck();
+}
+
+function buttonCheck() {
+    setTimeout(() => {
+        const ahref = document.getElementById("iconfigure-link");
+        if (ahref) {
+            const parent = document.querySelector("add-wish").parentElement;
+            console.log(parent);
+            const button = document.createElement("button");
+            button.innerHTML = "Configureer";
+            button.style.backgroundColor = "#000000";
+            button.classList.add("btn");
+            button.classList.add("cart-btn");
+            button.classList.add("add-cart ");
+            parent.appendChild(button);
+            button.addEventListener("click", () => {
+                window.location.href = ahref.href;
+            });
+            ahref.style.display = "none";
+        }
+    }, 1000);
 }
 
 function iConfigure() {
@@ -13,7 +36,7 @@ function iConfigure() {
         sendDataToShop(event);
     });
 
-    function removeElements() { 
+    function removeElements() {
         // List of elements to remove
         const removeList = ["#productpage", "#footer", "#wappy-toggle-badge", "#CookiebotWidget", "._t53mel"];
         let counter = 0; // Track the number of loops
@@ -39,7 +62,7 @@ function iConfigure() {
         const targetElement = document.querySelector("div.main-content");
         if (targetElement) {
             clearInterval(interval); // Stop the interval once the div is appended
-            removeElements(); 
+            removeElements();
             // Create the div with id 'iConfigure' and apply styles
             var holder = document.createElement("div");
             holder.style.paddingLeft = "10vw";
