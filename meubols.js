@@ -9,7 +9,8 @@ function buttonCheck() {
     setTimeout(() => {
         const ahref = document.querySelector('[title="iconfigure"]');
         if (ahref) {
-            ahref.innerHTML = ahref.innerHTML.replace('https://web.iconfigure.nl/','https://meubols.nl/configurator.html') + "#iConfigure";
+            ahref.innerHTML = ahref.innerHTML
+            ahref.href = ahref.href.replace('https://web.iconfigure.nl/','https://meubols.nl/configurator.html') + "#iConfigure";
             ahref.style.backgroundColor = "#000000";
             ahref.classList.add("btn");
             const parent = document.querySelector("#product_configure_form > div.cart");
