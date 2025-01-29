@@ -15,10 +15,10 @@ function buttonCheck() {
             const parent = document.querySelector("#product_configure_form > div.cart");
             parent.prepend(ahref);
             ahref.style.opacity = 0;
-        }
+        } 
     }, 1000);
 }
-
+ 
 function iConfigure() {
     var link = document.createElement("link");
     link.rel = "stylesheet";
