@@ -9,7 +9,7 @@ function buttonCheck() {
     setTimeout(() => {
         const ahref = document.querySelector('[title="iconfigure"]');
         if (ahref) {
-            console.log(parent);
+
             ahref.innerHTML = ahref.innerHTML;
             ahref.style.backgroundColor = "#000000";
             ahref.classList.add("btn");
