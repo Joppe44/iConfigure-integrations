@@ -9,7 +9,7 @@ function buttonCheck() {
     setTimeout(() => {
         const ahref = document.querySelector('[title="iconfigure"]')
         if (ahref) {
-            const parent = document.querySelector("#product_configure_form > div.cart").parentElement;
+            const parent = document.querySelector("#product_configure_form > div.cart");
             console.log(parent);
             const button = document.createElement("button");
             button.innerHTML = ahref.innerHTML;
