@@ -7,7 +7,7 @@ if (window.location.pathname === "/configurator.html") {
 
 function buttonCheck() {
     setTimeout(() => {
-        const ahref = document.getElementById("iconfigure-link");
+        const ahref = document.querySelector('[title="iconfigure"]')
         if (ahref) {
             const parent = document.querySelector("add-wish").parentElement;
             console.log(parent);
