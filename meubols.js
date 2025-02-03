@@ -128,7 +128,7 @@ function iConfigure() {
                 active_step: "2",
             };
             if (getUrlParams().product === "9419b772-2606-4378-8f8f-4bd1c65cef5c") {
-                preConfig.product = getUrlParams();
+                preConfig = getUrlParams();
                 // make sure "product" is the first key
                 let keys = Object.keys(preConfig);
                 let productIndex = keys.indexOf("product");
@@ -141,7 +141,7 @@ function iConfigure() {
                     });
                     preConfig = newPreConfig;
                 }
-                
+
 
             }
 
