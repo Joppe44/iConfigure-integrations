@@ -360,6 +360,8 @@ var values = [
             rarecht45: "75128043",
             rarond45: "75128044",
             rarond: "75128045",
+            rarond: "75128045",
+            anders:"75234739"
         },
     },
     {
