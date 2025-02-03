@@ -3,8 +3,9 @@
 document.addEventListener("DOMContentLoaded", function () {
     const header = document.querySelector("#header > div.topbar > div > div > ul.topbar-links.ul-reset");
     header.firstElementChild.remove();
-
+    header.style.justifyContent = "end";  
     const clone = document.createElement("li");
+    clone.style.backgroundColor = "#589fd8";
     clone.innerHTML = `<a href="https://www.meubols.nl/configurator.html" title="configure" class="offer-link">Configureer tafel</a>`;
 
     clone.removeAttribute("data-fancybox");
