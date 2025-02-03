@@ -125,7 +125,7 @@ function iConfigure() {
                 dikte: "30",
                 active_step: "2",
             };
-            if (getUrlParams().product) {
+            if (getUrlParams().product === "9419b772-2606-4378-8f8f-4bd1c65cef5c") {
                 preConfig.product = getUrlParams();
             }
             script.onload = function () {
@@ -147,7 +147,7 @@ function getUrlParams() {
         paramObj[key] = value;
     }
     console.log(paramObj);
-    
+
     return paramObj;
 }
 
