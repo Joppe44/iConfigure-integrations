@@ -53,7 +53,7 @@ function iConfigure() {
     link.href = "https://web.iconfigure.nl/inject/style.css";
     document.head.appendChild(link);
     window.parent.addEventListener("message", (event) => {
-        if (event.data.name === "webshop") {
+        if (event.data.hasOwnProperty("URLparameters")) {
             sendDataToShop(event);
         }
     });
@@ -141,8 +141,6 @@ function iConfigure() {
                     });
                     preConfig = newPreConfig;
                 }
-
-
             }
 
             script.onload = function () {
