@@ -129,7 +129,22 @@ function iConfigure() {
             };
             if (getUrlParams().product === "9419b772-2606-4378-8f8f-4bd1c65cef5c") {
                 preConfig.product = getUrlParams();
+                // make sure "product" is the first key
+                let keys = Object.keys(preConfig);
+                let productIndex = keys.indexOf("product");
+                if (productIndex > 0) {
+                    keys.splice(productIndex, 1);
+                    keys.unshift("product");
+                    let newPreConfig = {};
+                    keys.forEach((key) => {
+                        newPreConfig[key] = preConfig[key];
+                    });
+                    preConfig = newPreConfig;
+                }
+                
+
             }
+
             script.onload = function () {
                 // Your configuration object
 
