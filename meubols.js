@@ -3,7 +3,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const header = document.querySelector("#header > div.topbar > div > div > ul.topbar-links.ul-reset");
     header.firstElementChild.remove();
-    header.style.justifyContent = "end";  
+    header.style.justifyContent = "end";
     const clone = document.createElement("li");
     // clone.style.backgroundColor = "#589fd8";
     clone.innerHTML = `<a style="background-color:#589fd8" href="https://www.meubols.nl/configurator.html" title="configure" class="offer-link">Configureer tafel</a>`;
@@ -111,23 +111,25 @@ function iConfigure() {
             var script = document.createElement("script");
             script.src = "https://web.iconfigure.nl/inject/inject.iife.js";
             script.crossOrigin = "anonymous";
+            let preConfig = {
+                product: "9419b772-2606-4378-8f8f-4bd1c65cef5c",
+                vorm: "rond_ovaal",
+                lengte: "160",
+                breedte: "100",
+                frame: "bananzonder",
+                houtsoort: "eikenhout",
+                kleur_hout: "blacksmokelight",
+                rand: "rarecht",
+                bladafwerking: "glad",
+                texturen: "verfijnd",
+                dikte: "30",
+                active_step: "2",
+            };
+            if (getUrlParams().product) {
+                preConfig.product = getUrlParams();
+            }
             script.onload = function () {
                 // Your configuration object
-
-                let preConfig = {
-                    product: "9419b772-2606-4378-8f8f-4bd1c65cef5c",
-                    vorm: "rond_ovaal",
-                    lengte: "160",
-                    breedte: "100",
-                    frame: "bananzonder",
-                    houtsoort: "eikenhout",
-                    kleur_hout: "blacksmokelight",
-                    rand: "rarecht",
-                    bladafwerking: "glad",
-                    texturen: "verfijnd",
-                    dikte: "30",
-                    active_step: "2",
-                };
 
                 injectApp(preConfig);
             };
@@ -136,6 +138,17 @@ function iConfigure() {
     }, 100); // Check every 100 milliseconds
     // Load the JS file and execute the code after it's loaded
 }
+function getUrlParams() {
+    let params = new URLSearchParams(window.location.search);
+    let paramObj = {};
+
+    for (let [key, value] of params.entries()) {
+        paramObj[key] = value;
+    }
+
+    return paramObj;
+}
+
 async function sendDataToShop(event) {
     // Gather items from the incoming message
     var items = [];
@@ -361,7 +374,7 @@ var values = [
             rarond45: "75128044",
             rarond: "75128045",
             rarond: "75128045",
-            anders:"75234739"
+            anders: "75234739",
         },
     },
     {
