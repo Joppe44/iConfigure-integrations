@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const clone = header.firstElementChild.cloneNode(true);
     clone.firstElementChild.href = "https://www.meubols.nl/configurator.html";
     clone.firstElementChild.innerHTML = "Configureer tafel";
+    clone.removeAttribute("data-fancybox");
     header.appendChild(clone);
 
 });
