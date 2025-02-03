@@ -53,7 +53,9 @@ function iConfigure() {
     link.href = "https://web.iconfigure.nl/inject/style.css";
     document.head.appendChild(link);
     window.parent.addEventListener("message", (event) => {
-        sendDataToShop(event);
+        if (event.data.name === "webshop") {
+            sendDataToShop(event);
+        }
     });
 
     function removeElements() {
@@ -139,7 +141,6 @@ function iConfigure() {
     // Load the JS file and execute the code after it's loaded
 }
 function getUrlParams() {
-
     let params = new URLSearchParams(window.location.search);
     let paramObj = {};
     console.log(params);
