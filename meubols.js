@@ -139,13 +139,15 @@ function iConfigure() {
     // Load the JS file and execute the code after it's loaded
 }
 function getUrlParams() {
+
     let params = new URLSearchParams(window.location.search);
     let paramObj = {};
-
+    console.log(params);
     for (let [key, value] of params.entries()) {
         paramObj[key] = value;
     }
-
+    console.log(paramObj);
+    
     return paramObj;
 }
 
