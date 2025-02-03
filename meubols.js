@@ -1,4 +1,16 @@
 /** @format */
+
+document.addEventListener("DOMContentLoaded", function () {
+    const header = document.querySelector("#header > div.topbar > div > div > ul.topbar-links.ul-reset");
+    header.firstElementChild.remove();
+
+    const clone = header.firstElementChild.cloneNode(true);
+    clone.firstElementChild.href = "https://www.meubols.nl/configurator.html";
+    clone.firstElementChild.innerHTML = "Configureer tafel";
+    header.appendChild(clone);
+
+});
+
 if (window.location.pathname === "/configurator.html") {
     iConfigure();
 } else {
