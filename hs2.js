@@ -1,4 +1,4 @@
-/** @format */
+
 if (
     window.location.pathname === "/tafels/configureer-jouw-tafel/" ||
     window.location.pathname === "/tafels/configureer-jouw-tafel" ||

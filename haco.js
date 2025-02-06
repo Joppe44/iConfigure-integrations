@@ -1,50 +1,38 @@
-// /** @format */
 
-// setTimeout(function () {
-//     const footerSticky = document.querySelector("#block-footersticky");
-//     if (footerSticky) {
-//         footerSticky.remove();
-//     }
-//     const footer = document.querySelector("footer");
-//     if (footer) {
-//         footer.remove();
-//     }
-// }, 50);
-// let cnt = 0;
-// const mxAttempts = 10;
-// const iid = setInterval(function () {
-//     const round = document.getElementById("CookiebotWidget");
-//     if (round) {
-//         round.remove();
-//         clearInterval(iid); // Stop interval once the element is removed
-//     }
-//     cnt++;
-//     if (cnt === mxAttempts) {
-//         clearInterval(iid); // Stop interval after 10 attempts
-//     }
-// }, 1000);
-window.addEventListener("message", function (event) {
-    const iframeThanksPageUrl = "";
-   
-});
+var link = document.createElement("link");
+link.rel = "stylesheet";
+link.media = "all";
+link.href = "https://web.iconfigure.nl/inject/style.css";
+document.head.appendChild(link);
 
-let preConfig = {
-    product: "57aba837-0435-44a1-b6e5-cbda74b010ca",
-    grootte: "2p",
-    lengte: "210",
-    breedte: "180",
-    type_box: "type_geveerd",
-    dikte_box: "dikte_box_20",
-    poten: "zwart_l_hout",
-    type_matras: "medium_comfort",
-    dikte_matras: "dikte_matras_20",
-    aantal_matrassen: "2_matrassen",
-    topmatras: "topmatras_geen",
-    stoftype: "leatherlook",
-    stofgroep: "dicsover_me",
-    stof: "dicsover_me_09",
-    hoofdbord: "hoofdbord_stresa",
-    voetenbord: "voetenbord_geen",
-    active_step: "3",
+// window.addEventListener("message", function (event) {
+//     const iframeThanksPageUrl = "";
+// });
+var script = document.createElement("script");
+script.src = "https://web.iconfigure.nl/inject/inject.iife.js";
+script.crossOrigin = "anonymous";
+script.onload = function () {
+    let preConfig = {
+        product: "a14f99fd-1daf-4542-b37d-3b11051d1470",
+        grootte: "2p",
+        lengte: "210",
+        breedte: "180",
+        type_box: "type_geveerd",
+        dikte_box: "dikte_box_20",
+        poten: "zwart_l_hout",
+        type_matras: "medium_comfort",
+        dikte_matras: "dikte_matras_20",
+        aantal_matrassen: "2_matrassen",
+        topmatras: "topmatras_geen",
+        stoftype: "leatherlook",
+        stofgroep: "dicsover_me",
+        stof: "dicsover_me_09",
+        hoofdbord: "hoofdbord_stresa",
+        voetenbord: "voetenbord_geen",
+        active_step: "3",
+    };
+
+    injectApp(preConfig);
 };
-injectApp(preConfig);
+document.head.appendChild(script);
+
