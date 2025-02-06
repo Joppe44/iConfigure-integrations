@@ -1,5 +1,6 @@
+/** @format */
 
-console.log()
+console.log();
 
 var link = document.createElement("link");
 link.rel = "stylesheet";
@@ -35,6 +36,9 @@ script.onload = function () {
     };
     injectApp(preConfig);
 };
+window.addEventListener("DOMContentLoaded", function () {
+    document.querySelector("footer").remove();
+});
 document.head.appendChild(script);
 // create a css style to set all label margins to 0
 var style = document.createElement("style");
@@ -42,5 +46,8 @@ style.innerHTML = `
    label {
     margin: 0;
     }
+    #iConfigure{
+        margin-bottom:-80vh;
+    }
 `;
-document.head.appendChild(style); 
+document.head.appendChild(style);
