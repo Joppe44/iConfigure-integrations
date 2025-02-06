@@ -1,4 +1,6 @@
 
+console.log()
+
 var link = document.createElement("link");
 link.rel = "stylesheet";
 link.media = "all";
@@ -23,16 +25,22 @@ script.onload = function () {
         type_matras: "medium_comfort",
         dikte_matras: "dikte_matras_20",
         aantal_matrassen: "2_matrassen",
-        topmatras: "topmatras_geen",
         stoftype: "leatherlook",
+        topmatras: "topmatras_geen",
         stofgroep: "dicsover_me",
         stof: "dicsover_me_09",
         hoofdbord: "hoofdbord_stresa",
         voetenbord: "voetenbord_geen",
         active_step: "3",
     };
-
     injectApp(preConfig);
 };
 document.head.appendChild(script);
-
+// create a css style to set all label margins to 0
+var style = document.createElement("style");
+style.innerHTML = `
+   label {
+    margin: 0;
+    }
+`;
+document.head.appendChild(style); 
