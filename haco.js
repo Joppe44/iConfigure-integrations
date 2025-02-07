@@ -53,6 +53,15 @@ style.innerHTML = `
    label {
     margin: 0;
     }
-    
+    input[type="radio"], input[type="checkbox"] {
+        min-width: 0px !important;
+        min-height: 0px !important;
+        padding: 0 !important;
+        margin-top: 0 !important;
+    }
+   .icon:not(:has(img))::before {
+        display: inline !important;
+   }
+        
 `;
 document.head.appendChild(style);
