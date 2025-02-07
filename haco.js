@@ -1,7 +1,13 @@
 /** @format */
 
 console.log();
-
+var div = document.getElementById("iConfigure");
+div.id = "iConfigure";
+div.style.position = "sticky";
+div.style.height = "calc(100dvh)";
+div.style.width = "100vw";
+div.style.zIndex = "1023";
+div.style.pointerEvents = "auto";
 var link = document.createElement("link");
 link.rel = "stylesheet";
 link.media = "all";
@@ -48,6 +54,7 @@ style.innerHTML = `
     }
     #iConfigure{
         margin-bottom:-80vh;
+
     }
 `;
 document.head.appendChild(style);
