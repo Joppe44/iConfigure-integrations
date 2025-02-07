@@ -8,6 +8,7 @@ div.style.height = "calc(100dvh)";
 div.style.width = "100vw";
 div.style.zIndex = "1023";
 div.style.pointerEvents = "auto";
+div.style.top = "0";
 var link = document.createElement("link");
 link.rel = "stylesheet";
 link.media = "all";
