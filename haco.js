@@ -1,6 +1,6 @@
 /** @format */
 
-console.log();
+document.getElementById("maincontent").style.paddingBottom = "0px";
 var div = document.getElementById("iConfigure");
 div.id = "iConfigure";
 div.style.position = "sticky";
