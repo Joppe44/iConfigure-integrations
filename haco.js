@@ -60,7 +60,7 @@ style.innerHTML = `
         margin-top: 0 !important;
     }
    .icon:not(:has(img))::before {
-        display: inline !important;
+        display: none !important;
    }
         
 `;
