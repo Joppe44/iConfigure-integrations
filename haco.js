@@ -52,9 +52,6 @@ style.innerHTML = `
    label {
     margin: 0;
     }
-    #iConfigure{
-        margin-bottom:-80vh;
-
-    }
+    
 `;
 document.head.appendChild(style);
