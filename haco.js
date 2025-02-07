@@ -60,7 +60,7 @@ style.innerHTML = `
         margin-top: 0 !important;
     }
         input[type="text"], input[type="number"] {
-height: 22.5px !important;
+height: 35.75px !important;
         }
    .icon:not(:has(img))::before {
         display: none !important;
