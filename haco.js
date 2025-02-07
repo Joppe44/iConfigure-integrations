@@ -60,11 +60,13 @@ style.innerHTML = `
         margin-top: 0 !important;
     }
         input[type="text"], input[type="number"] {
-height: 35.75px !important;
+max-height: 35.75px !important;
         }
    .icon:not(:has(img))::before {
         display: none !important;
    }
-        
+        h6 {
+            text-align: start;
+            }
 `;
 document.head.appendChild(style);
