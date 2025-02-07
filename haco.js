@@ -59,6 +59,9 @@ style.innerHTML = `
         padding: 0 !important;
         margin-top: 0 !important;
     }
+        input[type="text"], input[type="number"] {
+            padding: 0 !important;
+        }
    .icon:not(:has(img))::before {
         display: none !important;
    }
