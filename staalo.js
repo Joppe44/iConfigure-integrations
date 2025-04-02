@@ -58,34 +58,6 @@ function iConfigure(preConfig) {
 document.addEventListener("DOMContentLoaded", (event) => {
     if (window.location.pathname === "/configurator" || window.location.pathname === "/configurator/") {
         let preConfig = {
-            product: "c641b21d-a87b-4ac1-9e4a-31fb7ac81837",
-            type: "type_taats",
-            aantal_deuren: "1_deur",
-            plaatsing_panelen: "geen",
-            hoogte_sparing: "260",
-            breedte_sparing: "105",
-            hoogte_toeslag_265_295cm: "1",
-            hoogte_toeslag_295_325cm: "1",
-            breedte_1_deur: "105",
-            breedte_1_paneel: "105",
-            breedte_toeslag_105_130cm: "1",
-            breedte_toeslag_130_155cm: "1",
-            vlakverdeling: "3vlaks_ongelijk",
-            deur_profiel: "40mm",
-            handgreep: "hoeklijn",
-            kleur_glas: "glas_helder",
-            kleur_staal: "staal_9004",
-            verzending: "afhalen",
-            taatsscharnierpunt: "uitgelijnd",
-            active_step: "0",
-        };
-        iConfigure(preConfig);
-    } else if (
-        window.location.pathname === "/configurator-thuis-in-staal" ||
-        window.location.pathname === "/configurator-thuis-in-staal/"
-    ) {
-        let preConfig = {
-            dealer: "dffd2dd4-f7d6-410e-8c89-efa688c94045",
             type: "type_taats",
             aantal_deuren: "1_deur",
             plaatsing_panelen: "geen",
