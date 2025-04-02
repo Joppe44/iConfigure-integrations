@@ -28,7 +28,6 @@ function iConfigure(preConfig) {
     // List of elements to remove
     const removeList = [
         ".grecaptcha-badge",
-
         "#trustbadge-container-98e3dadd90eb493088abdc5597a70810",
         'iframe[title="Weply chat"]',
         "footer",
@@ -79,5 +78,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
         iConfigure(preConfig);
     } else {
         console.log("Not on the configurator page");
+    }
+});
+
+
+function redirect(to) {
+    const icLink = document.createElement("a");
+    icLink.href = to;
+    document.body.appendChild(icLink);
+    icLink.click();
+}
+window.addEventListener("message", (event) => {
+    console.log(event);
+    if (event.data.name === "quotation") {
+        redirect("/bedankt/");
+    } else if (event.data.name === "help") {
+        redirect("/afspraak/");
     }
 });
