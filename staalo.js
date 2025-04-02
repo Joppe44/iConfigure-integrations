@@ -58,6 +58,8 @@ function iConfigure(preConfig) {
 document.addEventListener("DOMContentLoaded", (event) => {
     if (window.location.pathname === "/configurator" || window.location.pathname === "/configurator/") {
         let preConfig = {
+            dealer: "dffd2dd4-f7d6-410e-8c89-efa688c94045",
+
             type: "type_taats",
             aantal_deuren: "1_deur",
             plaatsing_panelen: "geen",
