@@ -43,32 +43,32 @@ function iConfigure(preConfig) {
     document.head.appendChild(script);
 }
 
-// document.addEventListener("DOMContentLoaded", (event) => {
-// if (window.location.pathname === "/configurator" || window.location.pathname === "/configurator/") {
-let preConfig = {
-    product: "95ba6ceb-4779-4424-9104-59fbe594d5d8",
-    type: "type_taats",
-    aantal_deuren: "1_deur",
-    plaatsing_panelen: "geen",
-    breedte_deur_calc: "90",
-    hoogte_sparing: "260",
-    breedte_sparing: "90",
-    vlakverdeling: "1v",
-    frame_profiel: "f_40mm",
-    deur_profiel: "30mm",
-    kleur_glas: "glas_helder",
-    kleur_staal: "staal_9005",
-    structuur: "structuur_structuur",
-    handgreep: "hondla",
-    verzending: "afhalen",
-    active_step: "0",
-};
+document.addEventListener("DOMContentLoaded", (event) => {
+    if (window.location.pathname === "/configurator" || window.location.pathname === "/configurator/") {
+        let preConfig = {
+            product: "95ba6ceb-4779-4424-9104-59fbe594d5d8",
+            type: "type_taats",
+            aantal_deuren: "1_deur",
+            plaatsing_panelen: "geen",
+            breedte_deur_calc: "90",
+            hoogte_sparing: "260",
+            breedte_sparing: "90",
+            vlakverdeling: "1v",
+            frame_profiel: "f_40mm",
+            deur_profiel: "30mm",
+            kleur_glas: "glas_helder",
+            kleur_staal: "staal_9005",
+            structuur: "structuur_structuur",
+            handgreep: "hondla",
+            verzending: "afhalen",
+            active_step: "0",
+        };
 
-iConfigure(preConfig);
-// } else {
-// console.log("Not on the configurator page");
-// }
-// });
+        iConfigure(preConfig);
+    } else {
+        console.log("Not on the configurator page");
+    }
+});
 
 window.addEventListener("message", function (event) {
     if (event.data.name === "quotation") {
