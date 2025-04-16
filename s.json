@@ -1,0 +1,25 @@
+[
+    {
+        "condition": {
+            "type": "any",
+            "children": [
+                {
+                    "type": "condition",
+                    "value": {
+                        "field": "#breedte_deur_calc",
+                        "operator": ">",
+                        "value": 1050
+                    }
+                }
+            ]
+        },
+        "calculation": "@@breedte_deur_calc.value@@ * 10 - 990"
+    },
+    {
+        "condition": {
+            "type": "any",
+            "children": []
+        },
+        "calculation": "67"
+    }
+]
