@@ -57,8 +57,7 @@ function iConfigure(preConfig) {
 document.addEventListener("DOMContentLoaded", (event) => {
     if (window.location.pathname === "/configurator" || window.location.pathname === "/configurator/") {
         let preConfig = {
-            dealer: "dffd2dd4-f7d6-410e-8c89-efa688c94045",
-
+            dealer: "62166cee-ae6c-4060-a018-6b3902b75a38",
             type: "type_taats",
             aantal_deuren: "1_deur",
             plaatsing_panelen: "geen",
@@ -66,11 +65,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
             hoogte_sparing: "260",
             breedte_sparing: "90",
             vlakverdeling: "1v",
-            frame_profiel: "f_40mm",
-            deur_profiel: "30mm",
+
             kleur_glas: "glas_helder",
             kleur_staal: "staal_9005",
-            structuur: "structuur_structuur",
+
             handgreep: "hondla",
             verzending: "afhalen",
             active_step: "0",
@@ -80,7 +78,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         console.log("Not on the configurator page");
     }
 });
-
 
 function redirect(to) {
     const icLink = document.createElement("a");
