@@ -124,7 +124,7 @@ function iConfigure() {
                 rand: "rarecht",
                 bladafwerking: "glad",
                 texturen: "verfijnd",
-                dikte: "30",
+                dikte: "40",
                 active_step: "2",
             };
             if (getUrlParams().product === "9419b772-2606-4378-8f8f-4bd1c65cef5c") {
@@ -161,7 +161,7 @@ function getUrlParams() {
         paramObj[key] = value;
     }
     console.log(paramObj);
-
+    if (paramObj.dikte) paramObj.dikte = 40;
     return paramObj;
 }
 
