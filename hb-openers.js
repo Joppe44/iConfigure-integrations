@@ -5,7 +5,7 @@ function isPhone() {
     return viewportWidth <= 767;
 }
 
-if (window.location.href.includes("/configurator")) {
+if (window.location.href.includes("/garagedeur-configurator/")) {
     let iframeInserted = false;
 
     const cleanInterval = setInterval(() => {
