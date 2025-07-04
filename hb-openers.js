@@ -1,13 +1,14 @@
 
 console.log("ic loaded")
+
 function isPhone() {
     var viewportWidth = window.innerWidth || document.documentElement.clientWidth;
     var phoneMaxWidth = 767;
     return viewportWidth <= phoneMaxWidth;
 }
-document.addEventListener("DOMContentLoaded", function () {
+
     if (window.location.href.includes("/configurator")) {
-        // Remove the footer element if it exists
+
         document.querySelector("#footer").remove();
         document.querySelector("#mwwFooter").remove();
         document.querySelector("#launcher").remove();
@@ -28,4 +29,4 @@ document.addEventListener("DOMContentLoaded", function () {
             content.appendChild(iframe);
         }
     }
-});
+
