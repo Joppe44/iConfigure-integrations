@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             kleur_staal: "staal_9005",
             structuur: "structuur_structuur",
             handgreep: "hondla",
-            verzending: "afhalen",
+            verzending: "montageservice",
             active_step: "0",
         };
 
