@@ -1,3 +1,4 @@
+/** @format */
 
 if (
     window.location.pathname === "/tafels/configureer-jouw-tafel/" ||
@@ -7,10 +8,11 @@ if (
     iConfigure("tafel");
 } else if (
     window.location.pathname === "/stalen-deuren/stel-je-deuren-samen/" ||
-    window.location.pathname === "/houten-deuren/" ||
     window.location.pathname === "/stalen-deuren/stel-je-deuren-samen"
 ) {
-    iConfigure("deur");
+    iConfigure("deur-staal");
+} else if (window.location.pathname === "/houten-deuren/") {
+    iConfigure("deur-hout");
 }
 var hasTriggered = false;
 function iConfigure(type) {
@@ -48,7 +50,7 @@ function iConfigure(type) {
         if (!event.data.hasOwnProperty("URLparameters")) {
             return;
         }
-        if(hasTriggered) {
+        if (hasTriggered) {
             return;
         }
         sendDataToShop(event);
@@ -99,16 +101,15 @@ function iConfigure(type) {
             clearInterval(interval); // Stop the interval once the div is appended
             removeElements();
             // Create the div with id 'iConfigure' and apply styles
-            var holder = document.createElement("div")
-            holder.style.paddingLeft='10vw'
-            holder.style.paddingRight='10vw'
-            holder.style.paddingTop='10vw'
-            holder.style.paddingBottom='4vw'
+            var holder = document.createElement("div");
+            holder.style.paddingLeft = "10vw";
+            holder.style.paddingRight = "10vw";
+            holder.style.paddingTop = "10vw";
+            holder.style.paddingBottom = "4vw";
             var h = document.createElement("h1");
             h.innerHTML = `Welkom bij onze configurator`;
             var p = document.createElement("p");
             p.innerHTML = `Bij Firma Hout en Staal geloven we in de kracht van ambachtelijk vakwerk en persoonlijke smaak. Met onze configurator bieden we jou de vrijheid om jouw droom${type} te ontwerpen. Jij bepaalt het ontwerp, wij brengen het tot leven.<hr>`;
-
 
             var div = document.createElement("div");
             div.id = "iConfigure";
@@ -120,7 +121,7 @@ function iConfigure(type) {
             holder.appendChild(h);
             holder.appendChild(p);
 
-            targetElement.appendChild(holder)
+            targetElement.appendChild(holder);
             targetElement.appendChild(div);
             console.log("Div appended successfully!");
 
@@ -130,22 +131,43 @@ function iConfigure(type) {
             script.onload = function () {
                 // Your configuration object
                 let preConfig = {};
-                if (type === "deur") {
+                if (type === "deur-staal") {
                     preConfig = {
                         product: "a2659738-d1e9-49d4-adea-e25d5a4079f0",
-                        type: "type_taats",
-                        aantal_deuren: "aantal_deuren_enkel",
-                        breedte_sparing: "80",
-                        hoogte_sparing: "194.1",
-                        vlakverdeling: "geen",
-                        profiel: "profiel_2cm",
-                        greep: "hoeklijn",
-                        kleur_coating: "ral9005",
-                        kleur_glas: "glas_helder",
-                        kleur_afdekkapjes: "kleur_afdekkapjes_rvs",
+                        material: "steel",
+                        type: "pivot",
+                        door_amount: "single",
+                        turn_direction: "left",
+                        panels: "none",
+                        opening_width: "90",
+                        opening_height: "240",
+                        door_design: "3vlaks_ongelijk",
+                        frame_thickness: "20mm",
+                        door_thickness: "30mm",
+                        color_glas: "clear",
+                        color_coating: "ral9005",
+                        handle: "standaard_koker",
                         inmeten: "zelf_inmeten",
-                        montage: "zelf_monteren",
-                        active_step: "0",
+                        active_step: "2",
+                    };
+                } else if (type === "deur-hout") {
+                    preConfig = {
+                        product: "a2659738-d1e9-49d4-adea-e25d5a4079f0",
+                        material: "wood",
+                        type: "pivot",
+                        door_amount: "single",
+                        turn_direction: "left",
+                        panels: "none",
+                        opening_width: "90",
+                        opening_height: "240",
+                        door_design: "3vlaks_ongelijk",
+                        frame_thickness: "20mm",
+                        door_thickness: "30mm",
+                        color_glas: "clear",
+                        color_coating: "ral9005",
+                        handle: "standaard_koker",
+                        inmeten: "zelf_inmeten",
+                        active_step: "2",
                     };
                 } else if (type === "tafel") {
                     preConfig = {
