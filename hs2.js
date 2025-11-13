@@ -11,7 +11,7 @@ if (
     window.location.pathname === "/stalen-deuren/stel-je-deuren-samen"
 ) {
     iConfigure("deur-staal");
-} else if (window.location.pathname === "/houten-deuren/") {
+} else if (window.location.pathname === "/houten-deuren/" || window.location.pathname === "/houten-deuren") {
     iConfigure("deur-hout");
 }
 var hasTriggered = false;
@@ -109,7 +109,7 @@ function iConfigure(type) {
             var h = document.createElement("h1");
             h.innerHTML = `Welkom bij onze configurator`;
             var p = document.createElement("p");
-            p.innerHTML = `Bij Firma Hout en Staal geloven we in de kracht van ambachtelijk vakwerk en persoonlijke smaak. Met onze configurator bieden we jou de vrijheid om jouw droom${type} te ontwerpen. Jij bepaalt het ontwerp, wij brengen het tot leven.<hr>`;
+            p.innerHTML = `Bij Firma Hout en Staal geloven we in de kracht van ambachtelijk vakwerk en persoonlijke smaak. Jij bepaalt het ontwerp, wij brengen het tot leven.<hr>`;
 
             var div = document.createElement("div");
             div.id = "iConfigure";
