@@ -7,6 +7,7 @@ if (
     iConfigure("tafel");
 } else if (
     window.location.pathname === "/stalen-deuren/stel-je-deuren-samen/" ||
+    window.location.pathname === "/houten-deuren/" ||
     window.location.pathname === "/stalen-deuren/stel-je-deuren-samen"
 ) {
     iConfigure("deur");
@@ -131,7 +132,7 @@ function iConfigure(type) {
                 let preConfig = {};
                 if (type === "deur") {
                     preConfig = {
-                        product: "d3849c93-3ccb-4438-ba7f-753f2f73a359",
+                        product: "a2659738-d1e9-49d4-adea-e25d5a4079f0",
                         type: "type_taats",
                         aantal_deuren: "aantal_deuren_enkel",
                         breedte_sparing: "80",
