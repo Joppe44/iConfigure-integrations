@@ -1,0 +1,1 @@
+console.log("iConfigure loaded from scripts.iconfigure.nl")
