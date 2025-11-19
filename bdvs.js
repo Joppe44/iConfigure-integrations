@@ -17,7 +17,7 @@ function updateHeight() {
     let headerHeight = header.getBoundingClientRect().height + header.getBoundingClientRect().top
     iframe.style.top = headerHeight + "px";
 
-    iframe.style.height = `calc(100vh - ${headerHeight}px)`;
+    iframe.style.height = `calc(100dvh - ${headerHeight}px)`;
     console.log(headerHeight)
 }
 updateHeight();
