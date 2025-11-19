@@ -110,7 +110,6 @@ function iConfigure(type) {
             h.innerHTML = `Welkom bij onze configurator`;
             var p = document.createElement("p");
             p.innerHTML = `Bij Firma Hout en Staal geloven we in de kracht van ambachtelijk vakwerk en persoonlijke smaak. Jij bepaalt het ontwerp, wij brengen het tot leven.<hr>`;
-
             var div = document.createElement("div");
             div.id = "iConfigure";
             div.style.position = "sticky";
