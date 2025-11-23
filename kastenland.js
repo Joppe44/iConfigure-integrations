@@ -1,45 +1,39 @@
 /** @format */
-function initIConfigure() {
-    console.log("iConfigure loaded from scripts.iconfigure.nl");
-    var baseUrl = "https://web.iconfigure.nl/?product=3139b1fc-842f-4742-9130-17272cc60fd3";
 
-    document.querySelector("footer").remove();
-    const holder = document.getElementById("MainContent");
+var div = document.getElementById("MainContent");
+div.style.position = "sticky";
+div.style.height = "calc(100dvh)";
+div.style.width = "100vw";
+div.style.zIndex = "1023";
+div.style.pointerEvents = "auto";
+div.style.top = "0";
+
+var link = document.createElement("link");
+link.rel = "stylesheet";
+link.media = "all";
+link.href = "https://web.iconfigure.nl/inject/style.css";
+document.head.appendChild(link);
+
+var script = document.createElement("script");
+script.src = "https://web.iconfigure.nl/inject/inject.iife.js";
+script.crossOrigin = "anonymous";
+script.onload = function () {
+    let preConfig = {
+        product: "3139b1fc-842f-4742-9130-17272cc60fd3",
+    };
 
     let toparse = ["hoogte", "breedte", "diepte"];
-
-    function getIframeSRC() {
-        let params = new URLSearchParams(document.location.search);
-        for (const p of toparse) {
-            let val = params.get(p);
-            if (val) baseUrl = baseUrl + "&" + p + "=" + val;
-        }
-        console.log(baseUrl);
-        return baseUrl;
+    let params = new URLSearchParams(document.location.search);
+    for (const p of toparse) {
+        let val = params.get(p);
+        if (val) preConfig[p] = val;
     }
 
-    const iframe = document.createElement("iframe");
+    injectApp(preConfig);
+};
 
-    iframe.src = getIframeSRC();
-    holder.appendChild(iframe);
-    recalculateIframe();
-    function recalculateIframe() {
-        let rect = document.querySelector(".header-wrapper").getBoundingClientRect();
-        const height = rect.top + rect.height;
-        iframe.style.position = "fixed";
-        iframe.style.height = `calc(100dvh - ${height}px)`;
-        iframe.style.top = height + "px";
-        iframe.style.width = "100vw";
-    }
-    window.addEventListener("resize", () => {
-        recalculateIframe();
-    });
-    iframe.style.border = "none";
-}
+window.addEventListener("DOMContentLoaded", function () {
+    document.querySelector("footer").remove();
+});
 
-// Run after base page load (all resources)
-if (document.readyState === "complete") {
-    initIConfigure();
-} else {
-    window.addEventListener("load", initIConfigure);
-}
+document.head.appendChild(script);
