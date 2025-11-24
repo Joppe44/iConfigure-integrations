@@ -4,8 +4,8 @@ window.addEventListener("DOMContentLoaded", function () {
     for (const i of [".header__inline-menu", ".call-button", ".topbar", "footer"]) {
         document.querySelector(i).remove();
     }
-
     var mainContent = document.getElementById("MainContent");
+    mainContent.innerHTML = `<div style="padding: 10vw 10vw 4vw;"><h1>Welkom bij onze configurator</h1><p>Bij Kastenland geloven we in de kracht van ambachtelijk vakwerk en persoonlijke smaak. Jij bepaalt het ontwerp, wij brengen het tot leven.<hr></p></div>`;
     var div = document.createElement("div");
     div.id = "iConfigure";
     div.style.position = "sticky";
