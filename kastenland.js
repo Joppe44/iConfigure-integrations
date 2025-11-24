@@ -1,7 +1,9 @@
 /** @format */
 
 window.addEventListener("DOMContentLoaded", function () {
-    document.querySelector("footer").remove();
+    for (const i of [".header__inline-menu", ".call-button", ".topbar", "footer"]) {
+        document.querySelector(i).remove();
+    }
 
     var mainContent = document.getElementById("MainContent");
     var div = document.createElement("div");
