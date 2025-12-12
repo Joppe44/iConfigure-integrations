@@ -6,7 +6,7 @@ let holder = document.getElementById("iConfigure");
 const iframe = document.createElement("iframe");
 iframe.style = "border:none;";
 iframe.src =
-    "https://web.iconfigure.nl/?product=b816a048-64af-418e-9216-6b3f6c3d5768&type=pivot&door_amount=double&panels=both&distribution=equal&opening_width=245&opening_height=260&breedte_1_paneel=61.3&breedte_1_deur=61.3&door_design=hengelo&door_thickness=30mm&color_glas=smoke&color_coating=eigen_ralkleur&handle=trekstang_vierkant&inmeten=zelf_inmeten&vloerverwarming=wel_vloerverwarming&active_step=1&";
+    "https://web.iconfigure.nl/?product=b816a048-64af-418e-9216-6b3f6c3d5768&type=pivot&door_amount=double&panels=both&distribution=equal&opening_width=245&opening_height=260&breedte_1_paneel=61.3&breedte_1_deur=61.3&door_design=hengelo&door_thickness=30mm&color_glas=smoke&color_coating=ral9005&handle=trekstang_vierkant&inmeten=zelf_inmeten&vloerverwarming=wel_vloerverwarming&active_step=1";
 const header = document.querySelectorAll("header")[0];
 holder.appendChild(iframe);
 
