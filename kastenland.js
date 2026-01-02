@@ -22,6 +22,10 @@ window.addEventListener("DOMContentLoaded", function () {
     link.href = "https://web.iconfigure.nl/inject/style.css";
     document.head.appendChild(link);
 
+    var style = document.createElement("style");
+    style.textContent = "input[type=\"checkbox\"] { width: 16px !important; }";
+    document.head.appendChild(style);
+
     var script = document.createElement("script");
     script.src = "https://web.iconfigure.nl/inject/inject.iife.js";
     script.crossOrigin = "anonymous";
@@ -39,6 +43,6 @@ window.addEventListener("DOMContentLoaded", function () {
 
         injectApp(preConfig);
     };
-
+this
     document.head.appendChild(script);
 });
