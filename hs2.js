@@ -51,9 +51,23 @@ function iConfigure(type) {
             return;
         }
 
-        // Cart submit: the configurator posts JSON.stringify(formatData()),
-        // i.e. a stringified array of steps. Parse it and convert to a flat
-        // { featureID: feature } map keyed by feature.ID (same as before).
+        // New configurator postMessage: { name: 'cart.action', items: [products...] }
+        // posted by buttons with `postmessage: true` (no pdf/email). The items
+        // are nested per-product / per-step / per-repetition; flatten them into
+        // the { featureID: feature } map that sendDataToShop expects.
+        if (event.data && event.data.name === "cart.action") {
+            if (hasTriggered) {
+                return;
+            }
+            var translatedItems = translateCartActionToLegacy(event.data.items);
+            sendDataToShop(translatedItems);
+            hasTriggered = true;
+            return;
+        }
+
+        // Legacy fallback: older configurator builds posted JSON.stringify(formatData()),
+        // i.e. a stringified array of steps. Parse it and convert to the same flat
+        // { featureID: feature } map keyed by feature.ID.
         if (hasTriggered) {
             return;
         }
@@ -234,6 +248,32 @@ function selectedOption(item) {
     }
     // number input (or empty) -> not a selectable subfeature
     return "";
+}
+
+// Translate the new `cart.action` postMessage payload (nested per-product /
+// per-step / per-repetition enriched features) into the flat keyed map shape
+// that sendDataToShop / selectedOption expect: { [feature.ID]: feature }.
+// The enriched features still carry their original `.value`, so no further
+// derivation is needed -- selectedOption reads `.value` directly.
+function translateCartActionToLegacy(products) {
+    var flat = {};
+    if (!Array.isArray(products)) {
+        return flat;
+    }
+    for (let product of products) {
+        let steps = (product && product.items) || [];
+        for (let step of steps) {
+            let repetitions = step.repetitions || [];
+            for (let repetition of repetitions) {
+                if (!Array.isArray(repetition)) continue;
+                for (let feature of repetition) {
+                    if (!feature || !feature.ID) continue;
+                    flat[feature.ID] = feature;
+                }
+            }
+        }
+    }
+    return flat;
 }
 
 function sendDataToShop(items) {
