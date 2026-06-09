@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const clone = document.createElement("li");
     // clone.style.backgroundColor = "#589fd8";
     clone.innerHTML = `<a style="background-color:#589fd8" href="https://www.meubols.nl/configurator.html" title="configure" class="offer-link">Configureer tafel</a>`;
-
     clone.removeAttribute("data-fancybox");
     header.appendChild(clone);
 });

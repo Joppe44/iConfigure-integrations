@@ -24,7 +24,7 @@ if (window.location.href.includes("/garagedeur-configurator/")) {
             // Create and configure the iframe
             const iframe = document.createElement("iframe");
             iframe.src =
-                "https://web.iconfigure.nl/?product=c1f0da3f-e31f-4d22-a84d-e53463e385a4&breedte=3268&hoogte=2979&vrijboven=13&panelen=5&afwerking=houtnerf5&kleur=nerf5_9010&loopdeur=geen&motoren=ketting&extra_opties=inbouwrails130&active_step=0";
+                "https://configurator.iconfigure.io/?product=c1f0da3f-e31f-4d22-a84d-e53463e385a4&breedte=3268&hoogte=2979&vrijboven=13&panelen=5&afwerking=houtnerf5&kleur=nerf5_9010&loopdeur=geen&motoren=ketting&extra_opties=inbouwrails130&active_step=0";
             iframe.style.width = "100vw";
             iframe.style.height = isPhone() ? "calc(100vh - 100px)" : "calc(100vh - 210px)";
             iframe.style.border = "none";
