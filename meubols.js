@@ -52,6 +52,17 @@ function iConfigure() {
     link.href = "https://web.iconfigure.nl/inject/style.css";
     document.head.appendChild(link);
     window.parent.addEventListener("message", (event) => {
+        if (!event || !event.data || typeof event.data !== "object") return;
+
+        if (event.data.name === "cart.action") {
+            const translatedItems = translateCartActionToLegacy(event.data.items);
+            sendDataToShop({
+                data: { items: translatedItems },
+                preventDefault: function () {},
+            });
+            return;
+        }
+
         if (event.data.hasOwnProperty("URLparameters")) {
             sendDataToShop(event);
         }
@@ -164,6 +175,23 @@ function getUrlParams() {
     return paramObj;
 }
 
+function translateCartActionToLegacy(products) {
+    var flat = {};
+    if (!Array.isArray(products)) return flat;
+    for (let product of products) {
+        for (let step of (product && product.items) || []) {
+            for (let repetition of step.repetitions || []) {
+                if (!Array.isArray(repetition)) continue;
+                for (let feature of repetition) {
+                    if (!feature || !feature.ID) continue;
+                    flat[feature.ID] = feature;
+                }
+            }
+        }
+    }
+    return flat;
+}
+
 async function sendDataToShop(event) {
     // Gather items from the incoming message
     var items = [];
@@ -198,8 +226,9 @@ async function sendDataToShop(event) {
         // For number_input, we use item.value => found.values[item.value], etc.
         let paramVal = "";
         if (item.type === "single_selection" && found.values) {
-            // Look up the code by subID (like "rond_ovaal" => "75127821")
-            paramVal = found.values[item.subID] || "s";
+            // Look up the code by selected subfeature ID (like "rond_ovaal" => "75127821").
+            // New configurator stores the selected ID in `item.value`; older builds used `item.subID`.
+            paramVal = found.values[item.value] || found.values[item.subID] || "s";
         } else if (item.type === "number_input" && found.values) {
             // Convert the number to the matching code if it exists
             paramVal = found.values[item.value] || item.value;
