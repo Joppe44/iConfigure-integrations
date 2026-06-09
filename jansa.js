@@ -5,6 +5,28 @@ function g() {
         var phoneMaxWidth = 767;
         return viewportWidth <= phoneMaxWidth;
     }
+    function translateCartActionToLegacy(products) {
+        var flat = {};
+        if (!Array.isArray(products)) return flat;
+        for (var i = 0; i < products.length; i++) {
+            var product = products[i];
+            var steps = (product && product.items) || [];
+            for (var s = 0; s < steps.length; s++) {
+                var repetitions = steps[s].repetitions || [];
+                for (var r = 0; r < repetitions.length; r++) {
+                    var repetition = repetitions[r];
+                    if (!Array.isArray(repetition)) continue;
+                    for (var f = 0; f < repetition.length; f++) {
+                        var feature = repetition[f];
+                        if (!feature || !feature.ID) continue;
+                        flat[feature.ID] = feature;
+                    }
+                }
+            }
+        }
+        return flat;
+    }
+
     function formatData(event) {
         var items = {};
         var breedteValue; // Declare breedteValue to use it later for Montage logic
@@ -33,21 +55,21 @@ function g() {
                 }
 
                 if (item.ID === "kleur_onder") {
-                    var ralValueOnder = item.subID.match(/\d+/);
-                    if (item.subID === "onder_hetzelfde") {
+                    var ralValueOnder = String(item.value || "").match(/\d+/);
+                    if (item.value === "onder_hetzelfde") {
                         console.log(items);
                         if (items.kleur) {
-                            list.push(addItem("2c93ac91-762c-44c2-8c6d-052a0dc41f6e", items.kleur.subID));
+                            list.push(addItem("2c93ac91-762c-44c2-8c6d-052a0dc41f6e", items.kleur.value));
                         } else {
                             console.error("No matching RAL color found for 'kleur'");
                         }
                     } else if (ralValueOnder) {
                         list.push(addItem("2c93ac91-762c-44c2-8c6d-052a0dc41f6e", ralValueOnder[0]));
                     } else {
-                        console.error("No valid RAL color found for subID: " + item.subID);
+                        console.error("No valid RAL color found for value: " + item.value);
                     }
                 } else if (item.ID === "lijst_onder") {
-                    if (item.subID === "uitgefreesde_onderkant_nee") {
+                    if (item.value === "uitgefreesde_onderkant_nee") {
                         Freesrand = addItem("949100f8-cccb-4dff-a668-819e48c0f26c", "9356816");
                     } else {
                         Freesrand  = addItem("949100f8-cccb-4dff-a668-819e48c0f26c", "9356819");
@@ -55,7 +77,7 @@ function g() {
                     list.push(Freesrand);
 
                 } else if (item.ID === "kleur") {
-                    var ralValue = item.subID.match(/\d+/);
+                    var ralValue = String(item.value || "").match(/\d+/);
                     kl = ralValue;
                     if (ralValue) {
                         var veld = configurationOptions.find(function (veld) {
@@ -68,13 +90,13 @@ function g() {
                             console.error("No matching field found for item ID: kleur");
                         }
                     } else {
-                        console.error("No numeric RAL value found for subID: " + item.subID);
+                        console.error("No numeric RAL value found for value: " + item.value);
                     }
                 } else if (item.ID === "armen_feat") {
-                    if (item.subID === "sier_arm") {
+                    if (item.value === "sier_arm") {
                         list.push(addItem("d70d4f5b-f3f9-4d74-bf0c-382feaee29d2", "8795201"));
                         list.push(addItem("b65920d6-474a-444d-bdef-f64ab7256880", "8795216"));
-                    } else if (item.subID === "trek_arm") {
+                    } else if (item.value === "trek_arm") {
                         list.push(addItem("b65920d6-474a-444d-bdef-f64ab7256880", "8795213"));
                         list.push(addItem("d70d4f5b-f3f9-4d74-bf0c-382feaee29d2", "8795204"));
                     }
@@ -118,7 +140,7 @@ function g() {
                 } else if (item.type === "single_selection") {
                     // Handle single selection
                     topush = veld.subfeatures.find(function (sf) {
-                        return sf.ID === item.subID;
+                        return sf.ID === item.value;
                     });
 
                     if (topush) {
@@ -126,9 +148,16 @@ function g() {
                     }
                     list.push(addItem(veld.uuid, topush));
                 } else if (item.type === "multiple_selection") {
-                    topush = item.subID.join("_");
+                    // New cart.action format: item.value is an object { subID: bool }.
+                    // Collect selected keys, sort for stable joining, then look up by joined string.
+                    var selected = Object.keys(item.value || {})
+                        .filter(function (k) {
+                            return item.value[k];
+                        })
+                        .sort();
+                    var joinedKey = selected.join("_");
                     topush = veld.subfeatures.find(function (sf) {
-                        return sf.ID === topush;
+                        return sf.ID === joinedKey;
                     });
                     if (topush) {
                         topush = topush.value;
@@ -141,16 +170,20 @@ function g() {
             }
         }
 
-        // Handle Montage based on Breedte
+        // Handle Montage based on Breedte / Diepte.
+        // Explicit lookup of the user's montage selection (was: leaked `item.subID` from the loop,
+        // which depended on iteration order and was non-deterministic).
+        var montageItem = items.montage;
+        var montageValue = montageItem && typeof montageItem.value === "string" ? montageItem.value : null;
+
         if (breedteValue > 180 || diepteValue > 80) {
-            // Find the correct value for Montage breder dan 180 based on the subID
             var montageBreder = configurationOptions.find(function (option) {
                 return option.configurator_ID === "montage" && option.uuid === "42440a54-cee9-4f65-9451-613bd9983d27";
             });
 
-            if (montageBreder && item.subID) {
+            if (montageBreder && montageValue) {
                 var montageBrederValue = montageBreder.subfeatures.find(function (sub) {
-                    return sub.ID === item.subID;
+                    return sub.ID === montageValue;
                 });
                 if (montageBrederValue) {
                     list.push(addItem("42440a54-cee9-4f65-9451-613bd9983d27", montageBrederValue.value));
@@ -160,14 +193,13 @@ function g() {
             // Set Montage tot 179cm breed to "Geen"
             list.push(addItem("50b49028-82cb-4237-8612-2f14e3c469a3", "9356462"));
         } else {
-            // Find the correct value for Montage tot 179cm breed based on the subID
             var montageTot179 = configurationOptions.find(function (option) {
                 return option.configurator_ID === "montage" && option.uuid === "50b49028-82cb-4237-8612-2f14e3c469a3";
             });
 
-            if (montageTot179 && item.subID) {
+            if (montageTot179 && montageValue) {
                 var montageTot179Value = montageTot179.subfeatures.find(function (sub) {
-                    return sub.ID === item.subID;
+                    return sub.ID === montageValue;
                 });
                 if (montageTot179Value) {
                     list.push(addItem("50b49028-82cb-4237-8612-2f14e3c469a3", montageTot179Value.value));
@@ -250,7 +282,7 @@ function g() {
         // Create an iframe and set its attributes
         var iframe = document.createElement("iframe");
         iframe.src =
-            "https://web.iconfigure.nl/?product=118987e2-f58a-4b7d-8a5b-8349f3a7cdf1&width=170&depth=70&sierlijsten=lijst_6&daktrim=daktrim_rond&afvoer_select=afvoer_rechts&armen_feat=trek_arm&kleur=9010&kleur_onder=onder_hetzelfde&spots=0_spotjes&melders=geen_schakelaar&montage=afhalen&active_step=0"; // Replace with your iframe URL
+            "https://configurator.iconfigure.io/?product=118987e2-f58a-4b7d-8a5b-8349f3a7cdf1&width=170&depth=70&sierlijsten=lijst_6&daktrim=daktrim_rond&afvoer_select=afvoer_rechts&armen_feat=trek_arm&kleur=9010&kleur_onder=onder_hetzelfde&spots=0_spotjes&melders=geen_schakelaar&montage=afhalen&active_step=0"; // Replace with your iframe URL
         iframe.style.width = "100vw"; // Full viewport width
 
         iframe.style.height = isPhone() ? "calc(100vh - 100px)" : "calc(100vh - 350px)"; // Height of the viewport minus 350px
@@ -264,10 +296,13 @@ function g() {
         }
 
         window.addEventListener("message", function (event) {
-            if (event.data && event.data.items && event.data.URLparameters) {
-                formatData(event);
+            if (!event || !event.data || typeof event.data !== "object") return;
+
+            if (event.data.name === "cart.action") {
+                var translatedItems = translateCartActionToLegacy(event.data.items);
+                formatData({ data: { items: translatedItems } });
             }
-        }); // URLparameters
+        });
     } else if (
         window.location.href === "https://www.jansa.nl/c-7327352/configurator/" ||
         window.location.href ===
