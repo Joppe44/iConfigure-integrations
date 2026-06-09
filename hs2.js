@@ -136,6 +136,7 @@ function iConfigure(type) {
             var div = document.createElement("div");
             div.id = "iConfigure";
             div.style.position = "sticky";
+            div.style.backgroundColor = "white";
             div.style.height = "calc(100dvh)";
             div.style.width = "100vw";
             div.style.zIndex = "1023";
