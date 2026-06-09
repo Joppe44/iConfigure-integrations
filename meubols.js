@@ -46,11 +46,6 @@ function buttonCheck() {
 }
 
 function iConfigure() {
-    var link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.media = "all";
-    link.href = "https://web.iconfigure.nl/inject/style.css";
-    document.head.appendChild(link);
     window.parent.addEventListener("message", (event) => {
         if (!event || !event.data || typeof event.data !== "object") return;
 
@@ -121,7 +116,7 @@ function iConfigure() {
             console.log("Div appended successfully!");
 
             var script = document.createElement("script");
-            script.src = "https://web.iconfigure.nl/inject/inject.iife.js";
+            script.src = "https://configurator.iconfigure.io/inject.iife.js";
             script.crossOrigin = "anonymous";
             let preConfig = {
                 product: "9419b772-2606-4378-8f8f-4bd1c65cef5c",
