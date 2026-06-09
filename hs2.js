@@ -1,5 +1,13 @@
 /** @format */
 
+(function () {
+    // Guard against the integration script being loaded/executed more than once
+    // on a page (double <script> tag, SPA re-navigation, etc). Without this the
+    // top-level `const values` redeclares and throws
+    // "Identifier 'values' has already been declared".
+    if (window.__iConfigureLoaded) return;
+    window.__iConfigureLoaded = true;
+
 if (
     window.location.pathname === "/tafels/configureer-jouw-tafel/" ||
     window.location.pathname === "/tafels/configureer-jouw-tafel" ||
@@ -16,11 +24,6 @@ if (
 }
 var hasTriggered = false;
 function iConfigure(type) {
-    var link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.media = "all";
-    link.href = "https://web.iconfigure.nl/inject/style.css";
-    document.head.appendChild(link);
     window.parent.addEventListener("message", (event) => {
         if (event.data.name === "quotation") {
             console.log(event.data);
@@ -45,15 +48,35 @@ function iConfigure(type) {
             link.href = redirect;
             document.body.appendChild(link);
             link.click();
-        }
-        // check if event has property called URLparameters
-        if (!event.data.hasOwnProperty("URLparameters")) {
             return;
         }
+
+        // Cart submit: the configurator posts JSON.stringify(formatData()),
+        // i.e. a stringified array of steps. Parse it and convert to a flat
+        // { featureID: feature } map keyed by feature.ID (same as before).
         if (hasTriggered) {
             return;
         }
-        sendDataToShop(event);
+        var data = event.data;
+        if (typeof data === "string") {
+            try {
+                data = JSON.parse(data);
+            } catch (e) {
+                return;
+            }
+        }
+        if (!Array.isArray(data)) {
+            return;
+        }
+        var items = {};
+        for (let step of data) {
+            for (let repetition of step.repetitions || []) {
+                for (let feature of repetition) {
+                    items[feature.ID] = feature;
+                }
+            }
+        }
+        sendDataToShop(items);
         hasTriggered = true;
     });
 
@@ -125,7 +148,7 @@ function iConfigure(type) {
             console.log("Div appended successfully!");
 
             var script = document.createElement("script");
-            script.src = "https://web.iconfigure.nl/inject/inject.iife.js";
+            script.src = "https://configurator.iconfigure.io/inject.iife.js";
             script.crossOrigin = "anonymous";
             script.onload = function () {
                 // Your configuration object
@@ -192,49 +215,58 @@ function iConfigure(type) {
     // Load the JS file and execute the code after it's loaded
 }
 
-function sendDataToShop(event) {
-    var items = {};
-    for (let key of Object.keys(event.data.items)) {
-        let item = event.data.items[key];
-        items[event.data.items[key].ID] = item;
+// `items` is a flat map { featureID: feature } produced from formatData().
+// Features no longer carry `type`/`subID`; the selected option lives in `value`:
+//   single_selection   -> value is the subfeature ID string (was `subID`)
+//   multiple_selection -> value is { subID: bool }            (was `subID[]`)
+//   number input       -> value is the number                (unchanged)
+// `feature.ID` is the human-readable key ("vorm", "lengte", ...), matching
+// the keys in `values` / `values2`, exactly like the old flat format.
+function selectedOption(item) {
+    if (item.value && typeof item.value === "object") {
+        // multiple_selection: first truthy subfeature
+        return Object.keys(item.value).find((k) => item.value[k]) || "";
     }
+    if (typeof item.value === "string") {
+        // single_selection
+        return item.value;
+    }
+    // number input (or empty) -> not a selectable subfeature
+    return "";
+}
+
+function sendDataToShop(items) {
     console.log(items);
 
     var urls = [];
-    var topush = "";
     for (let key of Object.keys(items)) {
-        let item = items[key];
-        if (item.type === "single_selection") {
-            topush = item.subID;
-        } else if (item.type === "multiple_selection") {
-            topush = item.subID[0];
-        } else {
-            continue;
-        }
-        if (values[topush]) {
+        let topush = selectedOption(items[key]);
+        if (topush && values[topush]) {
             urls.push(`https://www.firmahoutenstaal.nl/cart/add/${values[topush]}/?bundle_id=&quantity=1`);
         }
     }
-    // MATEN
-    if (items.vorm.subID === "blob") {
+    // MATEN (table-only: doors have no `vorm` feature)
+    var vorm = items.vorm ? items.vorm.value : null;
+    if (vorm === "blob") {
         urls.push(
             `https://www.firmahoutenstaal.nl/cart/add/${
                 values["pebble" + items.afmeting_pebble.value]
             }/?bundle_id=&quantity=1`
         );
-    } else if (items.vorm.subID === "rond") {
+    } else if (vorm === "rond") {
         urls.push(
             `https://www.firmahoutenstaal.nl/cart/add/${values["rond" + items.radius.value]}/?bundle_id=&quantity=1`
         );
-    } else {
+    } else if (vorm) {
         let val = values2["tafelblad" + items.lengte.value + "x" + items.breedte.value];
-        urls.push(
-            `https://www.firmahoutenstaal.nl/cart/add/${val.ID}/?bundle_id=&custom%5B${val.fieldID}%5D=${
-                val.vorm[items.vorm.subID]
-            }&quantity=1`
-        );
+        if (val) {
+            urls.push(
+                `https://www.firmahoutenstaal.nl/cart/add/${val.ID}/?bundle_id=&custom%5B${val.fieldID}%5D=${
+                    val.vorm[vorm]
+                }&quantity=1`
+            );
+        }
     }
-    event.preventDefault();
     console.log(urls);
     triggerPostRequests(urls);
 }
@@ -825,3 +857,4 @@ const values2 = {
         },
     },
 };
+})();
