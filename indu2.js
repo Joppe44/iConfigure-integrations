@@ -24,17 +24,8 @@ const iid = setInterval(function () {
     }
 }, 1000);
 window.addEventListener("message", function (event) {
-    if (!event || !event.data || typeof event.data !== "object") return;
-    if (event.origin !== "https://web.iconfigure.nl") return;
-
     const iframeThanksPageUrl = "https://www.indudoors.nl/bedankt-voor-uw-offerte";
-
-    if (event.data.name === "quotation" && event.data.state === "finished") {
-        window.location.href = iframeThanksPageUrl;
-        return;
-    }
-
-    if (!event.data.name && event.data.state === "finished") {
+    if (event.data.state === "finished") {
         window.location.href = iframeThanksPageUrl;
     }
 });
