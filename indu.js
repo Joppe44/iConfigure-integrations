@@ -1,19 +1,25 @@
 /** @format */
 
-// Self-bootstrapping embed for Indu Doors — .io (v2) configurator.
-// Drupal only needs: <script src="https://scripts.iconfigure.nl/indu.js"></script>
-// This script injects its own #iConfigure mount, the v2 loader, and all logic.
+// Embed loader for Indu Doors — .io (v2) configurator.
+// Drupal body keeps the intro text + an empty mount div + this script:
+//   <div id="iConfigure" style="..."></div>
+//   <script src="https://scripts.iconfigure.nl/indu.js"></script>
+// (The div must live in the body markup; Drupal relocates <script> tags to
+//  <head>, so the mount cannot be created relative to the script itself.)
+// This script loads the v2 loader and wires cleanup + redirect.
 // To revert to the old (.nl v1) version, swap the Drupal src to indu2.js.
 (function () {
-    var me = document.currentScript;
-
-    var target = document.createElement("div");
-    target.id = "iConfigure";
-    target.setAttribute(
-        "style",
-        "height:100dvh !important;margin-bottom:-100vh;pointer-events:auto;position:sticky;scroll-behavior:auto;top:0;width:100vw !important;"
-    );
-    (me && me.parentNode ? me.parentNode : document.body).insertBefore(target, me || null);
+    // Use the mount div from the page; create one as a last-resort fallback.
+    var target = document.getElementById("iConfigure");
+    if (!target) {
+        target = document.createElement("div");
+        target.id = "iConfigure";
+        target.setAttribute(
+            "style",
+            "height:100dvh !important;margin-bottom:-100vh;pointer-events:auto;position:sticky;scroll-behavior:auto;top:0;width:100vw !important;"
+        );
+        document.body.appendChild(target);
+    }
 
     // ?utm_source=ic_test_utm_source&utm_medium=ic_test_utm_medium&utm_campaign=ic_test_utm_campaign&utm_content=ic_test_utm_content&utm_term=ic_test_utm_term&fbclid=ic_test_fbclid
     var utm_source = window.location.search.includes("utm_source") ? window.location.search.split("utm_source=")[1].split("&")[0] : "null";

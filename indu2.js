@@ -1,19 +1,24 @@
 /** @format */
 
-// Self-bootstrapping embed for Indu Doors — .nl (v1) configurator.
-// This is the swap-back target: it reproduces the old live behavior but
-// injects its own #iConfigure mount, the v1 loader + stylesheet, and logic,
-// so the Drupal page only needs a single <script src> tag.
+// Embed loader for Indu Doors — .nl (v1) configurator (swap-back target).
+// Drupal body keeps the intro text + an empty mount div + this script:
+//   <div id="iConfigure" style="..."></div>
+//   <script src="https://scripts.iconfigure.nl/indu2.js"></script>
+// (The div must live in the body markup; Drupal relocates <script> tags to
+//  <head>, so the mount cannot be created relative to the script itself.)
+// Reproduces the old live behavior: v1 loader + stylesheet + loose handler.
 (function () {
-    var me = document.currentScript;
-
-    var target = document.createElement("div");
-    target.id = "iConfigure";
-    target.setAttribute(
-        "style",
-        "height:100dvh !important;margin-bottom:-100vh;pointer-events:auto;position:sticky;scroll-behavior:auto;top:0;width:100vw !important;"
-    );
-    (me && me.parentNode ? me.parentNode : document.body).insertBefore(target, me || null);
+    // Use the mount div from the page; create one as a last-resort fallback.
+    var target = document.getElementById("iConfigure");
+    if (!target) {
+        target = document.createElement("div");
+        target.id = "iConfigure";
+        target.setAttribute(
+            "style",
+            "height:100dvh !important;margin-bottom:-100vh;pointer-events:auto;position:sticky;scroll-behavior:auto;top:0;width:100vw !important;"
+        );
+        document.body.appendChild(target);
+    }
 
     // ?utm_source=ic_test_utm_source&utm_medium=ic_test_utm_medium&utm_campaign=ic_test_utm_campaign&utm_content=ic_test_utm_content&utm_term=ic_test_utm_term&fbclid=ic_test_fbclid
     var utm_source = window.location.search.includes("utm_source") ? window.location.search.split("utm_source=")[1].split("&")[0] : "null";
