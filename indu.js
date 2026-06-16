@@ -1,122 +1,99 @@
 /** @format */
-const a = document.createElement("a");
-a.id = "homebtn";
-a.innerHTML = "terug";
-a.href = "/";
 
-document.body.appendChild(a);
+// Self-bootstrapping embed for Indu Doors — .io (v2) configurator.
+// Drupal only needs: <script src="https://scripts.iconfigure.nl/indu.js"></script>
+// This script injects its own #iConfigure mount, the v2 loader, and all logic.
+// To revert to the old (.nl v1) version, swap the Drupal src to indu2.js.
+(function () {
+    var me = document.currentScript;
 
-// Create and append the configuration target div to the body
-const configurationTargetDiv = document.createElement("div");
+    var target = document.createElement("div");
+    target.id = "iConfigure";
+    target.setAttribute(
+        "style",
+        "height:100dvh !important;margin-bottom:-100vh;pointer-events:auto;position:sticky;scroll-behavior:auto;top:0;width:100vw !important;"
+    );
+    (me && me.parentNode ? me.parentNode : document.body).insertBefore(target, me || null);
 
-configurationTargetDiv.id = "configurationTarget";
-document.body.appendChild(configurationTargetDiv);
+    // ?utm_source=ic_test_utm_source&utm_medium=ic_test_utm_medium&utm_campaign=ic_test_utm_campaign&utm_content=ic_test_utm_content&utm_term=ic_test_utm_term&fbclid=ic_test_fbclid
+    var utm_source = window.location.search.includes("utm_source") ? window.location.search.split("utm_source=")[1].split("&")[0] : "null";
+    var utm_medium = window.location.search.includes("utm_medium") ? window.location.search.split("utm_medium=")[1].split("&")[0] : "null";
+    var utm_campaign = window.location.search.includes("utm_campaign") ? window.location.search.split("utm_campaign=")[1].split("&")[0] : "null";
+    var utm_content = window.location.search.includes("utm_content") ? window.location.search.split("utm_content=")[1].split("&")[0] : "null";
+    var utm_term = window.location.search.includes("utm_term") ? window.location.search.split("utm_term=")[1].split("&")[0] : "null";
+    var fbclid = window.location.search.includes("fbclid") ? window.location.search.split("fbclid=")[1].split("&")[0] : "null";
 
-const styleElement = document.createElement("style");
-styleElement.innerHTML = `
-    .configurator-frame {
-    height: calc(100vh - 115px) ;
-    width: 100vw !important;
-    scrollbar-width: none;
-    overflow-y: hidden;
-    position: fixed;
-    left: 0;
-    top: 115px;
-    right: 0;
-    bottom: 0px;
-    z-index: 1003;
-}
-/* Media query for mobile devices */
-@media only screen and (max-width: 768px) {
-    .configurator-frame {
-        height: 100dvh !important;
-    
-        top: 0px;
-        bottom: 115px;
-    }
-    #homebtn {
-        z-index: 1005 !important;
-        opacity: 1 !important;
-    }
-}
+    var preConfig = {
+        product: "029bc7cc-e1a0-4b90-82e4-9cc1190d4643",
+        aantal_deuren: "1_deur",
+        type: "type_taats",
+        hoogte_sparing: "224.7",
+        breedte_sparing: "80",
+        breedte_deuren_ghost: "1",
+        hoogte_deuren_ghost: "224.7",
+        breedte_paneel_ghost: "500",
+        draairichting: "lbi",
+        m2: "0",
+        model: "rome",
+        materiaal: "eiken",
+        kleur: "eiken_behandeld",
+        kleur_glas: "glas_helder",
+        greep_taats: "brielle",
+        maat_greep: "35cm",
+        montage: "laten_monteren",
+        active_step: "0",
+        gclid: localStorage._gclid ? localStorage._gclid : "null",
+        utm_source: utm_source,
+        utm_medium: utm_medium,
+        utm_campaign: utm_campaign,
+        utm_content: utm_content,
+        utm_term: utm_term,
+        fbclid: fbclid,
+    };
 
-#homebtn {
-    opacity: 0;
-    position: absolute;
-    left: 0;
-    top: 0;
-    margin: 12px;
-    z-index: 1000;
-    background-color: #a88669;
-    border-radius: 28px;
-    border: 1px solid #a88669;
-    display: inline-block;
-    cursor: pointer;
-    color: #ffffff;
-    padding: 4px 12px;
-    font-weight: 100;
+    // v2 bundle inlines its own CSS, so no separate stylesheet is needed.
+    var s = document.createElement("script");
+    s.src = "https://configurator.iconfigure.io/inject.iife.js";
+    s.crossOrigin = "anonymous";
+    s.onload = function () {
+        window.injectApp(preConfig);
+    };
+    document.head.appendChild(s);
 
-    text-decoration: none;
-    text-shadow: 0px 1px 0px #a88669;
+    setTimeout(function () {
+        var footerSticky = document.querySelector("#block-footersticky");
+        if (footerSticky) {
+            footerSticky.remove();
+        }
+        var footer = document.querySelector("footer");
+        if (footer) {
+            footer.remove();
+        }
+    }, 50);
+    var cnt = 0;
+    var mxAttempts = 10;
+    var iid = setInterval(function () {
+        var round = document.getElementById("CookiebotWidget");
+        if (round) {
+            round.remove();
+            clearInterval(iid);
+        }
+        cnt++;
+        if (cnt === mxAttempts) {
+            clearInterval(iid);
+        }
+    }, 1000);
 
-}
-#homebtn:hover {
-    background-color: #000000;
-}
-
-`;
-document.body.appendChild(styleElement);
-const cf = document.createElement("iframe");
-const p = {
-    product: "029bc7cc-e1a0-4b90-82e4-9cc1190d4643",
-    aantal_deuren: "1_deur",
-    type: "type_taats",
-    hoogte_sparing: "224.7",
-    breedte_sparing: "87.8",
-    model: "rome",
-    kleur: "eiken_behandeld",
-    kleur_glas: "glas_helder",
-    greep_taats: "breda",
-    draairichting: "lbi",
-    greep_verkropt: "ja",
-    maat_greep: "35cm",
-    montage: "laten_monteren",
-    active_step: "1",
-};
-const qs = new URLSearchParams(p).toString();
-cf.src = `https://web.iconfigure.nl/indu.html?${qs}`;
-cf.classList.add("configurator-frame");
-configurationTargetDiv.appendChild(cf);
-setTimeout(function () {
-    const footerSticky = document.querySelector("#block-footersticky");
-    if (footerSticky) {
-        footerSticky.remove();
-    }
-    const footer = document.querySelector("footer");
-    if (footer) {
-        footer.remove();
-    }
-}, 50);
-let cnt = 0;
-const mxAttempts = 10;
-const iid = setInterval(function () {
-    const round = document.getElementById("CookiebotWidget");
-    if (round) {
-        round.remove();
-        clearInterval(iid); // Stop interval once the element is removed
-    }
-    cnt++;
-    if (cnt === mxAttempts) {
-        clearInterval(iid); // Stop interval after 10 attempts
-    }
-}, 1000);
-window.addEventListener("message", function (event) {
-    if (event.origin !== "https://web.iconfigure.nl") {
-        console.warn(`Wrong origin: '${event.origin}', not handling message.`, event);
-        return;
-    }
-    const iframeThanksPageUrl = "https://www.indudoors.nl/bedankt-voor-uw-offerte";
-    if (event.data.state === "finished") {
-        window.location.href = iframeThanksPageUrl;
-    }
-});
+    // Inject mode: the configurator runs in this same page, so do NOT check
+    // event.origin against web.iconfigure.nl. Redirect only on a finished
+    // quotation (ignore cart.action and other named events).
+    var done = false;
+    window.addEventListener("message", function (event) {
+        if (!event || !event.data || typeof event.data !== "object") return;
+        if (event.data.state !== "finished") return;
+        if (event.data.name && event.data.name !== "quotation") return;
+        if (done) return;
+        done = true;
+        window.location.href = "https://www.indudoors.nl/bedankt-voor-uw-offerte";
+    });
+})();
