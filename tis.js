@@ -15,6 +15,7 @@ function iConfigure(preConfig) {
     div.style.width = "100vw";
     div.style.zIndex = "10000";
     div.style.pointerEvents = "auto";
+    div.style.backgroundColor = "#ffffff";
     document.body.appendChild(div);
 
     const removeList = [
