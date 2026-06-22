@@ -1,15 +1,10 @@
 /** @format */
 
-// Thuis in Staal (thuisinstaal.nl) — .nl (v1) configurator (LIVE).
-// To switch to the new (.io v2) version, swap the site's script src to tis2.js.
+// Thuis in Staal (thuisinstaal.nl) — .io (v2) configurator (live).
+// To revert to the old (.nl v1) version, swap the site's script src to tis2.js.
+// v2 inlines its own CSS, so no separate stylesheet is injected.
 
 function iConfigure(preConfig) {
-    var link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.media = "all";
-    link.href = "https://web.iconfigure.nl/inject/style.css";
-    document.head.appendChild(link);
-
     window.addEventListener("message", (event) => {
         console.log(event);
     });
@@ -39,7 +34,7 @@ function iConfigure(preConfig) {
     }, 1500);
 
     var script = document.createElement("script");
-    script.src = "https://web.iconfigure.nl/inject/inject.iife.js";
+    script.src = "https://configurator.iconfigure.io/inject.iife.js";
     script.crossOrigin = "anonymous";
     script.onload = function () {
         injectApp(preConfig);

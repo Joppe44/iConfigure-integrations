@@ -1,15 +1,10 @@
 /** @format */
 
-// Staalo (staalo.nl) — .nl (v1) configurator (LIVE).
-// To switch to the new (.io v2) version, swap the site's script src to staalo2.js.
+// Staalo (staalo.nl) — .io (v2) configurator (live).
+// To revert to the old (.nl v1) version, swap the site's script src to staalo2.js.
+// v2 inlines its own CSS, so no separate stylesheet is injected.
 
 function iConfigure(preConfig) {
-    // Load the CSS file
-    var link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.media = "all";
-    link.href = "https://web.iconfigure.nl/inject/style.css";
-    document.head.appendChild(link);
     window.addEventListener("message", function (event) {
         const iframeThanksPageUrl = "https://staalo.nl/bedankt";
         if (event.data.state === "finished") {
@@ -45,7 +40,7 @@ function iConfigure(preConfig) {
 
     // Load the JS file and execute the code after it's loaded
     var script = document.createElement("script");
-    script.src = "https://web.iconfigure.nl/inject/inject.iife.js";
+    script.src = "https://configurator.iconfigure.io/inject.iife.js";
     script.crossOrigin = "anonymous";
     script.onload = function () {
         // Your configuration object

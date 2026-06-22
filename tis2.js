@@ -1,10 +1,16 @@
 /** @format */
 
-// Thuis in Staal (thuisinstaal.nl) — .io (v2) configurator (SWAP TARGET).
-// Not live by default; to switch the site to v2, point the script src here.
-// v2 inlines its own CSS, so no separate stylesheet is injected.
+// Thuis in Staal (thuisinstaal.nl) — .nl (v1) configurator (swap-back target).
+// This is the original v1 loader. To revert from v2, swap the site's script src
+// back to tis2.js. The live version is tis.js (.io v2).
 
 function iConfigure(preConfig) {
+    var link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.media = "all";
+    link.href = "https://web.iconfigure.nl/inject/style.css";
+    document.head.appendChild(link);
+
     window.addEventListener("message", (event) => {
         console.log(event);
     });
@@ -15,7 +21,6 @@ function iConfigure(preConfig) {
     div.style.width = "100vw";
     div.style.zIndex = "10000";
     div.style.pointerEvents = "auto";
-    div.style.backgroundColor = "#ffffff";
     document.body.appendChild(div);
 
     const removeList = [
@@ -34,7 +39,7 @@ function iConfigure(preConfig) {
     }, 1500);
 
     var script = document.createElement("script");
-    script.src = "https://configurator.iconfigure.io/inject.iife.js";
+    script.src = "https://web.iconfigure.nl/inject/inject.iife.js";
     script.crossOrigin = "anonymous";
     script.onload = function () {
         injectApp(preConfig);
