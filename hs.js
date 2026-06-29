@@ -12,6 +12,7 @@ setTimeout(() => {
     if (iframe) {
         exec(iframe);
     }
+    document.querySelector('#iConfigure > div > div.ic-interface.ic-interface-preview > div > div > nav > div > div > button').style = "padding: 3px!important"
 }, 200);
 
 function exec(iframe) {
