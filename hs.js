@@ -12,7 +12,6 @@ setTimeout(() => {
     if (iframe) {
         exec(iframe);
     }
-    document.querySelector('#iConfigure > div > div.ic-interface.ic-interface-preview > div > div > nav > div > div > button').style = "padding: 3px!important"
 }, 200);
 
 function exec(iframe) {
@@ -140,18 +139,18 @@ function sendDataToShop(event) {
         urls.push(
             `https://www.firmahoutenstaal.nl/cart/add/${
                 values["pebble" + items.afmeting_pebble.value]
-            }/?bundle_id=&quantity=1`
+            }/?bundle_id=&quantity=1`,
         );
     } else if (items.vorm.subID === "rond") {
         urls.push(
-            `https://www.firmahoutenstaal.nl/cart/add/${values["rond" + items.radius.value]}/?bundle_id=&quantity=1`
+            `https://www.firmahoutenstaal.nl/cart/add/${values["rond" + items.radius.value]}/?bundle_id=&quantity=1`,
         );
     } else {
         let val = values2["tafelblad" + items.lengte.value + "x" + items.breedte.value];
         urls.push(
             `https://www.firmahoutenstaal.nl/cart/add/${val.ID}/?bundle_id=&custom%5B${val.fieldID}%5D=${
                 val.vorm[items.vorm.subID]
-            }&quantity=1`
+            }&quantity=1`,
         );
     }
     event.preventDefault();
@@ -729,7 +728,7 @@ const values2 = {
             recht: 70281797,
             wave: 70580816,
         },
-    },292254621
+    },
     tafelblad300x120: {
         ID: 292254655,
         fieldID: 8148903,
