@@ -13,7 +13,7 @@ function iConfigure(preConfig) {
     div.style.position = "sticky";
     div.style.height = "calc(100dvh)";
     div.style.width = "100vw";
-    div.style.zIndex = "10000";
+    div.style.zIndex = "1";
     div.style.pointerEvents = "auto";
     div.style.backgroundColor = "#ffffff";
     document.body.appendChild(div);
