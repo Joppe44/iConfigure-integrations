@@ -14,15 +14,25 @@
 
     var spacer = document.createElement("div");
     spacer.id = "iConfigureSpacer";
-    spacer.setAttribute("style", "height:150vh;pointer-events:none;");
+    spacer.setAttribute("style", "height:40vh;pointer-events:none;");
     target.insertAdjacentElement("afterend", spacer);
 
+    function unlockStickyScrolling() {
+        document.body.style.setProperty("overflow", "visible", "important");
+        document.documentElement.style.setProperty("overflow-x", "hidden", "important");
+    }
+    unlockStickyScrolling();
+    window.addEventListener("load", unlockStickyScrolling);
+
     function updatePointerEvents() {
-        var stuck = target.getBoundingClientRect().top <= 0;
-        target.style.pointerEvents = stuck ? "auto" : "none";
+        var stuck = target.getBoundingClientRect().top <= 1;
+        var atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+        target.style.pointerEvents = stuck && atBottom ? "auto" : "none";
     }
     updatePointerEvents();
-    window.addEventListener("scroll", updatePointerEvents, { passive: true });
+    window.addEventListener("scroll", function () {
+        requestAnimationFrame(updatePointerEvents);
+    }, { passive: true });
 
     var preConfig = {
         product: "9c870513-f27b-4ed3-a577-fc005d912739",
