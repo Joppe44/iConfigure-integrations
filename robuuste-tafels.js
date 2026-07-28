@@ -26,13 +26,10 @@
 
     function updatePointerEvents() {
         var stuck = target.getBoundingClientRect().top <= 1;
-        var atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
-        target.style.pointerEvents = stuck && atBottom ? "auto" : "none";
+        target.style.pointerEvents = stuck ? "auto" : "none";
     }
     updatePointerEvents();
-    window.addEventListener("scroll", function () {
-        requestAnimationFrame(updatePointerEvents);
-    }, { passive: true });
+    window.addEventListener("scroll", updatePointerEvents, { passive: true });
 
     var preConfig = {
         product: "9c870513-f27b-4ed3-a577-fc005d912739",
