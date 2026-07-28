@@ -1,16 +1,28 @@
 /** @format */
 
-function iConfigure(preConfig) {
-    var iframe = document.createElement("iframe");
-    iframe.id = "iConfigure";
-    iframe.style.position = "sticky";
-    iframe.style.height = "calc(100dvh)";
-    iframe.style.width = "100vw";
-    iframe.style.zIndex = "1000";
-    iframe.style.pointerEvents = "auto";
-    iframe.style.backgroundColor = "#ffffff";
-    iframe.src = "https://configurator.iconfigure.io/?product=9c870513-f27b-4ed3-a577-fc005d912739";
-    document.body.appendChild(iframe);
+(function () {
+    var target = document.getElementById("iConfigure");
+    if (!target) {
+        target = document.createElement("div");
+        target.id = "iConfigure";
+        document.body.appendChild(target);
+    }
+    target.setAttribute(
+        "style",
+        "background-color:#ffffff;height:100dvh !important;margin-bottom:-100vh;pointer-events:auto;position:sticky;scroll-behavior:auto;top:0;width:100vw !important;z-index:1000;"
+    );
+
+    var preConfig = {
+        product: "9c870513-f27b-4ed3-a577-fc005d912739",
+    };
+
+    var s = document.createElement("script");
+    s.src = "https://configurator.iconfigure.io/inject.iife.js";
+    s.crossOrigin = "anonymous";
+    s.onload = function () {
+        window.injectApp(preConfig);
+    };
+    document.head.appendChild(s);
 
     const removeList = [
         "#builderwidget-4\\#20",
@@ -20,12 +32,23 @@ function iConfigure(preConfig) {
         "body > div.custom_chat_button.purechat-button-expand"
     ];
 
-    setTimeout(function () {
+    var removedSelectors = new Set();
+    var cnt = 0;
+    var mxAttempts = 10;
+    var iid = setInterval(function () {
         for (const selector of removeList) {
             let items = document.querySelectorAll(selector);
-            items.forEach((item) => item.remove());
+            if (items.length > 0) {
+                items.forEach((item) => item.remove());
+                removedSelectors.add(selector);
+            }
         }
-    }, 50);
-}
-iConfigure();
-document.addEventListener("DOMContentLoaded", (event) => {});
+        if (removedSelectors.size === removeList.length) {
+            clearInterval(iid);
+        }
+        cnt++;
+        if (cnt === mxAttempts) {
+            clearInterval(iid);
+        }
+    }, 1000);
+})();
