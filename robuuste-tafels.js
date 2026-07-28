@@ -9,8 +9,20 @@
     }
     target.setAttribute(
         "style",
-        "background-color:#ffffff;height:100dvh !important;margin-bottom:-100vh;pointer-events:auto;position:sticky;scroll-behavior:auto;top:0;width:100vw !important;z-index:1000;"
+        "background-color:#ffffff;height:100dvh !important;pointer-events:none;position:sticky;scroll-behavior:auto;top:0;width:100vw !important;z-index:1000;"
     );
+
+    var spacer = document.createElement("div");
+    spacer.id = "iConfigureSpacer";
+    spacer.setAttribute("style", "height:150vh;pointer-events:none;");
+    target.insertAdjacentElement("afterend", spacer);
+
+    function updatePointerEvents() {
+        var stuck = target.getBoundingClientRect().top <= 0;
+        target.style.pointerEvents = stuck ? "auto" : "none";
+    }
+    updatePointerEvents();
+    window.addEventListener("scroll", updatePointerEvents, { passive: true });
 
     var preConfig = {
         product: "9c870513-f27b-4ed3-a577-fc005d912739",
