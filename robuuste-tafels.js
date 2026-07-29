@@ -36,7 +36,7 @@
     document.head.appendChild(mobileCss);
 
     function updatePointerEvents() {
-        var stuck = target.getBoundingClientRect().top <= 1;
+        var stuck = target.getBoundingClientRect().top <= window.innerHeight * 0.05;
         target.classList.toggle("icf-locked", !stuck);
     }
     updatePointerEvents();
