@@ -10,7 +10,7 @@
     }
     target.setAttribute(
         "style",
-        "background-color:#ffffff;height:100dvh !important;margin-bottom:-100vh;pointer-events:auto;position:sticky;scroll-behavior:auto;top:0;width:100vw !important;"
+        "background-color:#ffffff;height:100dvh !important;margin-bottom:-100vh;pointer-events:auto;position:sticky;scroll-behavior:auto;top:0;width:100vw !important;z-index:1000;"
     );
 
     var intro = document.getElementById("iConfigureIntro");
