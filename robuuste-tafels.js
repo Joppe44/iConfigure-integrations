@@ -32,6 +32,18 @@
     }
     spacer.setAttribute("style", "height:200vh;background:transparent;");
 
+    var mobileCss = document.createElement("style");
+    mobileCss.textContent =
+        "@media (max-width: 900px) { span[class*='Teaser'], div[class*='Teaser'] { display: none !important; } }";
+    document.head.appendChild(mobileCss);
+
+    function updatePointerEvents() {
+        var stuck = target.getBoundingClientRect().top <= 1;
+        target.style.pointerEvents = stuck ? "auto" : "none";
+    }
+    updatePointerEvents();
+    window.addEventListener("scroll", updatePointerEvents, { passive: true });
+
     function unlockStickyScrolling() {
         document.body.style.setProperty("overflow", "visible", "important");
         document.documentElement.style.setProperty("overflow-x", "hidden", "important");
