@@ -1,0 +1,166 @@
+<div class="ed-configurator color-{{ section.settings.color_scheme }}{% if section.settings.disable_padding %} no-padding{% endif %}">
+  <div id="iConfigure"></div>
+</div>
+
+{%- if page.handle == 'configurator' -%}
+  <script src="https://scripts.iconfigure.nl/kastenland.js?1" crossorigin="anonymous" defer></script>
+{%- endif -%}
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  (function () {
+    var completePageUrl = {{ section.settings.complete_page.url | json }};
+    var redirectScheduled = false;
+
+    function pushConfiguratorEvent(eventName, payload) {
+      window.dataLayer.push(Object.assign({ event: eventName }, payload || {}));
+    }
+
+    function customerPayload(data) {
+      var address = data.address || {};
+      return {
+        address: {
+          street: address.street || '',
+          city: address.city || '',
+          zip: address.zip || '',
+          country: address.country || '',
+        },
+        phone: data.phone || '',
+        email: data.email || '',
+        last_name: data.lastName || '',
+        sur_name: data.firstName || '',
+      };
+    }
+
+    function redirectToCompletePage() {
+      if (!completePageUrl || redirectScheduled) return;
+      redirectScheduled = true;
+      setTimeout(function () {
+        window.location.href = completePageUrl;
+      }, 150);
+    }
+
+    window.addEventListener('message', function (event) {
+      if (!event.data) return;
+
+      var message = event.data;
+      var data = message.data || message;
+      var type = message.type || message.action || message.name || data.type || data.action || data.name || '';
+      var state = data.state || message.state || '';
+      var items = data.items || [];
+      var updates = data.updates || [];
+      var dealerId = data.dealerId || data.dealer_id || null;
+      var productId = data.productId || data.product_id || null;
+      var totalPrice = data.totalPrice || data.total_price || null;
+      var timePayload = data.time || data.transactionId || null;
+
+      switch (type) {
+        case 'ic_setup':
+          pushConfiguratorEvent('ic_setup', {
+            data: { product_id: productId, dealer_id: dealerId, time: timePayload, updates: updates },
+            items: items,
+          });
+          break;
+
+        case 'ic_update':
+          pushConfiguratorEvent('ic_update', {
+            data: { product_id: productId, dealer_id: dealerId, time: timePayload, updates: updates },
+            items: items,
+            total_price: totalPrice,
+          });
+          break;
+
+        case 'ic_finish':
+          pushConfiguratorEvent('ic_finish', Object.assign(
+            {
+              data: { product_id: productId, dealer_id: dealerId, time: timePayload, updates: updates },
+              items: items,
+              total_price: totalPrice,
+            },
+            customerPayload(data)
+          ));
+          break;
+
+        case 'offerte_submit':
+          pushConfiguratorEvent('offerte_submit', Object.assign(
+            {
+              total_price: totalPrice,
+              Transaction_id: data.transactionId || timePayload,
+              items: items,
+              formData: data.formData || {},
+            },
+            customerPayload(data)
+          ));
+          redirectToCompletePage();
+          break;
+
+        case 'configurator_completed':
+          pushConfiguratorEvent('configurator_completed', {
+            email: data.email || '',
+            formData: data.formData || {},
+            total: data.total || totalPrice,
+          });
+          redirectToCompletePage();
+          break;
+
+        default:
+          if (state === 'finished') {
+            pushConfiguratorEvent('configurator_completed', {
+              total: data.total || totalPrice,
+              product_id: productId,
+              email: data.email || '',
+              formData: data.formData || {},
+            });
+            redirectToCompletePage();
+          }
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Configurator",
+  "tag": "section",
+  "class": "ed-configurator-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "disable_padding",
+      "label": "Section spacing",
+      "info": "Enable this option to reduce the spacing on the top and bottom of the section."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "info": "t:sections.all.colors.has_cards_info",
+      "default": "background-1"
+    },
+    {
+      "type": "text",
+      "id": "configurator_url",
+      "label": "Configurator url"
+    },
+    {
+      "type": "text",
+      "id": "configurator_title",
+      "label": "Configurator title"
+    },
+    {
+      "type": "page",
+      "id": "complete_page",
+      "label": "Bedankt pagina"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Configurator"
+    }
+  ]
+}
+{% endschema %}
