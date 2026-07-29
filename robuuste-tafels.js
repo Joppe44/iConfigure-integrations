@@ -32,12 +32,15 @@
     var mobileCss = document.createElement("style");
     mobileCss.textContent =
         "@media (max-width: 900px) { span[class*='Teaser'], div[class*='Teaser'] { display: none !important; } }" +
-        "#iConfigure.icf-locked, #iConfigure.icf-locked * { pointer-events: none !important; }";
+        "#iConfigure.icf-locked, #iConfigure.icf-locked * { pointer-events: none !important; }" +
+        "#iConfigure.icf-3d-locked iframe { pointer-events: none !important; }";
     document.head.appendChild(mobileCss);
 
     function updatePointerEvents() {
         var stuck = target.getBoundingClientRect().top <= window.innerHeight * 0.05;
+        var atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
         target.classList.toggle("icf-locked", !stuck);
+        target.classList.toggle("icf-3d-locked", !atBottom);
     }
     updatePointerEvents();
     window.addEventListener("scroll", updatePointerEvents, { passive: true });
