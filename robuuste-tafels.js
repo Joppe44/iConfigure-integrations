@@ -14,7 +14,7 @@
 
     var spacer = document.createElement("div");
     spacer.id = "iConfigureSpacer";
-    spacer.setAttribute("style", "height:40vh;background:transparent;");
+    spacer.setAttribute("style", "height:140vh;background:transparent;");
     target.insertAdjacentElement("afterend", spacer);
 
     function unlockStickyScrolling() {
