@@ -26,8 +26,8 @@
       intro.id = "iConfigureIntro";
       intro.setAttribute("style", "padding:10vw 10vw 4vw;");
       intro.innerHTML =
-        "<h1>Welkom bij onze configurator</h1>" +
-        "<p>Bij Kastenland geloven we in de kracht van ambachtelijk vakwerk en persoonlijke smaak. Jij bepaalt het ontwerp, wij brengen het tot leven.</p><hr>";
+        "<h1>Jouw kast, helemaal op maat</h1>" +
+        "<p>Ontwerp stap voor stap een kast die past bij jouw ruimte, stijl en wensen. Kies de afmetingen, indeling en afwerking en bekijk direct het resultaat.</p><hr>";
       target.insertAdjacentElement("beforebegin", intro);
     }
 
