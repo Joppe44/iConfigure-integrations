@@ -5,17 +5,21 @@
     if (!target) {
         target = document.createElement("div");
         target.id = "iConfigure";
-        document.body.appendChild(target);
+        var container = document.querySelector(".tm-page") || document.body;
+        container.appendChild(target);
     }
     target.setAttribute(
         "style",
-        "background-color:#ffffff;height:100dvh !important;pointer-events:auto;position:sticky;scroll-behavior:auto;top:0;width:100vw !important;z-index:1000;"
+        "background-color:#ffffff;height:100dvh !important;margin-bottom:-100vh;pointer-events:auto;position:sticky;scroll-behavior:auto;top:0;width:100vw !important;"
     );
 
-    var spacer = document.createElement("div");
-    spacer.id = "iConfigureSpacer";
-    spacer.setAttribute("style", "height:140vh;background:transparent;");
-    target.insertAdjacentElement("afterend", spacer);
+    var spacer = document.getElementById("iConfigureSpacer");
+    if (!spacer) {
+        spacer = document.createElement("div");
+        spacer.id = "iConfigureSpacer";
+        target.insertAdjacentElement("afterend", spacer);
+    }
+    spacer.setAttribute("style", "height:200vh;background:transparent;");
 
     function unlockStickyScrolling() {
         document.body.style.setProperty("overflow", "visible", "important");
