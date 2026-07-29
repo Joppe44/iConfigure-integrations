@@ -1,48 +1,103 @@
 /** @format */
 
-window.addEventListener("DOMContentLoaded", function () {
-    for (const i of [".header__inline-menu", ".call-button", ".topbar", "footer"]) {
-        document.querySelector(i).remove();
+(function () {
+    var target = document.getElementById("iConfigure");
+    if (!target) {
+        target = document.createElement("div");
+        target.id = "iConfigure";
+        var container = document.getElementById("MainContent") || document.body;
+        container.appendChild(target);
     }
-    var mainContent = document.getElementById("MainContent");
-    mainContent.innerHTML = `<div style="padding: 10vw 10vw 4vw;"><h1>Welkom bij onze configurator</h1><p>Bij Kastenland geloven we in de kracht van ambachtelijk vakwerk en persoonlijke smaak. Jij bepaalt het ontwerp, wij brengen het tot leven.<hr></p></div>`;
-    var div = document.createElement("div");
-    div.id = "iConfigure";
-    div.style.position = "sticky";
-    div.style.height = "calc(100dvh)";
-    div.style.width = "100vw";
-    div.style.zIndex = "1023";
-    div.style.pointerEvents = "auto";
-    div.style.top = "0";
-    mainContent.appendChild(div);
+    target.setAttribute(
+        "style",
+        "background-color:#ffffff;height:100dvh !important;margin-bottom:-100vh;pointer-events:auto;position:sticky;scroll-behavior:auto;top:0;width:100vw !important;z-index:1000;"
+    );
 
-    var link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.media = "all";
-    link.href = "https://web.iconfigure.nl/inject/style.css";
-    document.head.appendChild(link);
+    var intro = document.getElementById("iConfigureIntro");
+    if (!intro) {
+        intro = document.createElement("div");
+        intro.id = "iConfigureIntro";
+        intro.setAttribute("style", "padding:10vw 10vw 4vw;");
+        target.insertAdjacentElement("beforebegin", intro);
+    }
 
-    var style = document.createElement("style");
-    style.textContent = "input[type=\"checkbox\"] { width: 16px !important; }";
-    document.head.appendChild(style);
+    var spacer = document.getElementById("iConfigureSpacer");
+    if (!spacer) {
+        spacer = document.createElement("div");
+        spacer.id = "iConfigureSpacer";
+        target.insertAdjacentElement("afterend", spacer);
+    }
+    spacer.setAttribute("style", "height:140vh;background:transparent;");
 
-    var script = document.createElement("script");
-    script.src = "https://web.iconfigure.nl/inject/inject.iife.js";
-    script.crossOrigin = "anonymous";
-    script.onload = function () {
-        let preConfig = {
-            product: "3139b1fc-842f-4742-9130-17272cc60fd3",
-        };
+    var mobileCss = document.createElement("style");
+    mobileCss.textContent =
+        "#iConfigure.icf-locked, #iConfigure.icf-locked * { pointer-events: none !important; }" +
+        "#iConfigure.icf-3d-locked iframe { pointer-events: none !important; }";
+    document.head.appendChild(mobileCss);
 
-        let toparse = ["hoogte", "breedte", "diepte"];
-        let params = new URLSearchParams(document.location.search);
-        for (const p of toparse) {
-            let val = params.get(p);
-            if (val) preConfig[p] = val;
-        }
+    function updatePointerEvents() {
+        var stuck = target.getBoundingClientRect().top <= window.innerHeight * 0.05;
+        var atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+        target.classList.toggle("icf-locked", !stuck);
+        target.classList.toggle("icf-3d-locked", !atBottom);
+    }
+    updatePointerEvents();
+    window.addEventListener("scroll", updatePointerEvents, { passive: true });
 
-        injectApp(preConfig);
+    function unlockStickyScrolling() {
+        document.body.style.setProperty("overflow", "visible", "important");
+        document.documentElement.style.setProperty("overflow-x", "hidden", "important");
+    }
+    unlockStickyScrolling();
+    window.addEventListener("load", unlockStickyScrolling);
+
+    var preConfig = {
+        product: "c9018a98-f48b-407f-bd38-732b5acc0adc",
     };
-this
-    document.head.appendChild(script);
-});
+
+    var toparse = ["breedte", "lengte", "hoogte", "diepte"];
+    var params = new URLSearchParams(document.location.search);
+    for (const p of toparse) {
+        var val = params.get(p);
+        if (val) preConfig[p] = val;
+    }
+
+    var s = document.createElement("script");
+    s.src = "https://configurator.iconfigure.io/inject.iife.js";
+    s.crossOrigin = "anonymous";
+    s.onload = function () {
+        window.injectApp(preConfig);
+    };
+    document.head.appendChild(s);
+
+    const removeList = [".header__inline-menu", ".call-button", ".topbar", "footer"];
+
+    var removedSelectors = new Set();
+    var cnt = 0;
+    var mxAttempts = 10;
+    var iid = setInterval(function () {
+        for (const selector of removeList) {
+            let items = document.querySelectorAll(selector);
+            items = [...items].filter(
+                (item) =>
+                    item !== target &&
+                    item !== spacer &&
+                    item !== intro &&
+                    !item.contains(target) &&
+                    !item.contains(spacer) &&
+                    !item.contains(intro)
+            );
+            if (items.length > 0) {
+                items.forEach((item) => item.remove());
+                removedSelectors.add(selector);
+            }
+        }
+        if (removedSelectors.size === removeList.length) {
+            clearInterval(iid);
+        }
+        cnt++;
+        if (cnt === mxAttempts) {
+            clearInterval(iid);
+        }
+    }, 1000);
+})();
