@@ -13,6 +13,17 @@
         "background-color:#ffffff;height:100dvh !important;margin-bottom:-100vh;pointer-events:auto;position:sticky;scroll-behavior:auto;top:0;width:100vw !important;"
     );
 
+    var intro = document.getElementById("iConfigureIntro");
+    if (!intro) {
+        intro = document.createElement("div");
+        intro.id = "iConfigureIntro";
+        intro.setAttribute("style", "padding:10vw 10vw 4vw;");
+        intro.innerHTML =
+            "<h1>Welkom bij onze configurator</h1>" +
+            "<p>Bij Robuuste Tafels geloven we in de kracht van ambachtelijk vakwerk en persoonlijke smaak. Jij bepaalt het ontwerp, wij brengen het tot leven.</p><hr>";
+        target.insertAdjacentElement("beforebegin", intro);
+    }
+
     var spacer = document.getElementById("iConfigureSpacer");
     if (!spacer) {
         spacer = document.createElement("div");
@@ -54,6 +65,15 @@
     var iid = setInterval(function () {
         for (const selector of removeList) {
             let items = document.querySelectorAll(selector);
+            items = [...items].filter(
+                (item) =>
+                    item !== target &&
+                    item !== spacer &&
+                    item !== intro &&
+                    !item.contains(target) &&
+                    !item.contains(spacer) &&
+                    !item.contains(intro)
+            );
             if (items.length > 0) {
                 items.forEach((item) => item.remove());
                 removedSelectors.add(selector);
