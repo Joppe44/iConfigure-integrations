@@ -25,6 +25,9 @@
       intro = document.createElement("div");
       intro.id = "iConfigureIntro";
       intro.setAttribute("style", "padding:10vw 10vw 4vw;");
+      intro.innerHTML =
+        "<h1>Welkom bij onze configurator</h1>" +
+        "<p>Bij Kastenland geloven we in de kracht van ambachtelijk vakwerk en persoonlijke smaak. Jij bepaalt het ontwerp, wij brengen het tot leven.</p><hr>";
       target.insertAdjacentElement("beforebegin", intro);
     }
 
@@ -38,18 +41,13 @@
 
     var mobileCss = document.createElement("style");
     mobileCss.textContent =
-      "#iConfigure.icf-locked, #iConfigure.icf-locked * { pointer-events: none !important; }" +
-      "#iConfigure.icf-3d-locked iframe { pointer-events: none !important; }";
+      "#iConfigure.icf-locked, #iConfigure.icf-locked * { pointer-events: none !important; }";
     document.head.appendChild(mobileCss);
 
     function updatePointerEvents() {
       var stuck =
         target.getBoundingClientRect().top <= window.innerHeight * 0.05;
-      var atBottom =
-        window.innerHeight + window.scrollY >=
-        document.documentElement.scrollHeight - 2;
       target.classList.toggle("icf-locked", !stuck);
-      target.classList.toggle("icf-3d-locked", !atBottom);
     }
     updatePointerEvents();
     window.addEventListener("scroll", updatePointerEvents, { passive: true });
@@ -65,31 +63,21 @@
     unlockStickyScrolling();
     window.addEventListener("load", unlockStickyScrolling);
 
-    var preConfig = {
-      product: "c9018a98-f48b-407f-bd38-732b5acc0adc",
-    };
-
+    var src = new URL("https://configurator.iconfigure.io/");
+    src.searchParams.set("product", "c9018a98-f48b-407f-bd38-732b5acc0adc");
     var toparse = ["breedte", "lengte", "hoogte", "diepte"];
     var params = new URLSearchParams(document.location.search);
     for (const p of toparse) {
       var val = params.get(p);
-      if (val) preConfig[p] = val;
+      if (val) src.searchParams.set(p, val);
     }
 
-    var s = document.createElement("script");
-    s.src = "https://configurator.iconfigure.io/inject.iife.js";
-    s.crossOrigin = "anonymous";
-    s.onload = function () {
-      window.injectApp(preConfig);
-    };
-    document.head.appendChild(s);
+    var iframe = document.createElement("iframe");
+    iframe.src = src.toString();
+    iframe.setAttribute("style", "border:none;height:100%;width:100%;");
+    target.appendChild(iframe);
 
-    const removeList = [
-      ".header__inline-menu",
-      ".call-button",
-      ".topbar",
-      "footer",
-    ];
+    const removeList = [".mobile-bottom-menu", "footer"];
 
     var removedSelectors = new Set();
     var cnt = 0;
