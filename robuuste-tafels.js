@@ -27,7 +27,7 @@
         spacer.id = "iConfigureSpacer";
         target.insertAdjacentElement("afterend", spacer);
     }
-    spacer.setAttribute("style", "height:100vh;background:transparent;");
+    spacer.setAttribute("style", "height:140vh;background:transparent;");
 
     var mobileCss = document.createElement("style");
     mobileCss.textContent =
