@@ -18,9 +18,6 @@
         intro = document.createElement("div");
         intro.id = "iConfigureIntro";
         intro.setAttribute("style", "padding:10vw 10vw 4vw;");
-        intro.innerHTML =
-            "<h1>Welkom bij onze configurator</h1>" +
-            "<p>Bij Robuuste Tafels geloven we in de kracht van ambachtelijk vakwerk en persoonlijke smaak. Jij bepaalt het ontwerp, wij brengen het tot leven.</p><hr>";
         target.insertAdjacentElement("beforebegin", intro);
     }
 
