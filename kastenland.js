@@ -63,7 +63,7 @@
     unlockStickyScrolling();
     window.addEventListener("load", unlockStickyScrolling);
 
-    var src = new URL("https://configurator.iconfigure.io/");
+    var src = new URL("https://configurator.iconfigure.dev/");
     src.searchParams.set("product", "c9018a98-f48b-407f-bd38-732b5acc0adc");
     var toparse = ["breedte", "lengte", "hoogte", "diepte"];
     var params = new URLSearchParams(document.location.search);
