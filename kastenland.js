@@ -41,7 +41,8 @@
 
     var mobileCss = document.createElement("style");
     mobileCss.textContent =
-      "#iConfigure.icf-locked, #iConfigure.icf-locked * { pointer-events: none !important; }";
+      "#iConfigure.icf-locked { pointer-events: auto !important; }" +
+      "#iConfigure.icf-locked * { pointer-events: none !important; }";
     document.head.appendChild(mobileCss);
 
     function updatePointerEvents() {
@@ -51,6 +52,12 @@
     }
     updatePointerEvents();
     window.addEventListener("scroll", updatePointerEvents, { passive: true });
+
+    target.addEventListener("click", function () {
+      if (target.classList.contains("icf-locked")) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
 
     function unlockStickyScrolling() {
       document.body.style.setProperty("overflow", "visible", "important");
