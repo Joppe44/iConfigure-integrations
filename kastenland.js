@@ -70,7 +70,7 @@
     unlockStickyScrolling();
     window.addEventListener("load", unlockStickyScrolling);
 
-    var src = new URL("https://configurator.iconfigure.dev/");
+    var src = new URL("https://configurator.iconfigure.io/");
     src.searchParams.set("product", "c9018a98-f48b-407f-bd38-732b5acc0adc");
     var renames = {
       breedte: "kast_breedte",
