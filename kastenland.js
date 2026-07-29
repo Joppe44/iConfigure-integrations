@@ -65,9 +65,15 @@
 
     var src = new URL("https://configurator.iconfigure.dev/");
     src.searchParams.set("product", "c9018a98-f48b-407f-bd38-732b5acc0adc");
+    var renames = {
+      breedte: "kast_breedte",
+      hoogte: "kast_hoogte",
+      diepte: "kast_diepte",
+      lengte: "kast_lengte",
+    };
     var params = new URLSearchParams(document.location.search);
     for (const [key, val] of params) {
-      if (val && key !== "product") src.searchParams.set(key, val);
+      if (val && key !== "product") src.searchParams.set(renames[key] || key, val);
     }
 
     var iframe = document.createElement("iframe");
