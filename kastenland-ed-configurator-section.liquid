@@ -17,22 +17,6 @@
       window.dataLayer.push(Object.assign({ event: eventName }, payload || {}));
     }
 
-    function customerPayload(data) {
-      var address = data.address || {};
-      return {
-        address: {
-          street: address.street || '',
-          city: address.city || '',
-          zip: address.zip || '',
-          country: address.country || '',
-        },
-        phone: data.phone || '',
-        email: data.email || '',
-        last_name: data.lastName || '',
-        sur_name: data.firstName || '',
-      };
-    }
-
     function redirectToCompletePage() {
       if (!completePageUrl || redirectScheduled) return;
       redirectScheduled = true;
@@ -42,78 +26,34 @@
     }
 
     window.addEventListener('message', function (event) {
-      if (!event.data) return;
+      var data = event.data;
+      if (!data || typeof data !== 'object') return;
 
-      var message = event.data;
-      var data = message.data || message;
-      var type = message.type || message.action || message.name || data.type || data.action || data.name || '';
-      var state = data.state || message.state || '';
-      var items = data.items || [];
-      var updates = data.updates || [];
-      var dealerId = data.dealerId || data.dealer_id || null;
       var productId = data.productId || data.product_id || null;
-      var totalPrice = data.totalPrice || data.total_price || null;
-      var timePayload = data.time || data.transactionId || null;
+      var totalPrice = data.total || data.totalPrice || data.total_price || null;
 
-      switch (type) {
-        case 'ic_setup':
-          pushConfiguratorEvent('ic_setup', {
-            data: { product_id: productId, dealer_id: dealerId, time: timePayload, updates: updates },
-            items: items,
-          });
-          break;
+      if (data.name === 'quotation' && data.state === 'finished') {
+        pushConfiguratorEvent('offerte_submit', {
+          total_price: totalPrice,
+          Transaction_id: data.quotation_id || null,
+          product_id: productId,
+          pdf_url: data.pdf_url || null,
+        });
+        pushConfiguratorEvent('configurator_completed', {
+          total: totalPrice,
+          product_id: productId,
+        });
+        redirectToCompletePage();
+        return;
+      }
 
-        case 'ic_update':
-          pushConfiguratorEvent('ic_update', {
-            data: { product_id: productId, dealer_id: dealerId, time: timePayload, updates: updates },
-            items: items,
-            total_price: totalPrice,
-          });
-          break;
-
-        case 'ic_finish':
-          pushConfiguratorEvent('ic_finish', Object.assign(
-            {
-              data: { product_id: productId, dealer_id: dealerId, time: timePayload, updates: updates },
-              items: items,
-              total_price: totalPrice,
-            },
-            customerPayload(data)
-          ));
-          break;
-
-        case 'offerte_submit':
-          pushConfiguratorEvent('offerte_submit', Object.assign(
-            {
-              total_price: totalPrice,
-              Transaction_id: data.transactionId || timePayload,
-              items: items,
-              formData: data.formData || {},
-            },
-            customerPayload(data)
-          ));
-          redirectToCompletePage();
-          break;
-
-        case 'configurator_completed':
-          pushConfiguratorEvent('configurator_completed', {
-            email: data.email || '',
-            formData: data.formData || {},
-            total: data.total || totalPrice,
-          });
-          redirectToCompletePage();
-          break;
-
-        default:
-          if (state === 'finished') {
-            pushConfiguratorEvent('configurator_completed', {
-              total: data.total || totalPrice,
-              product_id: productId,
-              email: data.email || '',
-              formData: data.formData || {},
-            });
-            redirectToCompletePage();
-          }
+      if (data.name === 'cart.action' && data.state === 'finished') {
+        pushConfiguratorEvent('cart_action', {
+          product_id: productId,
+          dealer_id: data.dealer_id || null,
+          items: data.items || [],
+          extra_fields: data.extra_fields || {},
+        });
       }
     });
   })();
