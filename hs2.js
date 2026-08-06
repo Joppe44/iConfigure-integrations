@@ -19,6 +19,11 @@
         window.location.pathname === "/stalen-deuren/stel-je-deuren-samen"
     ) {
         iConfigure("deur-staal");
+    } else if (
+        window.location.pathname === "/stalen-deuren/stel-je-trapleuning-samen/" ||
+        window.location.pathname === "/stalen-deuren/stel-je-trapleuning-samen"
+    ) {
+        iConfigure("trapleuning");
     } else if (window.location.pathname === "/houten-deuren/" || window.location.pathname === "/houten-deuren") {
         iConfigure("deur-hout");
     }
@@ -205,6 +210,11 @@
                             handle: "standaard_koker",
                             inmeten: "zelf_inmeten",
                             active_step: "2",
+                        };
+                    } else if (type === "trapleuning") {
+                        preConfig = {
+                            product: "3e44d161-68bb-4d07-b5bf-fea76c2d2f7c",
+                            active_step: "0",
                         };
                     } else if (type === "tafel") {
                         preConfig = {
