@@ -23,12 +23,12 @@
     }
     target.setAttribute(
       "style",
-      "background-color:#ffffff;display:block;height:min(860px, calc(100dvh - 120px));min-height:520px;position:relative;width:100%;",
+      "background-color:#ffffff;display:block;height:min(775px, calc((100dvh - 120px) * 0.9));min-height:470px;position:relative;width:100%;",
     );
 
     var responsiveCss = document.createElement("style");
     responsiveCss.textContent =
-      "@media (max-width: 900px) { #iConfigure { height: min(760px, calc(100dvh - 80px)) !important; } }";
+      "@media (max-width: 900px) { #iConfigure { height: min(685px, calc((100dvh - 80px) * 0.9)) !important; } }";
     document.head.appendChild(responsiveCss);
 
     var src = new URL("https://configurator.iconfigure.io/");
