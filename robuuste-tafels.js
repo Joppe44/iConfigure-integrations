@@ -28,7 +28,7 @@
 
     var responsiveCss = document.createElement("style");
     responsiveCss.textContent =
-      "@media (max-width: 900px) { #iConfigure { height: min(685px, calc((100dvh - 80px) * 0.9)) !important; } }";
+      "@media (max-width: 900px) { #iConfigure { height: min(760px, calc(100dvh - 80px)) !important; } }";
     document.head.appendChild(responsiveCss);
 
     var src = new URL("https://configurator.iconfigure.io/");
