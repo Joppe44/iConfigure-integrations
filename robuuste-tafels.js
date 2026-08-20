@@ -32,10 +32,10 @@
     document.head.appendChild(responsiveCss);
 
     var src = new URL("https://configurator.iconfigure.io/");
-    src.searchParams.set("product", "9c870513-f27b-4ed3-a577-fc005d912739");
+    src.searchParams.set("dealer", "d5002e45-effb-401f-9edc-c42dd6f0f728");
     var params = new URLSearchParams(document.location.search);
     for (const [key, val] of params) {
-      if (val && key !== "product") src.searchParams.set(key, val);
+      if (val && key !== "dealer") src.searchParams.set(key, val);
     }
 
     var iframe = document.createElement("iframe");
