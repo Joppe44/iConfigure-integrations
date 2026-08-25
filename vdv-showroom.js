@@ -87,5 +87,39 @@
     iframe.setAttribute("style", "border:none;height:100%;width:100%;");
     iframe.setAttribute("allow", "fullscreen");
     target.appendChild(iframe);
+
+    const removeList = [
+      '[data-elementor-type="footer"]',
+      "#bot-iframe",
+      "#futy-container",
+      "#axeptio_overlay > div",
+    ];
+
+    var removedSelectors = new Set();
+    var cnt = 0;
+    var mxAttempts = 10;
+    var iid = setInterval(function () {
+      for (const selector of removeList) {
+        let items = document.querySelectorAll(selector);
+        items = [...items].filter(
+          (item) =>
+            item !== target &&
+            item !== spacer &&
+            !item.contains(target) &&
+            !item.contains(spacer),
+        );
+        if (items.length > 0) {
+          items.forEach((item) => item.remove());
+          removedSelectors.add(selector);
+        }
+      }
+      if (removedSelectors.size === removeList.length) {
+        clearInterval(iid);
+      }
+      cnt++;
+      if (cnt === mxAttempts) {
+        clearInterval(iid);
+      }
+    }, 1000);
   }
 })();
