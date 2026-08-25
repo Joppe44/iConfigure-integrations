@@ -27,8 +27,8 @@
       "html, body { overflow: hidden !important; height: 100dvh !important; }";
     document.head.appendChild(css);
 
-    var src = new URL("https://store.iconfigure.io/");
-    src.searchParams.set("showroom", "4bd9dd46-00a3-4634-9976-a7c2c3628eb5");
+    var src = new URL("https://store.iconfigure.dev/");
+    src.searchParams.set("showroom", "f68b0e03-3ef1-42b9-a83e-1f34b8b054d2");
     var params = new URLSearchParams(document.location.search);
     for (const [key, val] of params) {
       if (val && key !== "showroom") src.searchParams.set(key, val);
