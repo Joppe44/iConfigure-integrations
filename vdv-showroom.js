@@ -28,7 +28,7 @@
     }
     target.setAttribute(
       "style",
-      "background-color:#ffffff;height:100dvh !important;margin-bottom:-100vh;pointer-events:auto;position:sticky;scroll-behavior:auto;top:0;width:100vw !important;z-index:100000;",
+      "background-color:#ffffff;height:100dvh !important;margin-bottom:-100vh;pointer-events:auto;position:sticky;scroll-behavior:auto;top:0;z-index:100000;",
     );
 
     var spacer = document.getElementById("iConfigureSpacer");
@@ -48,13 +48,31 @@
       "body.icf-stuck [data-elementor-type='header'] { display: none !important; }";
     document.head.appendChild(css);
 
+    function syncViewportWidth() {
+      target.style.setProperty("margin-left", "0px", "important");
+      target.style.setProperty("width", "auto", "important");
+      var offsetFromViewportLeft = target.getBoundingClientRect().left;
+      target.style.setProperty(
+        "width",
+        document.documentElement.clientWidth + "px",
+        "important",
+      );
+      target.style.setProperty(
+        "margin-left",
+        -offsetFromViewportLeft + "px",
+        "important",
+      );
+    }
+
     function updateStuckState() {
+      syncViewportWidth();
       var stuck =
         target.getBoundingClientRect().top <= window.innerHeight * 0.05;
       target.classList.toggle("icf-locked", !stuck);
       document.body.classList.toggle("icf-stuck", stuck);
     }
     updateStuckState();
+    window.addEventListener("load", syncViewportWidth);
     window.addEventListener("scroll", updateStuckState, { passive: true });
     window.addEventListener("resize", updateStuckState, { passive: true });
 
