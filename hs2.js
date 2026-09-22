@@ -154,9 +154,12 @@
                 p.innerHTML = `Bij Firma Hout en Staal geloven we in de kracht van ambachtelijk vakwerk en persoonlijke smaak. Jij bepaalt het ontwerp, wij brengen het tot leven.<hr>`;
                 var div = document.createElement("div");
                 div.id = "iConfigure";
+                var headerHolder = document.querySelector("#header-holder");
+                var headerHeight = headerHolder ? headerHolder.offsetHeight : 0;
                 div.style.position = "sticky";
+                div.style.top = headerHeight + "px";
                 div.style.backgroundColor = "white";
-                div.style.height = "calc(100dvh)";
+                div.style.height = "calc(100dvh - " + headerHeight + "px)";
                 div.style.width = "100vw";
                 div.style.zIndex = "1023";
                 div.style.pointerEvents = "auto";
