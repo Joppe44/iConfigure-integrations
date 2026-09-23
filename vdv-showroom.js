@@ -45,7 +45,7 @@
       "#iConfigure.icf-locked * { pointer-events: none !important; }" +
       // An Elementor sticky header would float over the takeover; hide it only
       // while the showroom is stuck instead of removing it from the page.
-      "body.icf-stuck [data-elementor-type='header'] { display: none !important; }";
+      "body.icf-stuck [data-elementor-type='header'] { visibility: hidden !important; }";
     document.head.appendChild(css);
 
     function releaseAncestorClipping() {
@@ -88,16 +88,23 @@
     }
 
     function updateStuckState() {
-      syncViewportWidth();
       var stuck =
         target.getBoundingClientRect().top <= window.innerHeight * 0.05;
       target.classList.toggle("icf-locked", !stuck);
       document.body.classList.toggle("icf-stuck", stuck);
     }
+    syncViewportWidth();
     updateStuckState();
     window.addEventListener("load", syncViewportWidth);
     window.addEventListener("scroll", updateStuckState, { passive: true });
-    window.addEventListener("resize", updateStuckState, { passive: true });
+    window.addEventListener(
+      "resize",
+      function () {
+        syncViewportWidth();
+        updateStuckState();
+      },
+      { passive: true },
+    );
 
     target.addEventListener("click", function () {
       if (target.classList.contains("icf-locked")) {
