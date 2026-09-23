@@ -28,7 +28,7 @@
     }
     target.setAttribute(
       "style",
-      "background-color:#ffffff;height:100dvh !important;margin-bottom:-100vh;pointer-events:auto;position:sticky;scroll-behavior:auto;top:0;z-index:100000;",
+      "background-color:#ffffff;height:100dvh !important;margin-bottom:-100vh;max-width:none !important;pointer-events:auto;position:sticky;scroll-behavior:auto;top:0;z-index:100000;",
     );
 
     var spacer = document.getElementById("iConfigureSpacer");
@@ -48,7 +48,30 @@
       "body.icf-stuck [data-elementor-type='header'] { display: none !important; }";
     document.head.appendChild(css);
 
+    function releaseAncestorClipping() {
+      for (
+        var el = target.parentElement;
+        el && el !== document.body;
+        el = el.parentElement
+      ) {
+        var cs = getComputedStyle(el);
+        if (cs.overflowX !== "visible" || cs.overflowY !== "visible") {
+          el.style.setProperty("overflow", "visible", "important");
+        }
+        if (cs.contentVisibility && cs.contentVisibility !== "visible") {
+          el.style.setProperty("content-visibility", "visible", "important");
+        }
+        if (/paint|content|strict/.test(cs.contain)) {
+          el.style.setProperty("contain", "none", "important");
+        }
+        if (cs.clipPath && cs.clipPath !== "none") {
+          el.style.setProperty("clip-path", "none", "important");
+        }
+      }
+    }
+
     function syncViewportWidth() {
+      releaseAncestorClipping();
       target.style.setProperty("margin-left", "0px", "important");
       target.style.setProperty("width", "auto", "important");
       var offsetFromViewportLeft = target.getBoundingClientRect().left;
