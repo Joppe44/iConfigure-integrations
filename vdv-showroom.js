@@ -124,7 +124,7 @@
     window.addEventListener("load", unlockStickyScrolling);
 
     var src = new URL("https://store.iconfigure.io/");
-    src.searchParams.set("showroom", "f68b0e03-3ef1-42b9-a83e-1f34b8b054d2");
+    src.searchParams.set("showroom", "7a1c3e52-9b4d-4f0e-8c61-2d5f9a0b3e74");
     var params = new URLSearchParams(document.location.search);
     for (const [key, val] of params) {
       if (val && key !== "showroom") src.searchParams.set(key, val);
