@@ -1,8 +1,6 @@
 /** @format */
 
 let holder = document.getElementById("iConfigure");
-// holder.style =
-//     "position: sticky; height: calc(100dvh); width: 100vw; z-index: 1023 !important; pointer-events: auto; margin-left: 0px;";
 const iframe = document.createElement("iframe");
 iframe.style = "border:none;";
 iframe.src = "https://configurator.iconfigure.io/?product=b816a048-64af-418e-9216-6b3f6c3d5768";
@@ -12,16 +10,27 @@ holder.appendChild(iframe);
 iframe.style.width = "100vw";
 iframe.style.position = "fixed";
 iframe.style.left = "0";
+
+let currentHeaderHeight = null;
+let updateScheduled = false;
+
 function updateHeight() {
-    let headerHeight = header.getBoundingClientRect().height + header.getBoundingClientRect().top;
+    updateScheduled = false;
+    const rect = header.getBoundingClientRect();
+    const headerHeight = Math.round(rect.height + rect.top);
+    if (headerHeight === currentHeaderHeight) return;
+    currentHeaderHeight = headerHeight;
     iframe.style.top = headerHeight + "px";
-
-    iframe.style.height = `calc(100dvh - ${headerHeight}px)`;
-    console.log(headerHeight);
+    iframe.style.height = `calc(100svh - ${headerHeight}px)`;
 }
-updateHeight();
-window.addEventListener("scroll", () => {
-    updateHeight();
-});
 
-setInterval(updateHeight, 100);
+function scheduleUpdate() {
+    if (updateScheduled) return;
+    updateScheduled = true;
+    requestAnimationFrame(updateHeight);
+}
+
+updateHeight();
+window.addEventListener("scroll", scheduleUpdate, { passive: true });
+window.addEventListener("resize", scheduleUpdate);
+new ResizeObserver(scheduleUpdate).observe(header);
